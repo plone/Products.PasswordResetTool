@@ -62,6 +62,19 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     security.declareProtected(ManagePortal, 'manage_overview')
     manage_overview = DTMLFile('dtml/explainPWResetTool', globals() )
 
+    security.declareProtected(ManagePortal, 'manage_setTimeout')
+    def manage_setTimeout(self, hours=24, REQUEST=None):
+    	"""ZMI method for setting the expiration timeout in hours."""
+	self.setExpirationTimeout(hours)
+        return self.manage_overview(manage_tabs_message="Timeout set to %s hours" % hours)   
+
+    security.declareProtected(ManagePortal, 'manage_toggleUserCheck')
+    def manage_toggleUserCheck(self, REQUEST=None):
+    	"""ZMI method for toggling the flag for checking user names on return."""
+	self.toggleUserCheck()
+        m = self.checkUser() and 'on' or 'off'
+        return self.manage_overview(manage_tabs_message="Returning username check turned" % m)
+
     ## Internal attributes
     _user_check = 1
     _requests = {}
@@ -138,7 +151,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     # external
 
-    security.declareProtected(ManagePortal, 'manage_overview')
+    security.declareProtected(ManagePortal, 'setExpirationTimeout')
     def setExpirationTimeout(self, timedelta):
         """Set the length of time a reset request will be valid.
 
@@ -147,6 +160,18 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         fractional. Since a negative delta makes no sense, the
         timedelta's absolute value will be used."""
         self._timedelta = abs(timedelta)
+
+    security.declarePublic('getExpirationTimeout')
+    def getExpirationTimeout(self):
+        """Get the length of time a reset request will be valid.
+
+        In hours, possibly fractional. Ignores seconds and shorter."""
+        try:
+            if isinstance(self._timedelta,datetime.timedelta):
+                return self._timedelta.days / 24
+        except NameError:
+            pass  # that's okay, it must be a number of hours...
+        return self._timedelta
 
     security.declareProtected(ManagePortal, 'clearExpired')
     def clearExpired(self):
