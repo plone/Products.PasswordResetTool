@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<div metal:fill-slot="main">
+
+    <h1 i18n:translate="heading_password_reset">Password reset</h1>
+    <p i18n:translate="password_reset_status">Password reset status:</p>
+    <p tal:condition="python: options['status'] == 'done'"
+       i18n:translate="message_password_reset_done">
+       Your password has been reset successfully. You may now log in with
+       your new password.
+    </p>
+    <p class="error"
+       tal:condition="python: options['status'] == 'expired'"
+       i18n:translate="">
+       Sorry, but this password reset request has expired.
+    </p>
+    <p class="error"
+       tal:condition="python: options['status'] == 'invalid'"
+       i18n:translate="">
+       Sorry, this appears to be an invalid request. Try again.
+    </p>
+
+</div>
+
+</body>
+</html>
