@@ -41,7 +41,6 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     ## Tool/CMF/Zope machinery
 
-    # Show implementation only if  IGroupsTool is defined
     # The latter will work only with Plone 1.1 => hence, the if
     #if hasattr(ActionProviderBase, '__implements__'):
     #    __implements__ = (IPWResetTool, ActionProviderBase.__implements__)
