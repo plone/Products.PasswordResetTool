@@ -3,7 +3,32 @@
 
 <h3> <code>portal_password_reset</code> Tool </h3>
 
-<p> This tool enables a mechansim for securely resetting user's forgotten passwords.
+<p>This tool enables a mechanism for securely resetting user's forgotten passwords.</p>
+
+<h2>Set Expiration Interval</h2>
+<p>
+  Specify the time until timeout of password reset requests in hours. This interval,
+  added to the time a user makes a request, will decide the expiration of the request.
 </p>
+<p>
+  The default is <em>24 hours</em>. If you leave the field blank, the timeout interval
+  will reset to the default.
+</p>
+<form action="manage_setTimeout" method="post">
+  <p>Set timeout interval to <input type="text" name="id" value="&dtml-getExpirationTimeout;" /> hours.</p>
+  <input type="submit" value="Change" />
+</form>
+
+<h2>Control Creation of Group Workspaces</h2>
+<p>
+  If "username check" is on, users following the confirmation link from their email
+  will be required to re-enter their username. This is to combat anonymous email
+  sniffing attacks and it is <strong>highly recommended</strong> that you leave
+  this <strong>ON</strong> if the portal is publicly accesible.
+</p>
+<form action="manage_toggleUserCheck" method="post">
+  <p>Workspaces creation is <strong><dtml-var "checkUser() and 'on' or 'off'"></strong></p>
+  <input type="submit" value="Turn User Check <dtml-var "checkUser() and 'off' or 'on'">" />
+</form>
 
 <dtml-var manage_page_footer>
