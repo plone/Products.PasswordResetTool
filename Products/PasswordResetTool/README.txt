@@ -1,4 +1,4 @@
-README
+README for PasswordResetTool (STX)
 
   Readme for the PasswordResetTool product for CMF,
   by "J. Cameron Cooper":mailto:prt@jcameroncooper.com for
