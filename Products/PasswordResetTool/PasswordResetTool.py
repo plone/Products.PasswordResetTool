@@ -137,11 +137,14 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         try:
             # this is a GRUF special case, but I don't feel bad, because
             # the regular Zope user object should be so lucky as to have this call
-            user.changePassword(password)
+            user.setPassword(password)  # GRUF 3
         except AttributeError:
-            # this sets __ directly (via MemberDataTool) which is the usual
-            # (and stupid!) way to change a password in Zope
-            member.setSecurityProfile(password=password)
+            try:
+                user.changePassword(password)  # GRUF 2
+            except AttributeError:
+                # this sets __ directly (via MemberDataTool) which is the usual
+                # (and stupid!) way to change a password in Zope
+                member.setSecurityProfile(password=password)
 
         # clean out the request
         del self._requests[randomstring]
