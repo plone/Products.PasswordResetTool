@@ -38,13 +38,17 @@ README
 
   Management Notes
 
+    Configuration of the tool is done through the 'Overview' page
+    in the ZMI. The options are explained there.
+
     Reset requests are stored in a persistent dictionary in the
     tool. Removing the tool or reinstalling the product will destroy
     all reset requests.
 
-    A facility for clearing expired requests is provided. This should
-    be used occasionally to clear out the storage. A cron script using
-    'wget' or 'curl' (or the Windows equivalent) is suggested.
+    A facility for clearing expired requests is not yet provided. It
+    will be in the next release. This should be used occasionally to
+    clear out the storage. A cron script using 'wget' or 'curl' (or
+    the Windows equivalent) to automate the procedure is suggested.
 
   Notes
 
@@ -53,23 +57,23 @@ README
       concerned about account security. Not requiring re-entry of the
       user name allows trivial email-sniffing attacks and makes
       brute-forcing of the reset request keys possible (if unlikely).
+      Only private portals should even consider this.
 
-    * The very first visit after installation or a restart to a
-      'passwordreset' URL will result in a '404 Not Found' error. This
-      is a known issue. That script uses the traverse_subpath
-      variable, which is (presumably) not obvious to the skinning
-      machinery until it is used once. After an initial visit, this is
-      remembered. If this is not acceptable behaviour, simply modify
-      the 'passwordreset' script to contain the following::
+    * The URL for the confirmation visit now uses get-style URL
+      parameters to encode the key. This is less pretty than a
+      traversal subpath approach, but that has a problem:
 
-        ##parameters=randomstring
-        return context.pwreset_form(randomstring=randomstring)
+      The very first visit after installation, refresh, or restart to
+      a 'passwordreset' URL will result in a '404 Not Found' error.
+      That script uses the traverse_subpath variable, which is
+      (presumably) not obvious to the skinning machinery until it is
+      used once. After an initial visit, this is remembered. If this
+      is acceptable behaviour, simply modify the 'pwreset_constructURL'
+      script by reversing the comments on the 'return' lines.
 
-      Also change 'pwreset_constructURL' to use::
-
-        return "%s/passwordreset?randomstring=%s" % (host, randomstring)
-
-      Hopefully this will be addressed in the future.
+      Hopefully this problem will be addressed in the future, and
+      traversal_subpath urls (like passwordreset/123lkj43508) will
+      be the default.
 
     * This tool replaces the built-in password mailing feature. This
       means that the first half of a "forgotten password transaction"
