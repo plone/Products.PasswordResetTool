@@ -4,3 +4,4 @@ error message on email failure?
 have an upgrade method before next release
 admin page for open reset requests,
  or at least a clean-up button
+clean up pwreset_action redirect thing
