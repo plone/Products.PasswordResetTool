@@ -19,7 +19,7 @@
   <input type="submit" value="Change" />
 </form>
 
-<h2>Control Creation of Group Workspaces</h2>
+<h2>Username Check</h2>
 <p>
   If "username check" is on, users following the confirmation link from their email
   will be required to re-enter their username. This is to combat anonymous email
@@ -27,7 +27,7 @@
   this <strong>ON</strong> if the portal is publicly accesible.
 </p>
 <form action="manage_toggleUserCheck" method="post">
-  <p>Workspaces creation is <strong><dtml-var "checkUser() and 'on' or 'off'"></strong></p>
+  <p>Username check is <strong><dtml-var "checkUser() and 'on' or 'off'"></strong></p>
   <input type="submit" value="Turn User Check <dtml-var "checkUser() and 'off' or 'on'">" />
 </form>
 
