@@ -16,6 +16,8 @@ README for PasswordResetTool (STX)
   See the INSTALL.txt file for details on installation, and the
   LICENSE.txt file for the license this Product is under.
 
+  Note, of course, that you must have a working MailHost to send email!
+
   The Password Reset Sequence from the User's Point of View
 
     The user will observe the following steps.
