@@ -6,12 +6,11 @@
 
 <div metal:fill-slot="main">
 
-    <h1 i18n:translate="heading_reset_password">Password reset confirmation</h1>
+    <h1 i18n:translate="heading_reset_password">Set your password</h1>
 
     <div i18n:translate="description_reset_password">
         <p>
- 	   This form will allow you to reset your password. Just fill out the
-           form below.
+	  Please fill out the form below to set your password.
         </p>
     </div>
 
@@ -75,7 +74,7 @@
                 <input class="context"
                        tabindex="" 
                        type="submit" 
-                       value="Reset my password"
+                       value="Set my password"
                        i18n:attributes="value"
                        tal:attributes="tabindex tabindex/next;"
                        />
