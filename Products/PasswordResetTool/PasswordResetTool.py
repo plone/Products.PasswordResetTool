@@ -65,7 +65,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     security.declareProtected(ManagePortal, 'manage_setTimeout')
     def manage_setTimeout(self, hours=24, REQUEST=None):
     	"""ZMI method for setting the expiration timeout in hours."""
-	self.setExpirationTimeout(hours)
+	self.setExpirationTimeout(int(hours))
         return self.manage_overview(manage_tabs_message="Timeout set to %s hours" % hours)   
 
     security.declareProtected(ManagePortal, 'manage_toggleUserCheck')

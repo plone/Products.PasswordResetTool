@@ -15,7 +15,7 @@
   will reset to the default.
 </p>
 <form action="manage_setTimeout" method="post">
-  <p>Set timeout interval to <input type="text" name="id" value="&dtml-getExpirationTimeout;" /> hours.</p>
+  <p>Set timeout interval to <input type="text" name="hours" value="&dtml-getExpirationTimeout;" /> hours.</p>
   <input type="submit" value="Change" />
 </form>
 
