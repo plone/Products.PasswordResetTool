@@ -134,11 +134,10 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
         # actually change password
         user = member.getUser()
-        try:
-            # this is a GRUF special case, but I don't feel bad, because
-            # the regular Zope user object should be so lucky as to have this call
-            user.setPassword(password)  # GRUF 3
-        except AttributeError:
+        uf = getToolByName(self, 'acl_users')
+        if getattr(uf, 'userSetPassword', None) is not None:
+            uf.userSetPassword(userid, password)  # GRUF 3
+        else:
             try:
                 user.changePassword(password)  # GRUF 2
             except AttributeError:
