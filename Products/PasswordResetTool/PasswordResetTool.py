@@ -73,7 +73,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     	"""ZMI method for toggling the flag for checking user names on return."""
 	self.toggleUserCheck()
         m = self.checkUser() and 'on' or 'off'
-        return self.manage_overview(manage_tabs_message="Returning username check turned" % m)
+        return self.manage_overview(manage_tabs_message="Returning username check turned %s" % m)
 
     ## Internal attributes
     _user_check = 1
