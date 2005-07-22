@@ -75,9 +75,12 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         m = self.checkUser() and 'on' or 'off'
         return self.manage_overview(manage_tabs_message="Returning username check turned %s" % m)
 
+
+    def __init__(self):
+        self._requests = {}
+
     ## Internal attributes
     _user_check = 1
-    _requests = {}
     _timedelta = 24
 
     ## Interface fulfillment ##
