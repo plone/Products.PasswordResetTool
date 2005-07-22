@@ -6,24 +6,12 @@
 
 <div metal:fill-slot="main">
 
-    <h1 i18n:translate="heading_password_reset">Password set</h1>
-    <p i18n:translate="password_reset_status">Password set status:</p>
-    <p tal:condition="python: options['status'] == 'done'"
-       i18n:translate="message_password_reset_done">
-       Your password has been set successfully. You may now log in with
-       your new password.
-    </p>
-    <p class="error"
-       tal:condition="python: options['status'] == 'expired'"
-       i18n:translate="">
-       Sorry, but this password reset request has expired.
-    </p>
-    <p class="error"
-       tal:condition="python: options['status'] == 'invalid'"
-       i18n:translate="">
-       Sorry, this appears to be an invalid request. Try again.
-    </p>
-
+      <h1 i18n:translate="heading_password_reset">Password set</h1>
+      <p i18n:translate="password_reset_status">Password set status:</p>
+      <p i18n:translate="message_password_reset_done">
+	Your password has been set successfully. You may now log in with
+	your new password.
+      </p>
 </div>
 
 </body>

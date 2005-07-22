@@ -202,6 +202,22 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
         return self._user_check
 
+    security.declarePublic('verifyKey')
+    def verifyKey(self, key):
+        """Verify a key. Raises an exception if the key is invalid or expired"""
+
+        try:
+            u, expiry = self._requests[key]
+        except KeyError:
+            raise 'InvalidRequestError'
+        
+        if self.expired(expiry):
+            raise 'ExpiredRequestError'
+
+        if not self.getValidUser(u):
+            raise 'InvalidRequestError', 'No such user'
+        
+ 
     # customization points
 
     security.declarePrivate('uniqueString')
