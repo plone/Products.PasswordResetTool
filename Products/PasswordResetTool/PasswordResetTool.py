@@ -128,7 +128,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
             del self._requests[randomstring]
             raise 'ExpiredRequestError'
 
-        member = self.getValidUser(userid)
+        member = self.getValidUser(stored_user)
         if not member:
             raise 'InvalidRequestError'
 
@@ -136,7 +136,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         user = member.getUser()
         uf = getToolByName(self, 'acl_users')
         if getattr(uf, 'userSetPassword', None) is not None:
-            uf.userSetPassword(userid, password)  # GRUF 3
+            uf.userSetPassword(stored_user, password)  # GRUF 3
         else:
             try:
                 user.changePassword(password)  # GRUF 2
