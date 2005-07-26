@@ -10,7 +10,7 @@ You have been registered as a member of <span i18n:name="portal_name" tal:omit-t
 which allows you to personalize your view of the website and participate in
 the community.  Please activate your account by visiting 
 
-<span tal:replace="python:here.pwreset_constructURL(reset['randomstring'])+'&userid='+member.getUserName()" />
+<span tal:replace="python:here.pwreset_constructURL(reset['randomstring'])+'?userid='+member.getUserName()" />
 
 You must activate your account within <span tal:replace="here/portal_password_reset/getExpirationTimeout" /> hours of <span tal:replace="reset/expires/aCommonZ" />
 
