@@ -6,9 +6,11 @@
 
 <div metal:fill-slot="main">
 
-    <h1 i18n:translate="heading_password_reset">Password set</h1>
-    <p i18n:translate="">
-       Sorry, this appears to be an invalid request. Try again.
+    <h1 i18n:translate="heading_pwreset_invalid">Error setting password</h1>
+    <p i18n:translate="message_pwreset_invalid">
+       Sorry, this appears to be an invalid request.  Please make sure
+       you copied the URL exactly as it appears in your email and that
+       you entered your username correctly.
     </p>
 
 </div>

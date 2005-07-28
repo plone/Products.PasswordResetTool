@@ -6,11 +6,13 @@
 
 <div metal:fill-slot="main">
 
-    <h1 i18n:translate="heading_password_reset">Password set</h1>
-    <p i18n:translate="password_reset_status">Password set status:</p>
-    <p class="error"
-       i18n:translate="">
-       Sorry, but this password reset request has expired.
+    <h1 i18n:translate="heading_pwreset_expired">Password request expired</h1>
+    <p i18n:translate="message_pwreset_expired">
+	For your security, password reset URLs are only valid for
+	<span
+	tal:replace="here/portal_password_reset/getExpirationTimeout"/>
+	hours.  This URL has expired, but you may <a
+	href="/pwreset_form">request a new one</a>.
     </p>
 
 </div>
