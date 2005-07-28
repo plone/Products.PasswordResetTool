@@ -129,6 +129,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
             raise 'InvalidRequestError'
         if self.expired(expiry):
             del self._requests[randomstring]
+            self._p_changed = 1
             raise 'ExpiredRequestError'
 
         member = self.getValidUser(stored_user)
@@ -150,6 +151,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
         # clean out the request
         del self._requests[randomstring]
+        self._p_changed = 1
         
 
     ## Implementation ##
