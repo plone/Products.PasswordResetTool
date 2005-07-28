@@ -44,7 +44,7 @@ README for PasswordResetTool (STX)
     in the ZMI. The options are explained there.
 
     Reset requests are stored in a persistent dictionary in the
-    tool. Removing the tool or reinstalling the product will destroy
+    tool. Removing the tool or uninstalling the product will destroy
     all reset requests.
 
     A facility for clearing expired requests is not yet provided. It
@@ -61,21 +61,14 @@ README for PasswordResetTool (STX)
       brute-forcing of the reset request keys possible (if unlikely).
       Only private portals should even consider this.
 
-    * The URL for the confirmation visit now uses get-style URL
-      parameters to encode the key. This is less pretty than a
-      traversal subpath approach, but that has a problem:
+    * The URL for the confirmation visit now uses traversal-style URL
+      parameters to encode the key. The old get-parameter paths will
+      still work, so don't worry about password reset request performed
+      before an upgrade
 
-      The very first visit after installation, refresh, or restart to
-      a 'passwordreset' URL will result in a '404 Not Found' error.
-      That script uses the traverse_subpath variable, which is
-      (presumably) not obvious to the skinning machinery until it is
-      used once. After an initial visit, this is remembered. If this
-      is acceptable behaviour, simply modify the 'pwreset_constructURL'
-      script by reversing the comments on the 'return' lines.
-
-      Hopefully this problem will be addressed in the future, and
-      traversal_subpath urls (like passwordreset/123lkj43508) will
-      be the default.
+      The traversal_subpath urls (like passwordreset/123lkj43508) are
+      now the default. If you like the old style, you'll have to modify
+      the skins yourself.
 
     * This tool replaces the built-in password mailing feature. This
       means that the first half of a "forgotten password transaction"
