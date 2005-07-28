@@ -1,5 +1,5 @@
 [validators]
-validators = validate_pwreset_userid, validate_password
+validators = validate_pwreset_userid, validate_pwreset_password
 
 [actions]
 action.success = traverse_to:string:pwreset_action
