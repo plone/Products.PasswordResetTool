@@ -1,6 +1,0 @@
-PasswordResetTool-0.3
-  - Updated to use CMFFormController
-  - Support for using to set initial account passwords
-  - Verify token before prompting user for new password
-  - Generated URLs don't use query strings
-  - Fixes to work with CMFMember
