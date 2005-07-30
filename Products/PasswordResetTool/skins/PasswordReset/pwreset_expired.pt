@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
+      lang="en-US"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<div metal:fill-slot="main">
+
+    <h1 i18n:translate="heading_pwreset_expired">Password request expired</h1>
+    <p i18n:translate="message_pwreset_expired">
+	For your security, password reset URLs are only valid for
+	<span
+	tal:replace="here/portal_password_reset/getExpirationTimeout"/>
+	hours.  This URL has expired, but you may <a
+	href="/pwreset_form">request a new one</a>.
+    </p>
+
+</div>
+
+</body>
+</html>
