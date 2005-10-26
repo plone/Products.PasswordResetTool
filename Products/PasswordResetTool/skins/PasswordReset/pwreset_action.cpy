@@ -17,5 +17,15 @@ except 'ExpiredRequestError':
 except 'InvalidRequestError':
     status = "invalid"
 
+membership_tool = getToolByName(context, 'portal_membership')
+member = membership_tool.getMemberById(userid)
+login_time = member.getProperty('login_time', '2000/01/01')
+if  str(login_time) == '2000/01/01':
+  try:
+    membership_tool.setLoginTimes()
+    membership_tool.createMemberArea()
+  except AttributeError:
+    pass       # plone 2.0.5 doesn't have this
+
 return state.set(status=status)
 
