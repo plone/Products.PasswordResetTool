@@ -6,6 +6,7 @@
 
 <div metal:fill-slot="main">
 
+    <tal:block metal:use-macro="here/document_actions/macros/document_actions" />
     <h1 i18n:translate="heading_pwreset_expired">Password request expired</h1>
     <p i18n:translate="message_pwreset_expired">
 	For your security, password reset URLs are only valid for
