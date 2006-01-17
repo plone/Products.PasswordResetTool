@@ -6,7 +6,6 @@
 
     <div metal:fill-slot="main" tal:define="errors options/state/getErrors">
 
-    <tal:block metal:use-macro="here/document_actions/macros/document_actions" />
     <h1 i18n:translate="heading_reset_password">Set your password</h1>
 
     <div i18n:translate="description_reset_password">
