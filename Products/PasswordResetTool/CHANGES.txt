@@ -1,3 +1,5 @@
+  - tabindex not assumed present to be more CMF-friendly
+
 PasswordResetTool-0.3
   - Updated to use CMFFormController
   - Support for using to set initial account passwords

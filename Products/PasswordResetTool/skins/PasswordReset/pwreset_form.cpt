@@ -35,7 +35,7 @@
 
 	    <input name="userid"
                    tal:attributes="value request/userid|nothing;
-                                   tabindex tabindex/next;" 
+                                   tabindex tabindex/next | nothing;"
 	      />
 	  </div>
 	  
@@ -54,7 +54,7 @@
                    name="password"
                    size="10"
                    tabindex=""
-                   tal:attributes="tabindex tabindex/next;"
+                   tal:attributes="tabindex tabindex/next | nothing;"
 	      />
 	  </div>    
 
@@ -72,7 +72,7 @@
                    name="password2"
                    size="10"
                    tabindex=""
-                   tal:attributes="tabindex tabindex/next;"
+                   tal:attributes="tabindex tabindex/next | nothing;"
 	      />
 	  </div>
 
@@ -85,7 +85,7 @@
                        type="submit" 
                        value="Set my password"
                        i18n:attributes="value"
-                       tal:attributes="tabindex tabindex/next;"
+                       tal:attributes="tabindex tabindex/next | nothing;"
                        />
             </div>
         </div>	
