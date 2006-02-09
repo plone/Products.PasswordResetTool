@@ -20,7 +20,6 @@ registerDirectory('skins/PasswordReset', globals())
 def initialize(context):
     utils.ToolInit('Password Reset Tool',
                     tools = tools,
-                    product_name = 'PasswordResetTool',
                     icon='tool.gif' 
                     ).initialize( context )
 
