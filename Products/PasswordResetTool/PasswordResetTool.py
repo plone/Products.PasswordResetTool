@@ -9,8 +9,11 @@ from Products.CMFCore.utils import getToolByName
 from OFS.SimpleItem import SimpleItem
 from Globals import InitializeClass, DTMLFile
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.CMFCorePermissions import View, ManagePortal
-#from Products.CMFCore.ActionProviderBase import ActionProviderBase
+# BBB CMF < 1.5
+try:
+    from Products.CMFCore.permissions import View, ManagePortal
+except ImportError:
+    from Products.CMFCore.CMFCorePermissions import View, ManagePortal
 
 from interfaces.portal_password_reset import portal_password_reset as IPWResetTool
 
