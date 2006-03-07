@@ -9,12 +9,10 @@
         <h1 i18n:domain="passwordresettool"
             i18n:translate="heading_reset_password">Set your password</h1>
 
-        <div i18n:domain="passwordresettool" 
-             i18n:translate="description_reset_password">
-            <p>
-                Please fill out the form below to set your password.
-            </p>
-        </div>
+        <p i18n:domain="passwordresettool" 
+           i18n:translate="description_reset_password">
+            Please fill out the form below to set your password.
+        </p>
 
         <form class="group" 
               name="pwreset_action" 

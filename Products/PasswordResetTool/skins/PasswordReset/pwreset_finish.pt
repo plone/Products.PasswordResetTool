@@ -5,11 +5,13 @@
 <body>
 
 <div metal:fill-slot="main">
-      <h1 i18n:translate="heading_pwreset_success">Password set</h1>
-      <p i18n:translate="message_pwreset_success">
-	Your password has been set successfully. You may now log in with
-	your new password.
-      </p>
+    <h1 i18n:translate="heading_pwreset_success">Password set</h1>
+
+    <p i18n:translate="message_pwreset_success">
+        Your password has been set successfully. You may now log in with your
+        new password.
+    </p>
+
 </div>
 
 </body>
