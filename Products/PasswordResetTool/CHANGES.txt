@@ -1,3 +1,6 @@
+PasswordResetTool 0.4
+  - use virtual host forwarded IP if present
+  - i18n markup
   - tabindex not assumed present to be more CMF-friendly
 
 PasswordResetTool-0.3
