@@ -1,6 +1,7 @@
 PasswordResetTool 0.4
   - use virtual host forwarded IP if present
   - i18n markup
+  - deprectation warnings removed
   - tabindex not assumed present to be more CMF-friendly
 
 PasswordResetTool-0.3
