@@ -1,0 +1,117 @@
+This test will outline the typical usage of the PasswordResetTool.
+Here, we will from a browser's perspective:
+
+  - Join the portal
+  - Log in
+  - Log out again
+  - Forget our password (this is where PasswordResetTool comes in)
+  - Read the e-mail that contains the URL we visit to reset our password
+  - Reset our password
+  - Log in with our new password
+
+For this test, we're going to use ``zope.testbrowser``.  This package
+is included with Zope 3.2 which is included in Zope 2.9, and it has
+excellent documentation in its ``README.txt``.
+
+Note that our usage of testbrowser is unusual and inconsistent, mostly
+because Plone forms have inconsistencies and because testbrowser makes
+assumptions that are not true for Plone forms.
+
+  >>> from Products.PasswordResetTool.tests.testing import Browser
+  >>> browser = Browser()
+  >>> browser.open('http://nohost/plone/')
+
+Let's join as a member.  Plone's default settings will let the user
+type in his initial password:
+
+  >>> browser.getLink('Join').click()
+  >>> browser.url
+  'http://nohost/plone/join_form'
+
+  >>> browser.getControl(name='username').value = 'jsmith'
+  >>> browser.getControl(name='email').value = 'jsmith@example.com'
+  >>> browser.getControl(name='password').value = 'secret'
+  >>> browser.getControl(name='password_confirm').value = 'secret'
+  >>> browser.getControl(name='form.button.Register').click()
+  
+  >>> "You have been registered" in browser.contents
+  True
+  
+We are not logged in yet at this point.  Let's try to log in:
+
+  >>> browser.getLink('Log in').click()
+  >>> browser.url
+  'http://nohost/plone/login_form'
+  >>> browser.getControl(name='__ac_name').value = 'jsmith'
+  >>> browser.getControl(name='__ac_password').value = 'secret'
+  >>> browser.getControl(name='submit').click()
+  >>> import pdb;pdb.set_trace()
+  >>> "You are now logged in" in browser.contents
+  True
+
+Log out again:
+
+  >>> browser.getLink('Log out').click()
+  >>> "You are now logged out" in browser.contents
+  True
+
+Now it is time to forget our password and click the ``Forgot your
+password`` in the portlet:
+
+  >>> browser.open('http://nohost/plone')
+  >>> browser.getLink('Forgot your password?').click()
+  >>> browser.url
+  'http://nohost/plone/mail_password_form'
+  >>> form = browser.getForm(name='mail_password')
+  >>> form.getControl(name='userid').value = 'jsmith'
+  >>> form.submit()
+
+As part of our test setup, we replaced the original MailHost with our
+own version.  Our version doesn't mail messages, it just collects them
+in a list called ``messages``:
+
+  >>> mailhost = self.portal.MailHost
+  >>> mailhost.messages #doctest: +ELLIPSIS
+  [<email.Message.Message instance ...>]
+  >>> msg = str(mailhost.messages[-1])
+
+Now that we have the message, we want to look at its contents, and
+then we extract the address that lets us reset our password:
+
+  >>> "To: jsmith@example.com" in msg
+  True
+  >>> please_visit_text = "please visit this address:"
+  >>> please_visit_text in msg
+  True
+  >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
+  >>> address = msg[url_index:].split()[0]
+  >>> address #doctest: +ELLIPSIS
+  'http://nohost/plone/passwordreset/...'
+
+Now that we have the address, we will reset our password:
+
+  >>> browser.open(address)
+  >>> "Set your password" in browser.contents
+  True
+
+  >>> form = browser.getForm(name='pwreset_action')
+  >>> form.getControl(name='userid').value = 'jsmith'
+  >>> form.getControl(name='password').value = 'secretion'
+  >>> form.getControl(name='password2').value = 'secretion'
+  >>> form.submit()
+
+We can now login using our new password:
+
+  >>> "Please log in" in browser.contents
+  True
+  >>> browser.url
+  'http://nohost/plone/login_form?came_from=http%3A//nohost/plone/pwreset_form&retry=&disable_cookie_login__=1'
+  >>> browser.getControl(name='__ac_name').value = 'jsmith'
+  >>> browser.getControl(name='__ac_password').value = 'secretion'
+  >>> browser.getControl(name='submit').click()
+
+We should be logged in now: XXX but we aren't
+
+  >>> "You are now logged in" in browser.contents
+  True
+
