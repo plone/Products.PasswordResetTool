@@ -2,8 +2,6 @@
 
 Mostly just copy and paste from zope.testbrowser.testing.
 
-I copied this from jinty-testbrowser branch of Five.
-
 BBB: Five 1.4 includes this module (``Five/testbrowser.py``).
 """
 
