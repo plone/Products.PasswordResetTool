@@ -104,7 +104,7 @@ We can now login using our new password:
   >>> "Please log in" in browser.contents
   True
   >>> browser.url
-  'http://nohost/plone/login_form?came_from=http%3A//nohost/plone/pwreset_form&retry=&disable_cookie_login__=1'
+  'http://nohost/plone/...came_from=http%3A//nohost/plone/pwreset_form...'
   >>> browser.getControl(name='__ac_name').value = 'jsmith'
   >>> browser.getControl(name='__ac_password').value = 'secretion'
   >>> browser.getControl(name='submit').click()
