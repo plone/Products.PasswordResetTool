@@ -37,6 +37,7 @@ class PublisherConnection(testing.PublisherConnection):
         headers.sort()
         headers.insert(0, ('Status', "%s %s" % (status, reason)))
         headers = '\r\n'.join('%s: %s' % h for h in headers)
+        headers += '\r\n' + '\r\n'.join(real_response._cookie_list())
         content = real_response.body
         return testing.PublisherResponse(content, headers, status, reason)
 
