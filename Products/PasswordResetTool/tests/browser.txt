@@ -101,15 +101,15 @@ Now that we have the address, we will reset our password:
 
 We can now login using our new password:
 
-  >>> "Please log in" in browser.contents
+  >>> "Your password has been set successfully." in browser.contents
   True
   >>> browser.url
-  'http://nohost/plone/...came_from=http%3A//nohost/plone/pwreset_form...'
+  'http://nohost/plone/pwreset_finish'
   >>> browser.getControl(name='__ac_name').value = 'jsmith'
   >>> browser.getControl(name='__ac_password').value = 'secretion'
   >>> browser.getControl(name='submit').click()
 
-We should be logged in now: XXX but we aren't
+We should be logged in now:
 
   >>> "You are now logged in" in browser.contents
   True
