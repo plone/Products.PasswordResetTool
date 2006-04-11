@@ -1,64 +1,8 @@
 Functional tests for PasswordResetTool
 ======================================
 
-First of all we have to be aware that Plone by default implements two
-distinct policies regarding member registration.
-
-  A. Users can provide their own password (and can optionally be send
-     an e-mail with login credentials) and can login directly without
-     validation of the e-mail address.
-
-  B. A password is generated for the users (and an e-mail with login
-     credentials is sent automatically).
-
-This policy can enabled or disabled in the ``validate_email`` property
-on the Plone Site object. By default validate_email is disabled and
-the first policy applies.
-
-Another aspect we have to take into account is the fact that Plone by
-default allows anonymous visitors to register themselves AND portal
-administrators can add users using User Administration in the Plone
-Configuration.  Currently the two policies apply for both of these use
-cases.
-     
-The PasswordResetTool has to respect both policies and both use cases
-and never send e-mails with login credentials. The desired result
-after installing PasswordResetTool is as follows:
-
-  1. Anonymous user registers himself
-
-    A. Users can provide their own password during registration, but
-       don't have the option to send credentials by e-mail and can
-       login directly
-
-    B. Users can't provide a password but are send an e-mail with a
-       link to set their password. (so that the e-mail address used,
-       is validated).
-
-  2. Site Admin registers a user
-
-    A. The site admin can provide a password and is not allowed to
-       send the credentials via e-mail and will have to provide the
-       users with the password by oral communication or snail mail.
-
-    B. The site admin can't provide a password and the system will
-       send an e-mail with a link to set the password (e-mail address
-       validated).
-
-
-1A. User joins and resets his password
---------------------------------------
-
-This test will outline the typical usage of the PasswordResetTool.
-Here, we will from a browser's perspective:
-
-  - Join the portal
-  - Log in
-  - Log out again
-  - Forget our password (this is where PasswordResetTool comes in)
-  - Read the e-mail that contains the URL we visit to reset our password
-  - Reset our password
-  - Log in with our new password
+Introduction
+------------
 
 For this test, we're going to use ``zope.testbrowser``.  This package
 is included with Zope 3.2 which is included in Zope 2.9, and it has
@@ -72,6 +16,71 @@ assumptions that are not true for Plone forms.
   >>> browser = Browser()
   >>> browser.open('http://nohost/plone/')
 
+
+Assumptions
+-----------
+
+First of all we have to be aware that Plone by default implements two
+distinct password policies regarding member registration.
+
+  A. Users can provide their own password (and can optionally be send
+     an e-mail with login credentials) and can login directly without
+     validation of the e-mail address.
+
+  B. A password is generated for the users (and an e-mail with login
+     credentials is sent automatically).
+
+This policy can enabled or disabled in the ``validate_email`` property
+on the Plone Site object.  By default ``validate_email`` is disabled
+and the first policy applies.
+
+Another aspect we have to take into account is the fact that Plone by
+default allows both Anonymous users to register themselves (by joining
+the Portal) and Administrators to register (other) members.
+
+Users of PasswordResetTool don't want any credentials to be sent out
+via e-mail.  Instead, PasswordResetTool sends out an e-mail containing
+an URL where the user can set their password.
+
+The PasswordResetTool has to respect both policies (A and B) and both
+use cases (Anonymous or Admin?).  The desired result after installing
+PasswordResetTool is as follows:
+
+  1. Anonymous user registers himself
+
+    A. Users can provide their own password during registration, but
+       don't have the option to send credentials by e-mail.
+
+    B. Users can't provide a password but are sent an e-mail with a
+       link to set their password.  (Validates e-mail address.)
+
+  2. Site Admin registers a user
+
+    A. The Site Admin can provide a password.  He is not allowed to
+       send the credentials via e-mail.
+
+    B. The Site Admin can't provide a password.  Instead, Plone will
+       send the registered user an e-mail with a link to set the
+       password.  (Validates e-mail address.)
+
+In addition, we want users to be logged in directly whenever possible.
+E.g., whenever a user enters his credentials he should not be asked
+for it again on the next page.
+
+
+1A. User joins and forgets password
+-----------------------------------
+
+What we do here:
+
+  - Join the portal
+  - Log in
+  - Log out again
+  - Forget our password (this is where PasswordResetTool comes in)
+  - Read the e-mail that contains the URL we visit to reset our password
+  - Reset our password
+  - Log in with our new password
+
 Let's join as a member.  Plone's default settings will let the user
 type in his initial password:
 
@@ -84,6 +93,9 @@ type in his initial password:
   >>> browser.getControl(name='password').value = 'secret'
   >>> browser.getControl(name='password_confirm').value = 'secret'
   >>> browser.getControl(name='form.button.Register').click()
+
+XXX Make sure we don't have a way to receive our credentials via
+e-mail.
   
   >>> "You have been registered" in browser.contents
   True
@@ -121,7 +133,7 @@ own version.  Our version doesn't mail messages, it just collects them
 in a list called ``messages``:
 
   >>> mailhost = self.portal.MailHost
-  >>> mailhost.messages #doctest: +ELLIPSIS
+  >>> mailhost.messages # doctest: +ELLIPSIS
   [<email.Message.Message instance ...>]
   >>> msg = str(mailhost.messages[-1])
 
@@ -135,7 +147,7 @@ then we extract the address that lets us reset our password:
   True
   >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
   >>> address = msg[url_index:].split()[0]
-  >>> address #doctest: +ELLIPSIS
+  >>> address # doctest: +ELLIPSIS
   'http://nohost/plone/passwordreset/...'
 
 Now that we have the address, we will reset our password:
@@ -172,20 +184,6 @@ Log out again:
   True
 
 
-1B. User joins with e-mail validation enabled and forgets password
-------------------------------------------------------------------
-
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-
-
-
 2A. Administrator registers user
 --------------------------------
 
@@ -196,16 +194,13 @@ Log out again:
   - Fill in the account information (with send email checked)
   - Read the e-mail that contains the URL we visit to reset our password
   - Log out
-
   - Forget our password (this is where PasswordResetTool comes in)
   - Reset our password
   - Log in with our new password
 
-
 First, we want to login as the portal owner:
 
   >>> from Products.PloneTestCase import PloneTestCase as PTC
-
   >>> browser.getLink('Log in').click()
   >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
   >>> browser.getControl(name='__ac_password').value = PTC.default_password
@@ -227,14 +222,104 @@ XXX DO STUFF
   >>> browser.getLink('Log out').click()
 
 
+
+1B. User joins with e-mail validation enabled and forgets password
+------------------------------------------------------------------
+
+What we do here is quite similiar to 1A, but instead of typing in the
+password ourselves, we will be sent an e-mail with the URL to set our
+password.
+
+First off, we need to set ``validate_mail`` to False:
+
+  >>> browser.getLink('Log in').click()
+  >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
+  >>> browser.getControl(name='__ac_password').value = PTC.default_password
+  >>> browser.getControl(name='submit').click()
+  >>> "You are now logged in" in browser.contents
+  True
+
+Let's go directly to the ``reconfig_form``:
+
+  >>> browser.open('http://nohost/plone/reconfig_form')
+  >>> ctrl = browser.getControl("Generate and e-mail user's initial password")
+  >>> ctrl.selected = True
+  >>> browser.getControl('Save').click()
+
+Log out again and then join:
+
+  >>> browser.getLink('Log out').click()
+  >>> "You are now logged out" in browser.contents
+  True
+
+  >>> browser.getLink('Join').click()
+  >>> browser.getControl(name='username').value = 'bsmith'
+  >>> browser.getControl(name='email').value = 'bsmith@example.com'
+
+We shouldn't be able to fill in our password:
+
+  >>> browser.getControl(name='password').value = 'secret' # doctest: +ELLIPSIS
+  Traceback (most recent call last):
+  ...
+  LookupError: name 'password'
+
+Now register:
+
+  >>> browser.getControl(name='form.button.Register').click()
+  >>> "You have been registered" in browser.contents
+  True
+
+We should have received an e-mail at this point:
+
+  >>> mailhost = self.portal.MailHost
+  >>> len(mailhost.messages)
+  2
+  >>> msg = str(mailhost.messages[-1])
+
+Now that we have the message, we want to look at its contents, and
+then we extract the address that lets us reset our password:
+
+  >>> "To: bsmith@example.com" in msg
+  True
+  >>> please_visit_text = "Please activate your account by visiting"
+  >>> please_visit_text in msg
+  True
+  >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
+  >>> address = msg[url_index:].split()[0]
+  >>> address # doctest: +ELLIPSIS
+  'http://nohost/plone/passwordreset/...'
+
+Now that we have the address, we will reset our password:
+
+  >>> browser.open(address)
+  >>> "Please fill out the form below to set your password" in browser.contents
+  True
+  >>> browser.getControl(name='password').value = 'secret'
+  >>> browser.getControl(name='password2').value = 'secret'
+  >>> browser.getControl("Set my password").click()
+  >>> "Your password has been set successfully." in browser.contents
+  True
+
+Now we can log in:
+
+  >>> browser.getControl("Login Name").value = 'bsmith'
+  >>> browser.getControl("Password").value = 'secret'
+  >>> browser.getControl("Log in").click()
+  >>> "You are now logged in" in browser.contents
+  True
+
+(XXX At this point, we have really landed on a page saying, "This is
+the first time that you've logged in" and then "you need to change
+your original password".)
+
+Log out again:
+
+  >>> browser.getLink('Log out').click()
+  >>> "You are now logged out" in browser.contents
+  True
+
+
 2B. Administrator adds user with email validation enabled
 ---------------------------------------------------------
 
-  -
-  -
-  -
-  -
-  -
-  -
-  -
-
+XXX TODO
