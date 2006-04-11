@@ -7,6 +7,7 @@ import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
+import doctest
 import unittest
 from Testing.ZopeTestCase import FunctionalDocFileSuite, FunctionalDocTestSuite
 from Products.PloneTestCase import PloneTestCase
@@ -37,8 +38,9 @@ class MockMailHostTestCase(PloneTestCase.FunctionalTestCase):
 def test_suite():
     return unittest.TestSuite((
         FunctionalDocFileSuite('browser.txt',
-                                package='Products.PasswordResetTool.tests',
-                                test_class=MockMailHostTestCase),
+                               optionflags = doctest.REPORT_ONLY_FIRST_FAILURE,
+                               package='Products.PasswordResetTool.tests',
+                               test_class=MockMailHostTestCase),
         ))
 
 if __name__ == '__main__':

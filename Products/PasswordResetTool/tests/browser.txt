@@ -316,10 +316,6 @@ Now we can log in:
   >>> "You are now logged in" in browser.contents
   True
 
-(XXX At this point, we have really landed on a page saying, "This is
-the first time that you've logged in" and then "you need to change
-your original password".)
-
 Log out again:
 
   >>> browser.getLink('Log out').click()
@@ -406,9 +402,5 @@ Now we can log in:
   >>> browser.getControl("Log in").click()
   >>> "You are now logged in" in browser.contents
   True
-
-(XXX At this point, we have really landed on a page saying, "This is
-the first time that you've logged in" and then "you need to change
-your original password".)
 
   >>> browser.getLink('Log out').click()
