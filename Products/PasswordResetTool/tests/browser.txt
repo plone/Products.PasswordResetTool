@@ -187,16 +187,11 @@ Log out again:
 2A. Administrator registers user
 --------------------------------
 
-  - Join the portal
   - Log in as the portal owner
-  - Browse to User and Group Management
-  - Click the add user button
-  - Fill in the account information (with send email checked)
-  - Read the e-mail that contains the URL we visit to reset our password
+  - Browse to User and Group Management and add user
+  - Register a member (with send email checked???)
   - Log out
-  - Forget our password (this is where PasswordResetTool comes in)
-  - Reset our password
-  - Log in with our new password
+  - Log in as the new member
 
 First, we want to login as the portal owner:
 
@@ -208,8 +203,7 @@ First, we want to login as the portal owner:
   >>> "You are now logged in" in browser.contents
   True
 
-We navigate to the Users Overview page directly and register a new
-user:
+We navigate to the Users Overview page and register a new user:
 
   >>> browser.getLink('Site Setup').click()
   >>> browser.getLink('Users and Groups Administration').click()
@@ -217,10 +211,24 @@ user:
   >>> browser.url
   'http://nohost/plone/join_form?came_from_prefs=1'
 
-XXX DO STUFF
+  >>> browser.getControl(name='username').value = 'wsmith'
+  >>> browser.getControl(name='email').value = 'wsmith@example.com'
+  >>> browser.getControl(name='password').value = 'supersecret'
+  >>> browser.getControl(name='password_confirm').value = 'supersecret'
+  >>> browser.getControl(name='form.button.Register').click()
+
+XXX Make sure we don't have a way to send the credentials via e-mail.
+
+We want to logout and login as the new member:
 
   >>> browser.getLink('Log out').click()
+  >>> browser.getControl("Login Name").value = 'wsmith'
+  >>> browser.getControl("Password").value = 'supersecret'
+  >>> browser.getControl("Log in").click()
+  >>> "You are now logged in" in browser.contents
+  True
 
+  >>> browser.getLink('Log out').click()
 
 
 1B. User joins with e-mail validation enabled and forgets password
@@ -322,4 +330,85 @@ Log out again:
 2B. Administrator adds user with email validation enabled
 ---------------------------------------------------------
 
-XXX TODO
+Simliar to 2A, but instead of setting the password for new member, an
+e-mail is sent containing the URL that lets the user log in.
+
+First, we want to login as the portal owner:
+
+  >>> from Products.PloneTestCase import PloneTestCase as PTC
+  >>> browser.getLink('Log in').click()
+  >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
+  >>> browser.getControl(name='__ac_password').value = PTC.default_password
+  >>> browser.getControl(name='submit').click()
+  >>> "You are now logged in" in browser.contents
+  True
+
+We navigate to the Users Overview page and register a new user:
+
+  >>> browser.getLink('Site Setup').click()
+  >>> browser.getLink('Users and Groups Administration').click()
+  >>> browser.getControl('Add New User').click()
+  >>> browser.url
+  'http://nohost/plone/join_form?came_from_prefs=1'
+
+  >>> browser.getControl(name='username').value = 'wwwsmith'
+  >>> browser.getControl(name='email').value = 'wwwsmith@example.com'
+
+We shouldn't be able to fill in our password:
+
+  >>> browser.getControl(name='password').value = 'secret' # doctest: +ELLIPSIS
+  Traceback (most recent call last):
+  ...
+  LookupError: name 'password'
+
+Now register and logout:
+
+  >>> browser.getControl(name='form.button.Register').click()
+  >>> browser.getLink('Log out').click()
+  >>> "You are now logged out" in browser.contents
+  True
+
+We should have received an e-mail at this point:
+
+  >>> mailhost = self.portal.MailHost
+  >>> len(mailhost.messages)
+  3
+  >>> msg = str(mailhost.messages[-1])
+
+Now that we have the message, we want to look at its contents, and
+then we extract the address that lets us reset our password:
+
+  >>> "To: wwwsmith@example.com" in msg
+  True
+  >>> please_visit_text = "Please activate your account by visiting"
+  >>> please_visit_text in msg
+  True
+  >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
+  >>> address = msg[url_index:].split()[0]
+  >>> address # doctest: +ELLIPSIS
+  'http://nohost/plone/passwordreset/...'
+
+Now that we have the address, we will reset our password:
+
+  >>> browser.open(address)
+  >>> "Please fill out the form below to set your password" in browser.contents
+  True
+  >>> browser.getControl(name='password').value = 'superstr0ng'
+  >>> browser.getControl(name='password2').value = 'superstr0ng'
+  >>> browser.getControl("Set my password").click()
+  >>> "Your password has been set successfully." in browser.contents
+  True
+
+Now we can log in:
+
+  >>> browser.getControl("Login Name").value = 'wwwsmith'
+  >>> browser.getControl("Password").value = 'superstr0ng'
+  >>> browser.getControl("Log in").click()
+  >>> "You are now logged in" in browser.contents
+  True
+
+(XXX At this point, we have really landed on a page saying, "This is
+the first time that you've logged in" and then "you need to change
+your original password".)
+
+  >>> browser.getLink('Log out').click()
