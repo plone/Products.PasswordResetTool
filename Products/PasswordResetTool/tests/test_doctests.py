@@ -23,8 +23,15 @@ class MockMailHostTestCase(PloneTestCase.FunctionalTestCase):
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = utils.MockMailHost('MailHost')
 
+        # XXX see utils/monkey.py
+        from Products.PasswordResetTool.tests.utils import monkey
+        monkey.monkeyMechanize()
+
     def beforeTearDown(self):
         self.portal.MailHost = self.portal._original_MailHost
+
+        from Products.PasswordResetTool.tests.utils import monkey
+        monkey.unmonkeyMechanize()
 
 
 def test_suite():

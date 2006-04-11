@@ -1,46 +1,49 @@
 Functional tests for PasswordResetTool
 ======================================
 
-First of all we have to be aware that Plone by default implements two distinct
-policies regarding member registration.
+First of all we have to be aware that Plone by default implements two
+distinct policies regarding member registration.
 
-  A. Users can provide their own password (and can optionally be send an
-     e-mail with login credentials) and can login directly without validation
-     of the e-mail address.
+  A. Users can provide their own password (and can optionally be send
+     an e-mail with login credentials) and can login directly without
+     validation of the e-mail address.
 
   B. A password is generated for the users (and an e-mail with login
-     credentials is sent automaticly).
+     credentials is sent automatically).
 
-This policy can enabled or disabled in the 'validate_email' property on the
-Plone Site object. By default validate_email is disabled and the first policy
-applies.
+This policy can enabled or disabled in the ``validate_email`` property
+on the Plone Site object. By default validate_email is disabled and
+the first policy applies.
 
-Another aspect we have to take into account is the fact that Plone by default
-allows anonymous visitors to register themselves AND portal administrators can
-add users using User Administration in the Plone Configuration. Currently the
-two policies apply for both of these use cases.
+Another aspect we have to take into account is the fact that Plone by
+default allows anonymous visitors to register themselves AND portal
+administrators can add users using User Administration in the Plone
+Configuration.  Currently the two policies apply for both of these use
+cases.
      
-The PasswordResetTool has to respect both policies and both use cases and never
-send e-mails with login credentials. The desired result after installing
-PasswordResetTool is as follows:
-
+The PasswordResetTool has to respect both policies and both use cases
+and never send e-mails with login credentials. The desired result
+after installing PasswordResetTool is as follows:
 
   1. Anonymous user registers himself
 
-    A. Users can provide their own password during registration, but don't have
-       the option to send credentials by e-mail and can login directly
+    A. Users can provide their own password during registration, but
+       don't have the option to send credentials by e-mail and can
+       login directly
 
-    B. Users can't provide a password but are send an e-mail with a link to set
-       their password. (so that the e-mail address used, is validated).
+    B. Users can't provide a password but are send an e-mail with a
+       link to set their password. (so that the e-mail address used,
+       is validated).
 
   2. Site Admin registers a user
 
-    A. The site admin can provide a password and is not allowed to send the
-       credentials via e-mail and will have to provide the users with the password
-       by oral communication or snail mail.
+    A. The site admin can provide a password and is not allowed to
+       send the credentials via e-mail and will have to provide the
+       users with the password by oral communication or snail mail.
 
-    B. The site admin can't provide a password and the system will send an
-       e-mail with a link to set the password (e-mail address validated).
+    B. The site admin can't provide a password and the system will
+       send an e-mail with a link to set the password (e-mail address
+       validated).
 
 
 1A. User joins and resets his password
@@ -213,7 +216,15 @@ First, we want to login as the portal owner:
 We navigate to the Users Overview page directly and register a new
 user:
 
-  >>> browser.open('http://nohost/plone/prefs_users_overview')
+  >>> browser.getLink('Site Setup').click()
+  >>> browser.getLink('Users and Groups Administration').click()
+  >>> browser.getControl('Add New User').click()
+  >>> browser.url
+  'http://nohost/plone/join_form?came_from_prefs=1'
+
+XXX DO STUFF
+
+  >>> browser.getLink('Log out').click()
 
 
 2B. Administrator adds user with email validation enabled
