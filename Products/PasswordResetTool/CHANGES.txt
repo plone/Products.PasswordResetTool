@@ -2,8 +2,11 @@ PasswordResetTool 0.4
   - use virtual host forwarded IP if present
   - i18n markup (translations in PloneTranslations)
    - fixed DTML markup to not fail on missing translations
+  - fixed root link in pwreset_expired template
   - deprectation warnings removed
   - tabindex not assumed present to be more CMF-friendly
+  - add stats to ZMI page
+  - implement expired record clearing on every request
 
 PasswordResetTool-0.3
   - Updated to use CMFFormController

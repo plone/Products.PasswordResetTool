@@ -95,12 +95,16 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         Returns a dictionary with the random string that must be
         used to reset the password in 'randomstring', the expiration date
         as a DateTime in 'expires', and the userid (for convenience) in
-        'userid'. Returns None if no such user."""
+        'userid'. Returns None if no such user.
+        """
         if not self.getValidUser(userid):
             return None
         randomstring = self.uniqueString(userid)
         expiry = self.expirationDate()
         self._requests[randomstring] = (userid, expiry)
+        
+        self.clearExpired(10)   # clear out untouched records more than 10 days old
+                                # this is a cheap sort of "automatic" clearing
         self._p_changed = 1
         
         retval = {}
@@ -185,11 +189,6 @@ class PasswordResetTool (UniqueObject, SimpleItem):
             pass  # that's okay, it must be a number of hours...
         return self._timedelta
 
-    security.declareProtected(ManagePortal, 'clearExpired')
-    def clearExpired(self):
-        """Destroys all expired reset request records."""
-        pass
-
     security.declareProtected(ManagePortal, 'toggleUserCheck')
     def toggleUserCheck(self):
         """Changes whether or not the tool requires someone to give the uerid
@@ -199,7 +198,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
             self._user_check = 1
 
         self._user_check = not self._user_check
-        
+
     security.declarePublic('checkUser')
     def checkUser(self):
         """Returns a boolean representing the state of 'user check' as described
@@ -224,7 +223,31 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         if not self.getValidUser(u):
             raise 'InvalidRequestError', 'No such user'
         
- 
+    security.declareProtected(ManagePortal, 'getStats')
+    def getStats(self):
+        """Return a dictionary like so:
+            {"open":3, "expired":0}
+        about the number of open and expired reset requests.
+        """
+        good = 0
+        bad = 0
+        for stored_user, expiry in self._requests.values():
+            if self.expired(expiry): bad += 1
+            else: good += 1
+
+        return {"open":good, "expired":bad}
+    
+    security.declarePrivate('clearExpired')
+    def clearExpired(self, days=0):
+        """Destroys all expired reset request records.
+        Parameter controls how many days past expired it must be to disappear.
+        """
+        for key, record in self._requests.items():
+            stored_user, expiry = record
+            if self.expired(expiry, DateTime()-days):
+                del self._requests[key]
+                self._p_changed = 1
+
     # customization points
 
     security.declarePrivate('uniqueString')

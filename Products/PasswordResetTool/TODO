@@ -5,12 +5,6 @@
 
 - error message on email failure?
 
-- have an upgrade method
+- BTree request holder, instead of dictionary (no more _p_changed!)
 
-- admin page for open reset requests, or at least a clean-up button
-
-Completed for 0.3
-
-* Plone 2 styles for forms
-
-* clean up pwreset_action redirect thing
+- have an upgrade method, when necessary

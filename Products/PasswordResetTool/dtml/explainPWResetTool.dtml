@@ -31,4 +31,11 @@
   <input type="submit" value="Turn User Check <dtml-var "checkUser() and 'off' or 'on'">" />
 </form>
 
+<h2>Information</h2>
+
+<dtml-let stats=getStats>
+<p>Open reset requests: <dtml-var "stats['open']"></p>
+<p>Expired reset requests: <dtml-var "stats['expired']"> (expired requests deleted after 10 days)</p>
+</dtml-let>
+
 <dtml-var manage_page_footer>
