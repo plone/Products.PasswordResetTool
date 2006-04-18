@@ -7,6 +7,7 @@ PasswordResetTool 0.4
   - tabindex not assumed present to be more CMF-friendly
   - add stats to ZMI page
   - implement expired record clearing on every request
+  - work around traversal bug with python: expressions instead of path expressions for attributes
 
 PasswordResetTool-0.3
   - Updated to use CMFFormController
