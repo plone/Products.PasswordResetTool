@@ -1,4 +1,3 @@
-from Products.CMFCore.TypesTool import ContentFactoryMetadata
 from Products.CMFCore.DirectoryView import addDirectoryViews
 from Products.CMFCore.utils import getToolByName
 from Products.PasswordResetTool import PasswordResetTool, product_globals

@@ -1,7 +1,8 @@
 PasswordResetTool 0.4
+  - Removed unused import in install code
   - use virtual host forwarded IP if present
   - i18n markup (translations in PloneTranslations)
-   - fixed DTML markup to not fail on missing translations
+  - fixed DTML markup to not fail on missing translations
   - fixed root link in pwreset_expired template
   - deprectation warnings removed
   - tabindex not assumed present to be more CMF-friendly
