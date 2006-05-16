@@ -29,7 +29,7 @@ if came_from is not None:
     if template_id in ['login', 'login_success', 'login_password', 'login_failed',
                        'login_form', 'logged_in', 'logged_out', 'registered',
                        'mail_password', 'mail_password_form', 'join_form',
-                       'require_login', 'member_search_results']:
+                       'require_login', 'member_search_results', 'pwreset_finish']:
         came_from = ''
     # It is probably a good idea in general to filter out urls outside the portal.
     # An added bonus: this fixes some problems with a Zope bug that doesn't
