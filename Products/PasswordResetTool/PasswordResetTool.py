@@ -87,7 +87,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     _timedelta = 24
 
     ## Interface fulfillment ##
-    security.declarePublic('requestReset')
+    security.declareProtected(ManagePortal, 'requestReset')
     def requestReset(self, userid):
         """Ask the system to start the password reset procedure for
         user 'userid'.
