@@ -1,8 +1,0 @@
-Author: J Cameron Cooper
-http://jcameroncooper.com
-
-Sponsor: The Connexions Project
-http://cnx.rice.edu
-
-Some skins derived from Plone originals
-http://plone.org
