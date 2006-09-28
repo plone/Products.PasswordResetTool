@@ -1,3 +1,8 @@
+PasswordResetTool 0.4.1
+
+  - protect requestRest method of the tool so it can not be called anonymously
+    through the web interface
+
 PasswordResetTool 0.4
   - Removed unused import in install code
   - use virtual host forwarded IP if present
