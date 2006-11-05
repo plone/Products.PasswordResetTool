@@ -1,3 +1,8 @@
+PasswordResetTool (unreleased)
+
+  - Fixed some minor whitespace issue in registered_notify_template.pt.
+    [hannosch]
+
 PasswordResetTool 0.4.1
 
   - protect requestRest method of the tool so it can not be called anonymously

@@ -12,11 +12,11 @@ Content-Type: text/plain; charset=<span tal:replace="here/portal_properties/site
      tal:omit-tag=""
      tal:define="fullname python: test(member.fullname,
                  ' ' + member.fullname, '')">
-    Welcome<span i18n:name="fullname" tal:replace="fullname" />,
+    Welcome <span i18n:name="fullname" tal:replace="fullname" />,
 
     You have been registered as a member of <span i18n:name="portal_name" tal:omit-tag="" tal:content="python:here.portal_url.getPortalObject().Title()" />, 
     which allows you to personalize your view of the website and participate in
-    the community. Please activate your account by visiting 
+    the community. Please activate your account by visiting
     
     <span i18n:name="set_password" tal:replace="python:here.pwreset_constructURL(reset['randomstring'])+'?userid='+member.getUserName()" />
     
