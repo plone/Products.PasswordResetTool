@@ -1,7 +1,11 @@
-PasswordResetTool (unreleased)
+PasswordResetTool 0.4.2
 
   - Fixed some minor whitespace issue in registered_notify_template.pt.
     [hannosch]
+
+  - allow password reset token to be passed in, in cases where we might not
+    have the permission to request a reset from within the template
+    [rafrombrc]
 
 PasswordResetTool 0.4.1
 
