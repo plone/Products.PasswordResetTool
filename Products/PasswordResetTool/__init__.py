@@ -1,4 +1,3 @@
-
 """Initialize PasswordResetTool Product"""
 
 import sys
@@ -10,8 +9,7 @@ this_module = sys.modules[ __name__ ]
 
 product_globals = globals()
 
-tools = ( PasswordResetTool.PasswordResetTool,
-          )
+tools = ( PasswordResetTool.PasswordResetTool, )
 
 # Make the skins available as DirectoryViews
 registerDirectory('skins', globals())
@@ -22,4 +20,3 @@ def initialize(context):
                     tools = tools,
                     icon='tool.gif' 
                     ).initialize( context )
-
