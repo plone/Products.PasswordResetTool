@@ -66,7 +66,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     manage_overview = DTMLFile('dtml/explainPWResetTool', globals() )
 
     security.declareProtected(ManagePortal, 'manage_setTimeout')
-    def manage_setTimeout(self, hours=24, REQUEST=None):
+    def manage_setTimeout(self, hours=168, REQUEST=None):
     	"""ZMI method for setting the expiration timeout in hours."""
 	self.setExpirationTimeout(int(hours))
         return self.manage_overview(manage_tabs_message="Timeout set to %s hours" % hours)   
@@ -84,7 +84,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     ## Internal attributes
     _user_check = 1
-    _timedelta = 24
+    _timedelta = 168
 
     ## Interface fulfillment ##
     security.declareProtected(ManagePortal, 'requestReset')
@@ -283,7 +283,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         This is used by housekeeping methods (like clearEpired)
         and stored in reset request records."""
         if not hasattr(self, '_timedelta'):
-            self._timedelta = 24
+            self._timedelta = 168
         try:
             if isinstance(self._timedelta,datetime.timedelta):
                 expire = datetime.datetime.utcnow() + self._timedelta
