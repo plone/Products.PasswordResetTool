@@ -1,3 +1,8 @@
+PasswordResetTool
+
+  - Replaced some last occurrences of the term member with user.
+    [hannosch]
+
 PasswordResetTool 0.4.2
 
   - Fixed some minor whitespace issue in registered_notify_template.pt.
