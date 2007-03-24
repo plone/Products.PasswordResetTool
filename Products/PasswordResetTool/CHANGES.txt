@@ -1,5 +1,10 @@
 PasswordResetTool
 
+  - Added the portal name to the subject in the registered_notify_template.pt,
+    so it's easier to distinguish those mails for various websites. This
+    closes http://dev.plone.org/plone/ticket/5242.
+    [hannosch]
+
   - Replaced some last occurrences of the term member with user.
     [hannosch]
 
