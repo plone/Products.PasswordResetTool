@@ -1,5 +1,9 @@
 PasswordResetTool
 
+  - If available use the email_charset property instead of default_charset to
+    encode mails.
+    [hannosch]
+
   - Added the portal name to the subject in the registered_notify_template.pt,
     so it's easier to distinguish those mails for various websites. This
     closes http://dev.plone.org/plone/ticket/5242.
