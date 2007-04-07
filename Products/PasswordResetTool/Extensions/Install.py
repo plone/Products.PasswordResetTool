@@ -1,5 +1,7 @@
+from zope.component import getUtility
+from Products.CMFCore.interfaces import ISiteRoot
+from Products.CMFCore.interfaces import ISkinsTool
 from Products.CMFCore.DirectoryView import addDirectoryViews
-from Products.CMFCore.utils import getToolByName
 from Products.PasswordResetTool import PasswordResetTool, product_globals
 from StringIO import StringIO
 import string
@@ -11,8 +13,7 @@ def install(self):
     out = StringIO()
 
     # Add the tool
-    urltool = getToolByName(self, 'portal_url')
-    portal = urltool.getPortalObject();
+    portal = getUtility(ISiteRoot)
     try:
         portal.manage_delObjects('portal_password_reset')
         out.write("Removed old portal_password_reset tool\n")
@@ -22,7 +23,7 @@ def install(self):
     out.write("Adding Password Reset Tool\n")
 
     # Setup the skins
-    skinstool = getToolByName(self, 'portal_skins')
+    skinstool = getUtility(ISkinsTool)
     if directory_name not in skinstool.objectIds():
         # We need to add Filesystem Directory Views for any directories
         # in our skins/ directory.  These directories should already be

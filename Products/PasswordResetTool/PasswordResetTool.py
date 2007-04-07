@@ -4,25 +4,20 @@ Mailback password reset product for CMF.
 Author: J Cameron Cooper, Sept 2003
 """
 
+from zope.component import getUtility
+from Products.CMFCore.interfaces import IMembershipTool
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
 from OFS.SimpleItem import SimpleItem
 from Globals import InitializeClass, DTMLFile
 from AccessControl import ClassSecurityInfo
-# BBB CMF < 1.5
-try:
-    from Products.CMFCore.permissions import View, ManagePortal
-except ImportError:
-    from Products.CMFCore.CMFCorePermissions import View, ManagePortal
+from Products.CMFCore.permissions import View, ManagePortal
 
 from interfaces.portal_password_reset import portal_password_reset as IPWResetTool
 
 import time, random, md5, socket
 from DateTime import DateTime
-try:
-    import datetime
-except ImportError:
-    pass # no Python 2.3. Pity.
+import datetime
 
 class PasswordResetTool (UniqueObject, SimpleItem):
     """Provides a default implementation for a password reset scheme.
@@ -284,25 +279,22 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         and stored in reset request records."""
         if not hasattr(self, '_timedelta'):
             self._timedelta = 168
-        try:
-            if isinstance(self._timedelta,datetime.timedelta):
-                expire = datetime.datetime.utcnow() + self._timedelta
-                return DateTime(expire.year,
-                                expire.month,
-                                expire.day,
-                                expire.hour,
-                                expire.minute,
-                                expire.second,
-                                'UTC')
-        except NameError:
-            pass  # that's okay, it must be a number of hours...
+        if isinstance(self._timedelta,datetime.timedelta):
+            expire = datetime.datetime.utcnow() + self._timedelta
+            return DateTime(expire.year,
+                            expire.month,
+                            expire.day,
+                            expire.hour,
+                            expire.minute,
+                            expire.second,
+                            'UTC')
         expire = time.time() + self._timedelta*3600  # 60 min/hr * 60 sec/min
         return DateTime(expire)
 
     security.declarePrivate('getValidUser')
     def getValidUser(self, userid):
         """Returns the member with 'userid' if available and None otherwise."""
-        membertool = getToolByName(self, 'portal_membership')
+        membertool = getUtility(IMembershipTool)
         return membertool.getMemberById(userid)
     
     # internal
