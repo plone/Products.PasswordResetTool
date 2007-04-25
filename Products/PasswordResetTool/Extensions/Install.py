@@ -1,6 +1,6 @@
 from zope.component import getUtility
 from Products.CMFCore.interfaces import ISiteRoot
-from Products.CMFCore.interfaces import ISkinsTool
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.DirectoryView import addDirectoryViews
 from Products.PasswordResetTool import PasswordResetTool, product_globals
 from StringIO import StringIO
@@ -23,7 +23,7 @@ def install(self):
     out.write("Adding Password Reset Tool\n")
 
     # Setup the skins
-    skinstool = getUtility(ISkinsTool)
+    skinstool = getToolByName(self, 'portal_skins')
     if directory_name not in skinstool.objectIds():
         # We need to add Filesystem Directory Views for any directories
         # in our skins/ directory.  These directories should already be
