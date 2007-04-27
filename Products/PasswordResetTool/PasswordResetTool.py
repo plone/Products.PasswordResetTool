@@ -4,20 +4,17 @@ Mailback password reset product for CMF.
 Author: J Cameron Cooper, Sept 2003
 """
 
-from zope.component import getUtility
-from Products.CMFCore.interfaces import IMembershipTool
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
 from OFS.SimpleItem import SimpleItem
 from Globals import InitializeClass, DTMLFile
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.permissions import View, ManagePortal
+from Products.CMFCore.permissions import ManagePortal
 
 from interfaces.portal_password_reset import portal_password_reset as IPWResetTool
 
-import time, random, md5, socket
+import datetime, time, random, md5, socket
 from DateTime import DateTime
-import datetime
 
 class PasswordResetTool (UniqueObject, SimpleItem):
     """Provides a default implementation for a password reset scheme.
@@ -294,7 +291,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     security.declarePrivate('getValidUser')
     def getValidUser(self, userid):
         """Returns the member with 'userid' if available and None otherwise."""
-        membertool = getUtility(IMembershipTool)
+        membertool = getToolByName(self, 'portal_membership')
         return membertool.getMemberById(userid)
     
     # internal

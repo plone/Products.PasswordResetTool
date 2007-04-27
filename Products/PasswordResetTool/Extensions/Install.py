@@ -2,7 +2,7 @@ from zope.component import getUtility
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.DirectoryView import addDirectoryViews
-from Products.PasswordResetTool import PasswordResetTool, product_globals
+from Products.PasswordResetTool import product_globals
 from StringIO import StringIO
 import string
 
