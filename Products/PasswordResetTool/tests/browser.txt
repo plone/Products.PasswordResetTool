@@ -31,7 +31,7 @@ distinct password policies regarding member registration.
      credentials is sent automatically).
 
 This policy can enabled or disabled in the ``validate_email`` property
-on the Plone Site object.  By default ``validate_email`` is disabled
+on the Plone Site object.  By default ``validate_email`` is enabled
 and the first policy applies.
 
 Another aspect we have to take into account is the fact that Plone by
@@ -80,6 +80,10 @@ What we do here:
   - Read the e-mail that contains the URL we visit to reset our password
   - Reset our password
   - Log in with our new password
+
+First we need to turn on explicit password entry, by setting``validate_email`` to False:
+
+  >>> portal.portal_properties.site_properties.validate_email = False
 
 Let's join as a member.  Plone's default settings will let the user
 type in his initial password:
