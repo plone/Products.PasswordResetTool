@@ -1,5 +1,7 @@
 PasswordResetTool
 
+PasswordResetTool 0.4.3
+
   - If available use the email_charset property instead of default_charset to
     encode mails.
     [hannosch]
