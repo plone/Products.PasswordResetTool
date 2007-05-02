@@ -1,5 +1,10 @@
 PasswordResetTool
 
+PasswordResetTool 0.4.4
+
+    - Backported usability enhancements in mail_password_form from trunk.
+      [hannosch]
+
 PasswordResetTool 0.4.3
 
   - If available use the email_charset property instead of default_charset to
