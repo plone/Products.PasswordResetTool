@@ -12,7 +12,7 @@ Note that our usage of testbrowser is unusual and inconsistent, mostly
 because Plone forms have inconsistencies and because testbrowser makes
 assumptions that are not true for Plone forms.
 
-  >>> from Products.PasswordResetTool.tests.utils import Browser
+  >>> from Products.Five.testbrowser import Browser
   >>> browser = Browser()
   >>> browser.open('http://nohost/plone/')
 

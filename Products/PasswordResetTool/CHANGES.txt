@@ -1,5 +1,8 @@
 PasswordResetTool
 
+  - Updated tests to work with Zope 2.10 / Plone 3.0.
+    [hannosch]
+
   - Converted mail_password_template from a dtml page to a Page Template, as
     dtml pages cannot be translated anymore.
     [hannosch]
