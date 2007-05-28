@@ -7,18 +7,16 @@ import unittest
 from Testing.ZopeTestCase import FunctionalDocFileSuite
 from Products.PloneTestCase import PloneTestCase
 
-PloneTestCase.installProduct('PlacelessTranslationService')
-PloneTestCase.installProduct('PasswordResetTool')
-PloneTestCase.setupPloneSite(products=['PasswordResetTool'])
+PloneTestCase.setupPloneSite()
 
-from Products.PasswordResetTool.tests import utils
+from Products.PasswordResetTool.tests.utils import MockMailHost
 
 
 class MockMailHostTestCase(PloneTestCase.FunctionalTestCase):
 
     def afterSetUp(self):
         self.portal._original_MailHost = self.portal.MailHost
-        self.portal.MailHost = utils.MockMailHost('MailHost')
+        self.portal.MailHost = MockMailHost('MailHost')
 
     def beforeTearDown(self):
         self.portal.MailHost = self.portal._original_MailHost

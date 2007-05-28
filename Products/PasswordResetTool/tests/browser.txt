@@ -4,14 +4,11 @@ Functional tests for PasswordResetTool
 Introduction
 ------------
 
-For this test, we're going to use ``zope.testbrowser``.  This package
-is included with Zope 3.2 which is included in Zope 2.9, and it has
-excellent documentation in its ``README.txt``.
-
 Note that our usage of testbrowser is unusual and inconsistent, mostly
 because Plone forms have inconsistencies and because testbrowser makes
 assumptions that are not true for Plone forms.
 
+  >>> from Products.PloneTestCase import PloneTestCase as PTC
   >>> from Products.Five.testbrowser import Browser
   >>> browser = Browser()
   >>> browser.open('http://nohost/plone/')
@@ -31,12 +28,12 @@ distinct password policies regarding member registration.
      credentials is sent automatically).
 
 This policy can enabled or disabled in the ``validate_email`` property
-on the Plone Site object.  By default ``validate_email`` is disabled
-and the first policy applies.
+on the Plone Site object.  By default ``validate_email`` is enabled
+and the second policy applies.
 
 Another aspect we have to take into account is the fact that Plone by
-default allows both Anonymous users to register themselves (by joining
-the Portal) and Administrators to register (other) members.
+default only allows Administrators to register (other) members, but allowing
+users to register themselves can be enabled.
 
 Users of PasswordResetTool don't want any credentials to be sent out
 via e-mail.  Instead, PasswordResetTool sends out an e-mail containing
@@ -81,10 +78,34 @@ What we do here:
   - Reset our password
   - Log in with our new password
 
-Let's join as a member.  Plone's default settings will let the user
-type in his initial password:
+Let's join as a new user. Plone's default settings won't let the user
+type in his initial password, so we need to enable that:
 
-  >>> browser.getLink('Join').click()
+  >>> browser.getLink('Log in').click()
+  >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
+  >>> browser.getControl(name='__ac_password').value = PTC.default_password
+  >>> browser.getControl(name='submit').click()
+  >>> "You are now logged in" in browser.contents
+  True
+
+Let's go directly to the security control panel:
+
+  >>> browser.open('http://nohost/plone/@@security-controlpanel')
+  >>> ctrl = browser.getControl("Enable self-registration")
+  >>> ctrl.selected = True
+  >>> ctrl = browser.getControl("Let users select their own passwords")
+  >>> ctrl.selected = True
+  >>> browser.getControl(name="form.actions.save").click()
+
+Log out again and then join:
+
+  >>> browser.getLink('Log out').click()
+  >>> "You are now logged out" in browser.contents
+  True
+
+Now register a new user:
+
+  >>> browser.open('http://nohost/plone/join_form')
   >>> browser.url
   'http://nohost/plone/join_form'
 
@@ -195,7 +216,6 @@ Log out again:
 
 First, we want to login as the portal owner:
 
-  >>> from Products.PloneTestCase import PloneTestCase as PTC
   >>> browser.getLink('Log in').click()
   >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
   >>> browser.getControl(name='__ac_password').value = PTC.default_password
