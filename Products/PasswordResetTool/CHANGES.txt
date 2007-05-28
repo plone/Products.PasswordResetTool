@@ -1,5 +1,9 @@
 PasswordResetTool
 
+  - Converted mail_password_template from a dtml page to a Page Template, as
+    dtml pages cannot be translated anymore.
+    [hannosch]
+
   - If available use the email_charset property instead of default_charset to
     encode mails.
     [hannosch]
