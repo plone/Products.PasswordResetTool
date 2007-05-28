@@ -2,14 +2,9 @@
 PasswordResetTool doctests
 """
 
-import os, sys
-
-if __name__ == '__main__':
-    execfile(os.path.join(sys.path[0], 'framework.py'))
-
 import doctest
 import unittest
-from Testing.ZopeTestCase import FunctionalDocFileSuite, FunctionalDocTestSuite
+from Testing.ZopeTestCase import FunctionalDocFileSuite
 from Products.PloneTestCase import PloneTestCase
 
 PloneTestCase.installProduct('PlacelessTranslationService')
@@ -42,7 +37,3 @@ def test_suite():
                                package='Products.PasswordResetTool.tests',
                                test_class=MockMailHostTestCase),
         ))
-
-if __name__ == '__main__':
-    framework()
-
