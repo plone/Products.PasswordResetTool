@@ -154,9 +154,9 @@ own version.  Our version doesn't mail messages, it just collects them
 in a list called ``messages``:
 
   >>> mailhost = self.portal.MailHost
-  >>> mailhost.messages # doctest: +ELLIPSIS
-  [<email.Message.Message instance ...>]
-  >>> msg = str(mailhost.messages[-1])
+  >>> len(mailhost.messages)
+  1
+  >>> msg = mailhost.messages[0]
 
 Now that we have the message, we want to look at its contents, and
 then we extract the address that lets us reset our password:
@@ -226,7 +226,7 @@ First, we want to login as the portal owner:
 We navigate to the Users Overview page and register a new user:
 
   >>> browser.getLink('Site Setup').click()
-  >>> browser.getLink('Users and Groups Administration').click()
+  >>> browser.getLink('Users and Groups').click()
   >>> browser.getControl('Add New User').click()
   >>> browser.url
   'http://nohost/plone/join_form?came_from_prefs=1'
@@ -267,11 +267,11 @@ First off, we need to set ``validate_mail`` to False:
   >>> "You are now logged in" in browser.contents
   True
 
-Let's go directly to the ``reconfig_form``:
+Let's go directly to the security control panel:
 
-  >>> browser.open('http://nohost/plone/reconfig_form')
-  >>> ctrl = browser.getControl("Generate and e-mail user's initial password")
-  >>> ctrl.selected = True
+  >>> browser.open('http://nohost/plone/@@security-controlpanel')
+  >>> ctrl = browser.getControl("Let users select their own passwords")
+  >>> ctrl.selected = False
   >>> browser.getControl('Save').click()
 
 Log out again and then join:
@@ -280,7 +280,7 @@ Log out again and then join:
   >>> "You are now logged out" in browser.contents
   True
 
-  >>> browser.getLink('Join').click()
+  >>> browser.getLink('Register').click()
   >>> browser.getControl(name='username').value = 'bsmith'
   >>> browser.getControl(name='email').value = 'bsmith@example.com'
 
@@ -309,7 +309,7 @@ then we extract the address that lets us reset our password:
 
   >>> "To: bsmith@example.com" in msg
   True
-  >>> please_visit_text = "Please activate your account by visiting"
+  >>> please_visit_text = "Please activate it by visiting"
   >>> please_visit_text in msg
   True
   >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
@@ -362,7 +362,7 @@ First, we want to login as the portal owner:
 We navigate to the Users Overview page and register a new user:
 
   >>> browser.getLink('Site Setup').click()
-  >>> browser.getLink('Users and Groups Administration').click()
+  >>> browser.getLink('Users and Groups').click()
   >>> browser.getControl('Add New User').click()
   >>> browser.url
   'http://nohost/plone/join_form?came_from_prefs=1'
@@ -396,7 +396,6 @@ then we extract the address that lets us reset our password:
 
   >>> "To: wwwsmith@example.com" in msg
   True
-  >>> please_visit_text = "Please activate your account by visiting"
   >>> please_visit_text in msg
   True
   >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
