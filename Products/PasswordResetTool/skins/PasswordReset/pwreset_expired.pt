@@ -11,7 +11,7 @@
             <span i18n:name="hours" tal:replace="here/portal_password_reset/getExpirationTimeout" />
             hours. This URL has expired, but you may
             <span i18n:name="message_request_new">
-               <a href="/pwreset_form" tal:attributes="href string:$portal_url/pwreset_form"
+               <a href="/mail_password_form" tal:attributes="href string:$portal_url/mail_password_form"
                   i18n:translate="message_request_new">request a new one</a></span>.
         </p>
     </div>
