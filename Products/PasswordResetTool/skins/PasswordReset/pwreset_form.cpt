@@ -33,13 +33,13 @@
 	                   tal:condition="here/portal_password_reset/checkUser | nothing">
                      
                     <label for="userid" 
-                           i18n:translate="label_my_user_name_is">My user name is</label>
+                           i18n:translate="label_my_login_name_is">My login name is</label>
 	                   <div tal:content="error">Validation error output</div>
 
                     <div class="formHelp"
                          i18n:domain="passwordresettool"
                          i18n:translate="help_userid">
-                        Enter your user name for verification.
+                        Enter your login name for verification.
                     </div>
 
                     <input name="userid"
