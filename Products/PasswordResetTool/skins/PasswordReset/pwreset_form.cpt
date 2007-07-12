@@ -39,7 +39,7 @@
                     <div class="formHelp"
                          i18n:domain="passwordresettool"
                          i18n:translate="help_userid">
-                        Enter your login name for verification.
+                        Enter your user name for verification.
                     </div>
 
                     <input name="userid"

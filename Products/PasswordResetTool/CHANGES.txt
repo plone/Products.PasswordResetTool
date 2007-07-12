@@ -1,6 +1,6 @@
 PasswordResetTool 1.0rc2
 
-  - Fixed two occurrences of the term login name which wasn't used anywhere so
+  - Fixed four occurrences of the term login name which wasn't used anywhere so
     far. We only use user id and user name.
     [hannosch]
 
