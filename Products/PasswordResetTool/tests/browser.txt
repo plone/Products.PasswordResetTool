@@ -91,10 +91,10 @@ type in his initial password, so we need to enable that:
 Let's go directly to the security control panel:
 
   >>> browser.open('http://nohost/plone/@@security-controlpanel')
-  >>> ctrl = browser.getControl("Enable self-registration")
-  >>> ctrl.selected = True
-  >>> ctrl = browser.getControl("Let users select their own passwords")
-  >>> ctrl.selected = True
+  >>> ctrl = browser.getControl(name="form.enable_self_reg")
+  >>> ctrl.value = "on"
+  >>> ctrl = browser.getControl(name="form.enable_user_pwd_choice")
+  >>> ctrl.value = "on"
   >>> browser.getControl(name="form.actions.save").click()
 
 Log out again and then join:
