@@ -1,4 +1,4 @@
-PasswordResetTool
+PasswordResetTool 1.0rc1
 
   - Updated tests to work with Zope 2.10 / Plone 3.0.
     [hannosch]
