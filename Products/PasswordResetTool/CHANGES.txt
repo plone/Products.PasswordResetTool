@@ -1,3 +1,9 @@
+PasswordResetTool 1.0rc2
+
+  - Fixed two occurrences of the term login name which wasn't used anywhere so
+    far. We only use user id and user name.
+    [hannosch]
+
 PasswordResetTool 1.0rc1
 
   - Updated tests to work with Zope 2.10 / Plone 3.0.
