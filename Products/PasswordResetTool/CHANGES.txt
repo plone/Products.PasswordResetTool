@@ -1,3 +1,9 @@
+  - Providing 'fullname' now for email notification. This does not really
+    close http://dev.plone.org/plone/ticket/6680, but makes it possible to
+    use the information the user provided in the mail notification (and its
+    translations).
+    [gogo] g.bernhard@akbild.ac.at 07.08.2007
+
 PasswordResetTool 1.0rc2
 
   - Fixed four occurrences of the term login name which wasn't used anywhere so

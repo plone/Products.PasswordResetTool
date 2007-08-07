@@ -10,8 +10,7 @@ Content-Type: text/plain; charset=<span tal:replace="here/email_charset|here/por
 <div i18n:domain="passwordresettool"
      i18n:translate="mailtemplate_registered_user_body"
      tal:omit-tag=""
-     tal:define="fullname python: test(member.fullname,
-                 ' ' + member.fullname, '')">
+     tal:define="fullname python:getattr(here.REQUEST, 'fullname', '')">
     Welcome <span i18n:name="fullname" tal:replace="fullname" />,
 
     your user account has been created. Please activate it by visiting
