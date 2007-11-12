@@ -1,3 +1,9 @@
+PasswordResetTool 1.1
+
+  - Removed i18n folder. Translations are part of the PloneTranslations
+    product for some time now.
+    [hannosch]
+
 PasswordResetTool 1.0
 
   - Providing 'fullname' now for email notification. This does not really
