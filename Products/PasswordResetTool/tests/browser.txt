@@ -236,6 +236,8 @@ We navigate to the Users Overview page and register a new user:
   >>> browser.getControl(name='password').value = 'supersecret'
   >>> browser.getControl(name='password_confirm').value = 'supersecret'
   >>> browser.getControl(name='form.button.Register').click()
+  >>> 'User added.' in browser.contents
+  True
 
 XXX Make sure we don't have a way to send the credentials via e-mail.
 
@@ -244,6 +246,7 @@ We want to logout and login as the new member:
   >>> browser.getLink('Log out').click()
   >>> browser.getControl("Login Name").value = 'wsmith'
   >>> browser.getControl("Password").value = 'supersecret'
+  >>> browser.open('http://nohost/plone/login_form')
   >>> browser.getControl("Log in").click()
   >>> "You are now logged in" in browser.contents
   True
