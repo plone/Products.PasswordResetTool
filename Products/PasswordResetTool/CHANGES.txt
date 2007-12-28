@@ -1,5 +1,8 @@
 PasswordResetTool 1.1
 
+  - Fixed browser tests.
+    [hannosch]
+
   - Removed i18n folder. Translations are part of the PloneTranslations
     product for some time now.
     [hannosch]

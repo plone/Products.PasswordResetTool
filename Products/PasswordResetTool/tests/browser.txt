@@ -244,10 +244,10 @@ XXX Make sure we don't have a way to send the credentials via e-mail.
 We want to logout and login as the new member:
 
   >>> browser.getLink('Log out').click()
-  >>> browser.getControl("Login Name").value = 'wsmith'
-  >>> browser.getControl("Password").value = 'supersecret'
-  >>> browser.open('http://nohost/plone/login_form')
-  >>> browser.getControl("Log in").click()
+  >>> browser.open('http://nohost/plone/')
+  >>> browser.getControl(name='__ac_name').value = 'wsmith'
+  >>> browser.getControl(name='__ac_password').value = 'supersecret'
+  >>> browser.getControl(name='submit').click()
   >>> "You are now logged in" in browser.contents
   True
 
