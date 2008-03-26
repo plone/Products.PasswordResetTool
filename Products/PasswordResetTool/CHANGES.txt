@@ -1,7 +1,13 @@
-PasswordResetTool 1.1
+PasswordResetTool 1.1 - Released March 26, 2008
 
   - Fixed browser tests.
     [hannosch]
+
+  - Set correct i18n:domain on subject, fixes #7217.
+    [martior]
+
+  - Move trunk into the egg.
+    [wichert]
 
   - Removed i18n folder. Translations are part of the PloneTranslations
     product for some time now.
