@@ -7,13 +7,10 @@ setup(name='Products.PasswordResetTool',
       description="password reset tool for Plone",
       long_description="""\
 """,
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
-        "Framework :: Zope3",
         "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='password reset plone',
       author='J. Cameron Cooper',
@@ -27,7 +24,4 @@ setup(name='Products.PasswordResetTool',
       install_requires=[
           'setuptools',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
       )
