@@ -3,12 +3,7 @@
 
 """Fairly secure password reset interface"""
 
-from Interface import Attribute
-try:
-    from Interface import Interface
-except ImportError:
-    # for Zope versions before 2.6.0
-    from Interface import Base as Interface
+from zope.interface import Interface, Attribute
 
 class portal_password_reset(Interface):
     """Defines an interface for a tool that provides a facility to

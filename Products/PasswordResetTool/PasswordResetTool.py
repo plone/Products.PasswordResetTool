@@ -15,6 +15,7 @@ from interfaces.portal_password_reset import portal_password_reset as IPWResetTo
 
 import datetime, time, random, md5, socket
 from DateTime import DateTime
+from zope.interface import implements
 
 class PasswordResetTool (UniqueObject, SimpleItem):
     """Provides a default implementation for a password reset scheme.
@@ -39,7 +40,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     # The latter will work only with Plone 1.1 => hence, the if
     #if hasattr(ActionProviderBase, '__implements__'):
     #    __implements__ = (IPWResetTool, ActionProviderBase.__implements__)
-    __implements__ = (IPWResetTool)
+    implements(IPWResetTool)
 
     id = 'portal_password_reset'
     meta_type = 'Password Reset Tool'
