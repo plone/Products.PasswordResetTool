@@ -1,5 +1,8 @@
 PasswordResetTool 1.2 - Unreleased
 
+  - Added i18n domain for the userid label in the password reset
+    form. [markvl]
+
   - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
     [elro]
 
@@ -24,7 +27,7 @@ PasswordResetTool 1.0
     close http://dev.plone.org/plone/ticket/6680, but makes it possible to
     use the information the user provided in the mail notification (and its
     translations).
-    [gogo] 
+    [gogo]
 
 PasswordResetTool 1.0rc2
 
