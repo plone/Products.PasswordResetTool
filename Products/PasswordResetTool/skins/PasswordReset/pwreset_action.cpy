@@ -16,6 +16,8 @@ except 'ExpiredRequestError':
     status = "expired"
 except 'InvalidRequestError':
     status = "invalid"
+except RuntimeError:
+    status = "invalid"
 
 return state.set(status=status)
 
