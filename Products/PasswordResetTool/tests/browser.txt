@@ -81,6 +81,7 @@ What we do here:
 Let's join as a new user. Plone's default settings won't let the user
 type in his initial password, so we need to enable that:
 
+  >>> browser.open('http://nohost/plone/login')
   >>> browser.getLink('Log in').click()
   >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
   >>> browser.getControl(name='__ac_password').value = PTC.default_password
@@ -139,12 +140,12 @@ Log out again:
   True
 
 Now it is time to forget our password and click the ``Forgot your
-password`` in the portlet:
+password`` in the login form:
 
-  >>> browser.open('http://nohost/plone')
-  >>> browser.getLink('Forgot your password?').click()
-  >>> browser.url
-  'http://nohost/plone/mail_password_form'
+  >>> browser.open('http://nohost/plone/login')
+  >>> browser.getLink('click here to retrieve it').click()
+  >>> browser.url.startswith('http://nohost/plone/mail_password_form')
+  True
   >>> form = browser.getForm(name='mail_password')
   >>> form.getControl(name='userid').value = 'jsmith'
   >>> form.submit()
@@ -189,6 +190,7 @@ We can now login using our new password:
   True
   >>> browser.url
   'http://nohost/plone/pwreset_finish'
+  >>> browser.open('http://nohost/plone/login')
   >>> browser.getControl(name='__ac_name').value = 'jsmith'
   >>> browser.getControl(name='__ac_password').value = 'secretion'
   >>> browser.getControl(name='submit').click()
@@ -216,7 +218,7 @@ Log out again:
 
 First, we want to login as the portal owner:
 
-  >>> browser.getLink('Log in').click()
+  >>> browser.open('http://nohost/plone/login')
   >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
   >>> browser.getControl(name='__ac_password').value = PTC.default_password
   >>> browser.getControl(name='submit').click()
@@ -244,7 +246,7 @@ XXX Make sure we don't have a way to send the credentials via e-mail.
 We want to logout and login as the new member:
 
   >>> browser.getLink('Log out').click()
-  >>> browser.open('http://nohost/plone/')
+  >>> browser.open('http://nohost/plone/login')
   >>> browser.getControl(name='__ac_name').value = 'wsmith'
   >>> browser.getControl(name='__ac_password').value = 'supersecret'
   >>> browser.getControl(name='submit').click()
@@ -263,7 +265,7 @@ password.
 
 First off, we need to set ``validate_mail`` to False:
 
-  >>> browser.getLink('Log in').click()
+  >>> browser.open('http://nohost/plone/login')
   >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
   >>> browser.getControl(name='__ac_password').value = PTC.default_password
   >>> browser.getControl(name='submit').click()
@@ -333,6 +335,7 @@ Now that we have the address, we will reset our password:
 
 Now we can log in:
 
+  >>> browser.open('http://nohost/plone/login')
   >>> browser.getControl("Login Name").value = 'bsmith'
   >>> browser.getControl("Password").value = 'secret'
   >>> browser.getControl("Log in").click()
@@ -355,7 +358,7 @@ e-mail is sent containing the URL that lets the user log in.
 First, we want to login as the portal owner:
 
   >>> from Products.PloneTestCase import PloneTestCase as PTC
-  >>> browser.getLink('Log in').click()
+  >>> browser.open('http://nohost/plone/login')
   >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
   >>> browser.getControl(name='__ac_password').value = PTC.default_password
   >>> browser.getControl(name='submit').click()
@@ -419,6 +422,7 @@ Now that we have the address, we will reset our password:
 
 Now we can log in:
 
+  >>> browser.open('http://nohost/plone/login')
   >>> browser.getControl("Login Name").value = 'wwwsmith'
   >>> browser.getControl("Password").value = 'superstr0ng'
   >>> browser.getControl("Log in").click()
