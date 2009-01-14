@@ -7,15 +7,22 @@ Author: J Cameron Cooper, Sept 2003
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
 from OFS.SimpleItem import SimpleItem
-from Globals import InitializeClass, DTMLFile
+from App.class_init import InitializeClass
+from App.special_dtml import DTMLFile
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.permissions import ManagePortal
 
 from interfaces.portal_password_reset import portal_password_reset as IPWResetTool
 
-import datetime, time, random, md5, socket
+import datetime, time, random, socket
 from DateTime import DateTime
 from zope.interface import implements
+
+try:
+    from hashlib import md5
+except:
+    from md5 import md5
+
 
 class PasswordResetTool (UniqueObject, SimpleItem):
     """Provides a default implementation for a password reset scheme.
@@ -265,7 +272,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
             # if we can't get a network address, just imagine one
             a = random.random()*100000000000000000L
         data = str(t)+' '+str(r)+' '+str(a)#+' '+str(args)
-        data = md5.md5(data).hexdigest()
+        data = md5(data).hexdigest()
         return str(data)
 
     security.declarePrivate('expirationDate')

@@ -21,7 +21,16 @@ setup(name='Products.PasswordResetTool',
       namespace_packages=['Products'],
       include_package_data=True,
       zip_safe=False,
+      extras_require=dict(
+        test=[
+            'Products.PloneTestCase',
+        ]
+      ),
       install_requires=[
           'setuptools',
+          'zope.interface',
+          'Products.CMFCore'
+          # 'DateTime',
+          # 'Zope2',
       ],
       )
