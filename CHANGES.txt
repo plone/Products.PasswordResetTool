@@ -1,0 +1,120 @@
+Changelog
+=========
+
+2.0 - Unreleased
+----------------
+
+- Cleaned up package metadata and general codebase.
+  [hannosch]
+
+- Declare package dependencies, fixed deprecation warnings for use of
+  Globals and fixed deprecation warnings for the md5 module.
+  [hannosch]
+
+1.2 - Unreleased
+----------------
+
+- Adjusted browser tests to no longer rely on the login portlet.
+  [hannosch]
+
+- Catch RunTimeError when changing a password fails. Fixes #5742.
+  [maurits]
+
+- Added i18n domain for the userid label in the password reset
+  form. [markvl]
+
+- Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
+  [elro]
+
+1.1 - 2008-03-26
+----------------
+
+- Fixed browser tests.
+  [hannosch]
+
+- Set correct i18n:domain on subject, fixes #7217.
+  [martior]
+
+- Move trunk into the egg.
+  [wichert]
+
+- Removed i18n folder. Translations are part of the PloneTranslations
+  product for some time now.
+  [hannosch]
+
+1.0
+---
+
+- Providing 'fullname' now for email notification. This does not really
+  close http://dev.plone.org/plone/ticket/6680, but makes it possible to
+  use the information the user provided in the mail notification (and its
+  translations).
+  [gogo]
+
+1.0rc2
+------
+
+- Fixed four occurrences of the term login name which wasn't used anywhere so
+  far. We only use user id and user name.
+  [hannosch]
+
+1.0rc1
+------
+
+- Updated tests to work with Zope 2.10 / Plone 3.0.
+  [hannosch]
+
+- Converted mail_password_template from a dtml page to a Page Template, as
+  dtml pages cannot be translated anymore.
+  [hannosch]
+
+- If available use the email_charset property instead of default_charset to
+  encode mails.
+  [hannosch]
+
+- Added the portal name to the subject in the registered_notify_template.pt,
+  so it's easier to distinguish those mails for various websites. This
+  closes http://dev.plone.org/plone/ticket/5242.
+  [hannosch]
+
+- Replaced some last occurrences of the term member with user.
+  [hannosch]
+
+0.4.2
+-----
+
+- Fixed some minor whitespace issue in registered_notify_template.pt.
+  [hannosch]
+
+- allow password reset token to be passed in, in cases where we might not
+  have the permission to request a reset from within the template
+  [rafrombrc]
+
+0.4.1
+-----
+
+- protect requestRest method of the tool so it can not be called anonymously
+  through the web interface
+
+0.4
+---
+
+- Removed unused import in install code
+- use virtual host forwarded IP if present
+- i18n markup (translations in PloneTranslations)
+- fixed DTML markup to not fail on missing translations
+- fixed root link in pwreset_expired template
+- deprectation warnings removed
+- tabindex not assumed present to be more CMF-friendly
+- add stats to ZMI page
+- implement expired record clearing on every request
+- work around traversal bug with python: expressions instead of path expressions for attributes
+
+0.3
+---
+
+- Updated to use CMFFormController
+- Support for using to set initial account passwords
+- Verify token before prompting user for new password
+- Generated URLs don't use query strings
+- Fixes to work with CMFMember

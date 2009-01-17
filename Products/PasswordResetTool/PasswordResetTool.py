@@ -42,16 +42,10 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     #  - password reset form
     #  - password reset form handler script
 
-    ## Tool/CMF/Zope machinery
-
-    # The latter will work only with Plone 1.1 => hence, the if
-    #if hasattr(ActionProviderBase, '__implements__'):
-    #    __implements__ = (IPWResetTool, ActionProviderBase.__implements__)
     implements(IPWResetTool)
 
     id = 'portal_password_reset'
     meta_type = 'Password Reset Tool'
-    #_actions = ()
 
     security = ClassSecurityInfo()
 
@@ -67,14 +61,14 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     security.declareProtected(ManagePortal, 'manage_setTimeout')
     def manage_setTimeout(self, hours=168, REQUEST=None):
-    	"""ZMI method for setting the expiration timeout in hours."""
-	self.setExpirationTimeout(int(hours))
+        """ZMI method for setting the expiration timeout in hours."""
+        self.setExpirationTimeout(int(hours))
         return self.manage_overview(manage_tabs_message="Timeout set to %s hours" % hours)   
 
     security.declareProtected(ManagePortal, 'manage_toggleUserCheck')
     def manage_toggleUserCheck(self, REQUEST=None):
-    	"""ZMI method for toggling the flag for checking user names on return."""
-	self.toggleUserCheck()
+        """ZMI method for toggling the flag for checking user names on return."""
+        self.toggleUserCheck()
         m = self.checkUser() and 'on' or 'off'
         return self.manage_overview(manage_tabs_message="Returning username check turned %s" % m)
 
@@ -312,28 +306,5 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         if not now:
             now = DateTime()
         return now.greaterThanEqualTo(datetime)
-
-# these are possible customization points I'm not really sure we need.
-#
-#    def getRequestRecord(self, randomstring):
-#        """Returns a tuple (userid,expiration) that maps to a specific
-#        reset request, as keyed by the 'randomstring'.
-#
-#        Expiration is a DateTime."""
-#
-#    def setRequestRecord(self, randomstring, userid, expiry):
-#        """Create a reset request record keyed by 'randomstring'
-#        containing 'userid' and 'expiry' (which should be a DateTime)."""
-#
-#    def removeRequestRecord(self, randomstring):
-#        """Destroy the request reset record keyed by 'randomstring'."""
-#
-#    def getAllRequests(self):
-#        """Returns a list of all reset requests in a tuple
-#        '(randomstring, userid, expiry)'.
-#
-#        Used primarily for housekeeping. Expiry is a DateTime."""
-
-    # def # bobo_traverse_override to get URL as above
 
 InitializeClass(PasswordResetTool)

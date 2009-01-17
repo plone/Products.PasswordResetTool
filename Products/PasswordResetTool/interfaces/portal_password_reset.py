@@ -1,8 +1,3 @@
-# Copyright (c) 2003 The Connexions Project, All Rights Reserved
-# Written by J. Cameron Cooper
-
-"""Fairly secure password reset interface"""
-
 from zope.interface import Interface, Attribute
 
 class portal_password_reset(Interface):

@@ -1,15 +1,16 @@
 from setuptools import setup, find_packages
 
-version = '1.2'
+version = '2.0'
 
 setup(name='Products.PasswordResetTool',
       version=version,
-      description="password reset tool for Plone",
-      long_description="""\
-""",
+      description="Password reset tool for Plone",
+      long_description=open("README.txt").read() + "\n" + \
+              open("CHANGES.txt").read(),
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
+        "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
         ],
       keywords='password reset plone',
@@ -30,7 +31,7 @@ setup(name='Products.PasswordResetTool',
           'setuptools',
           'zope.interface',
           'Products.CMFCore'
-          # 'DateTime',
-          # 'Zope2',
+          'DateTime',
+          'Zope2',
       ],
       )
