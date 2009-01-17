@@ -3,8 +3,6 @@
 from Products.CMFCore import utils
 import PasswordResetTool
 
-product_globals = globals()
-
 tools = ( PasswordResetTool.PasswordResetTool, )
 
 def initialize(context):

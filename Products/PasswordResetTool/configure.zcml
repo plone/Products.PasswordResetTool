@@ -1,12 +1,21 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:cmf="http://namespaces.zope.org/cmf"
-    i18n_domain="Products.PasswordResetTool">
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:cmf="http://namespaces.zope.org/cmf"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  i18n_domain="Products.PasswordResetTool">
 
   <cmf:registerDirectory
       name="skins"
       directory="skins"
       recursive="True"
+      />
+
+  <genericsetup:registerProfile
+      name="PasswordResetTool"
+      title="PasswordResetTool"
+      directory="profiles/default"
+      description="Extension profile for default PasswordResetTool setup."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
 </configure>

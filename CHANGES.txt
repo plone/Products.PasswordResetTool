@@ -4,6 +4,9 @@ Changelog
 2.0 - Unreleased
 ----------------
 
+- Converted installation code to a GenericSetup profile.
+  [hannosch]
+
 - Cleaned up package metadata and general codebase.
   [hannosch]
 
