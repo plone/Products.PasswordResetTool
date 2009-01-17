@@ -30,7 +30,7 @@ setup(name='Products.PasswordResetTool',
       install_requires=[
           'setuptools',
           'zope.interface',
-          'Products.CMFCore'
+          'Products.CMFCore',
           'DateTime',
           'Zope2',
       ],
