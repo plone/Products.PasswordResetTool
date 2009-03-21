@@ -1,11 +1,12 @@
 <tal:root define="lt string:&lt;;gt string:&gt;;
                   dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;; charset=%s' % here.plone_utils.getSiteEncoding());
                   member python:options['member'];
+                  portal_properties context/@@plone_tools/properties;
                   reset python:options.get('reset', None) or here.portal_password_reset.requestReset(member.getId())"
 >From: "<span tal:replace="python:here.email_from_name" />" <span tal:replace="structure lt"/><span tal:replace="python:here.email_from_address" /><span tal:replace="structure gt"/>
 To: <span tal:replace="python:member.getProperty('email')" />
 Subject: <span i18n:domain="passwordresettool" i18n:translate="mailtemplate_user_account_info" tal:omit-tag="">User Account Information for <span i18n:name="portal_name" tal:omit-tag="" tal:content="python:here.portal_url.getPortalObject().Title()" /></span>
-Content-Type: text/plain; charset=<span tal:replace="here/email_charset|here/portal_properties/site_properties/default_charset|string:utf-8" />
+Content-Type: text/plain; charset=<span tal:replace="here/email_charset|portal_properties/site_properties/default_charset|string:utf-8" />
 
 <div i18n:domain="passwordresettool"
      i18n:translate="mailtemplate_registered_user_body"
