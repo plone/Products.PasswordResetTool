@@ -20,6 +20,12 @@ Changelog
 1.2 - Unreleased
 ----------------
 
+- Internationalized dates in mail_password_template.
+  [vincentfretin]
+
+- Removed duplicate DOCTYPE definition from mail_password_form.
+  [limi]
+
 - Adjusted browser tests to no longer rely on the login portlet.
   [hannosch]
 
