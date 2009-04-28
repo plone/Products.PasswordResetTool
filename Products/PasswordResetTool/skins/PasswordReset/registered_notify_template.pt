@@ -29,7 +29,6 @@ Content-Type: text/plain; charset=<span tal:replace="here/email_charset|here/por
      tal:omit-tag="">
     With kind regards,
 </div>
-
 --
 <span tal:replace="python:here.email_from_name" />
 </tal:root>
