@@ -1,8 +1,8 @@
 Chanloge
 ========
 
-1.2 - Unreleased
-----------------
+1.2 - Meay 16, 2009
+-------------------
 
 - Cleanup package metadata and add it to the egg description.
   [wichert]
