@@ -17,10 +17,14 @@ Changelog
   Globals and fixed deprecation warnings for the md5 module.
   [hannosch]
 
-1.2 - Unreleased
+
+1.2 - 2009-05-16
 ----------------
 
-- Internationalized dates in mail_password_template.
+- Cleanup package metadata and add it to the egg description.
+  [wichert]
+
+- Internationalized dates in mail_password_template
   [vincentfretin]
 
 - Removed duplicate DOCTYPE definition from mail_password_form.
@@ -32,11 +36,12 @@ Changelog
 - Catch RunTimeError when changing a password fails. Fixes #5742.
   [maurits]
 
-- Added i18n domain for the userid label in the password reset
-  form. [markvl]
+- Added i18n domain for the userid label in the password reset form.
+  [markvl]
 
 - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
   [elro]
+
 
 1.1 - 2008-03-26
 ----------------
