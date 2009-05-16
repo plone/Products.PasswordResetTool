@@ -1,12 +1,12 @@
-Chanloge
-========
+Changelog
+=========
 
-1.2 - Unreleased
+1.3 - Unreleased
 ----------------
 
 
-1.2 - May 16, 2009
-------------------
+1.2 - 2009-05-16
+----------------
 
 - Cleanup package metadata and add it to the egg description.
   [wichert]
@@ -23,15 +23,15 @@ Chanloge
 - Catch RunTimeError when changing a password fails. Fixes #5742.
   [maurits]
 
-- Added i18n domain for the userid label in the password reset
-  form. [markvl]
+- Added i18n domain for the userid label in the password reset form.
+  [markvl]
 
 - Purged old Zope 2 Interface interfaces for Zope 2.12 compatibility.
   [elro]
 
 
-1.1 - March 26, 2008
---------------------
+1.1 - 2008-03-26
+----------------
 
 - Fixed browser tests.
   [hannosch]
