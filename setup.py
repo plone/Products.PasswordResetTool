@@ -1,3 +1,4 @@
+import os.path
 from setuptools import setup, find_packages
 
 version = '1.2'
@@ -5,8 +6,8 @@ version = '1.2'
 setup(name='Products.PasswordResetTool',
       version=version,
       description="password reset tool for Plone",
-      long_description="""\
-""",
+      long_description=open("README.txt").read() + "\n"
+                       open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
