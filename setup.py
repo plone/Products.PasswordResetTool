@@ -1,7 +1,7 @@
 import os.path
 from setuptools import setup, find_packages
 
-version = '1.2'
+version = '1.3'
 
 setup(name='Products.PasswordResetTool',
       version=version,
