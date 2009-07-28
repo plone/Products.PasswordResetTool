@@ -11,7 +11,7 @@
   added to the time a user makes a request, will decide the expiration of the request.
 </p>
 <p>
-  The default is <em>24 hours</em>. If you leave the field blank, the timeout interval
+  The default is <em>168 hours</em> (one week). If you leave the field blank, the timeout interval
   will reset to the default.
 </p>
 <form action="manage_setTimeout" method="post">
