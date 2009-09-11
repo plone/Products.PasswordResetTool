@@ -143,7 +143,16 @@ Now it is time to forget our password and click the ``Forgot your
 password`` in the login form:
 
   >>> browser.open('http://nohost/plone/login')
-  >>> browser.getLink('we can send you a new one').click()
+
+Plone 3.3 tests have i18n enabled, older 3.x versions have not. We must
+therefore try to find the link with and without i18n:
+
+  >>> from mechanize import LinkNotFoundError
+  >>> try:
+  ...     browser.getLink('we can send you a new one').click()
+  ... except LinkNotFoundError:
+  ...     browser.getLink('click here to retrieve it').click()
+
   >>> browser.url.startswith('http://nohost/plone/mail_password_form')
   True
   >>> form = browser.getForm(name='mail_password')
