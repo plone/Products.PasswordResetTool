@@ -4,6 +4,8 @@ Mailback password reset product for CMF.
 Author: J Cameron Cooper, Sept 2003
 """
 
+from hashlib import md5
+
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
 from OFS.SimpleItem import SimpleItem
@@ -17,11 +19,6 @@ from interfaces.portal_password_reset import portal_password_reset as IPWResetTo
 import datetime, time, random, socket
 from DateTime import DateTime
 from zope.interface import implements
-
-try:
-    from hashlib import md5
-except:
-    from md5 import md5
 
 
 class PasswordResetTool (UniqueObject, SimpleItem):
