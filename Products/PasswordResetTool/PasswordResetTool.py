@@ -4,7 +4,10 @@ Mailback password reset product for CMF.
 Author: J Cameron Cooper, Sept 2003
 """
 
-from hashlib import md5
+try:
+    from hashlib import md5
+except ImportError:
+    from md5 import md5
 
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
