@@ -1,12 +1,12 @@
 Changelog
 =========
 
-1.3 - Unreleased
+1.3 - 2009-10-04
 ----------------
 
 - Fixed browser.txt BBB. Plone 3.3 tests have i18n enabled, older 3.x
   versions have not. We must therefore try to find the link with and
-  without i18n. Browser tests suck.
+  without i18n.
   [stefan]
 
 1.2 - 2009-05-16
