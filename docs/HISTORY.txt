@@ -4,6 +4,10 @@ Changelog
 1.4 - Unreleased
 ----------------
 
+- Removed *name* attribute (added *id*) in *mail_password_form.pt*, for
+  having valid XHTML Strict output.
+  http://dev.plone.org/plone/ticket/4379
+  [keul]
 
 1.3 - 2009-10-04
 ----------------
