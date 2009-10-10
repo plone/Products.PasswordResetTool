@@ -1,4 +1,6 @@
 from Products.MailHost.MailHost import MailHost as MailBase
+from persistent.list import PersistentList
+
 
 class MockMailHost(MailBase):
     """A MailHost that collects messages instead of sending them.
@@ -11,7 +13,7 @@ class MockMailHost(MailBase):
         self.reset()
     
     def reset(self):
-        self.messages = []
+        self.messages = PersistentList()
     
     def send(self, message, mto=None, mfrom=None, subject=None, encode=None):
         """

@@ -28,10 +28,13 @@
                        tal:attributes="value options/randomstring | request/randomstring | nothing" />
 
                 <div class="field" 
-                     tal:define="error errors/userid | nothing;"
+                     tal:define="error errors/userid | nothing;
+                                 site_properties context/portal_properties/site_properties;
+                                 use_email_as_login site_properties/use_email_as_login|nothing;"
 	                   tal:attributes="class python:test(error, 'field error', 'field')"
 	                   tal:condition="here/portal_password_reset/checkUser | nothing">
                      
+                  <tal:username tal:condition="not:use_email_as_login">
                     <label for="userid" 
                            i18n:domain="passwordresettool"
                            i18n:translate="label_my_user_name_is">My user name is</label>
@@ -42,6 +45,19 @@
                          i18n:translate="help_userid">
                         Enter your user name for verification.
                     </div>
+                  </tal:username>
+                  <tal:email tal:condition="use_email_as_login">
+                    <label for="userid" 
+                           i18n:domain="passwordresettool"
+                           i18n:translate="label_my_email_address_is">My email address is</label>
+	                   <div tal:content="error">Validation error output</div>
+
+                    <div class="formHelp"
+                         i18n:domain="passwordresettool"
+                         i18n:translate="help_verify_email">
+                        Enter your email address for verification.
+                    </div>
+                  </tal:email>
 
                     <input name="userid"
                            tal:attributes="value request/userid|nothing;" />

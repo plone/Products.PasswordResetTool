@@ -16,6 +16,11 @@ from App.class_init import InitializeClass
 from App.special_dtml import DTMLFile
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.permissions import ManagePortal
+try:
+    from Products.CMFPlone.RegistrationTool import get_member_by_login_name
+except ImportError:
+    # Avoid hard dependency on Plone (4.0)
+    get_member_by_login_name = None
 
 from interfaces.portal_password_reset import portal_password_reset as IPWResetTool
 
@@ -34,10 +39,11 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     The user visits that URL (the 'reset form') and enters their username,
     """
-    
+
     ## other things needed for this to work
     # skins:
-    #  - handler script for forgotten password form (probably over-riding existing Plone one
+    #  - handler script for forgotten password form (probably over-riding
+    #    existing Plone one)
     #  - email template
     #  - password reset form
     #  - password reset form handler script
@@ -63,11 +69,12 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     def manage_setTimeout(self, hours=168, REQUEST=None):
         """ZMI method for setting the expiration timeout in hours."""
         self.setExpirationTimeout(int(hours))
-        return self.manage_overview(manage_tabs_message="Timeout set to %s hours" % hours)   
+        return self.manage_overview(manage_tabs_message="Timeout set to %s hours" % hours)
 
     security.declareProtected(ManagePortal, 'manage_toggleUserCheck')
     def manage_toggleUserCheck(self, REQUEST=None):
-        """ZMI method for toggling the flag for checking user names on return."""
+        """ZMI method for toggling the flag for checking user names on return.
+        """
         self.toggleUserCheck()
         m = self.checkUser() and 'on' or 'off'
         return self.manage_overview(manage_tabs_message="Returning username check turned %s" % m)
@@ -96,11 +103,11 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         randomstring = self.uniqueString(userid)
         expiry = self.expirationDate()
         self._requests[randomstring] = (userid, expiry)
-        
+
         self.clearExpired(10)   # clear out untouched records more than 10 days old
                                 # this is a cheap sort of "automatic" clearing
         self._p_changed = 1
-        
+
         retval = {}
         retval['randomstring'] = randomstring
         retval['expires'] = expiry
@@ -121,11 +128,17 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         Throws an 'InvalidRequestError' if no such record exists,
         or 'userid' is not in the record.
         """
+        if get_member_by_login_name:
+            props = getToolByName(self, 'portal_properties').site_properties
+            if props.getProperty('use_email_as_login', False):
+                found_member = get_member_by_login_name(self, userid)
+                if found_member is not None:
+                    userid = found_member.getId()
         try:
             stored_user, expiry = self._requests[randomstring]
         except KeyError:
             raise 'InvalidRequestError'
-        
+
         if self.checkUser() and (userid != stored_user):
             raise 'InvalidRequestError'
         if self.expired(expiry):
@@ -155,7 +168,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         # clean out the request
         del self._requests[randomstring]
         self._p_changed = 1
-        
+
 
     ## Implementation ##
 
@@ -177,7 +190,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
         In hours, possibly fractional. Ignores seconds and shorter."""
         try:
-            if isinstance(self._timedelta,datetime.timedelta):
+            if isinstance(self._timedelta, datetime.timedelta):
                 return self._timedelta.days / 24
         except NameError:
             pass  # that's okay, it must be a number of hours...
@@ -204,19 +217,20 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     security.declarePublic('verifyKey')
     def verifyKey(self, key):
-        """Verify a key. Raises an exception if the key is invalid or expired"""
+        """Verify a key. Raises an exception if the key is invalid or expired.
+        """
 
         try:
             u, expiry = self._requests[key]
         except KeyError:
             raise 'InvalidRequestError'
-        
+
         if self.expired(expiry):
             raise 'ExpiredRequestError'
 
         if not self.getValidUser(u):
             raise 'InvalidRequestError', 'No such user'
-        
+
     security.declareProtected(ManagePortal, 'getStats')
     def getStats(self):
         """Return a dictionary like so:
@@ -229,8 +243,8 @@ class PasswordResetTool (UniqueObject, SimpleItem):
             if self.expired(expiry): bad += 1
             else: good += 1
 
-        return {"open":good, "expired":bad}
-    
+        return {"open": good, "expired": bad}
+
     security.declarePrivate('clearExpired')
     def clearExpired(self, days=0):
         """Destroys all expired reset request records.
@@ -293,9 +307,14 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     security.declarePrivate('getValidUser')
     def getValidUser(self, userid):
         """Returns the member with 'userid' if available and None otherwise."""
+        if get_member_by_login_name:
+            props = getToolByName(self, 'portal_properties').site_properties
+            if props.getProperty('use_email_as_login', False):
+                return get_member_by_login_name(
+                    self, userid, raise_exceptions=False)
         membertool = getToolByName(self, 'portal_membership')
         return membertool.getMemberById(userid)
-    
+
     # internal
 
     security.declarePrivate('expired')
