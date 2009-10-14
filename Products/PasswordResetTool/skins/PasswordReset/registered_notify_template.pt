@@ -7,6 +7,7 @@
 To: <span tal:replace="python:member.getProperty('email')" />
 Subject: <span i18n:domain="passwordresettool" i18n:translate="mailtemplate_user_account_info" tal:omit-tag="">User Account Information for <span i18n:name="portal_name" tal:omit-tag="" tal:content="python:here.portal_url.getPortalObject().Title()" /></span>
 Content-Type: text/plain; charset=<span tal:replace="here/email_charset|portal_properties/site_properties/default_charset|string:utf-8" />
+Precedence: bulk
 
 <div i18n:domain="passwordresettool"
      i18n:translate="mailtemplate_registered_user_body"
@@ -21,7 +22,7 @@ Content-Type: text/plain; charset=<span tal:replace="here/email_charset|portal_p
     You must activate your account within <span
     i18n:name="expirationtime"
     tal:replace="here/portal_password_reset/getExpirationTimeout" />
-    hours, so before <span i18n:name="expirationdate" tal:replace="python:
+    hours, so please come visit us before <span i18n:name="expirationdate" tal:replace="python:
     context.toLocalizedTime(reset['expires'], long_format=1)" />
 
 </div>
