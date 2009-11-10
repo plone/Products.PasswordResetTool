@@ -4,6 +4,8 @@ Changelog
 2.0 - Unreleased
 ----------------
 
+- properly encode mail headers (From and Subject). Fixes #8070
+
 - When the new (Plone 4) property use_email_as_login is present and is
   True, we try to get the member by login name when userid gives no
   results.

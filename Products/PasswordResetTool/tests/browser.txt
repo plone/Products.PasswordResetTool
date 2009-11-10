@@ -125,8 +125,8 @@ e-mail.
 We are not logged in yet at this point.  Let's try to log in:
 
   >>> browser.getLink('Log in').click()
-  >>> browser.url
-  'http://nohost/plone/login_form'
+  >>> browser.url.startswith('http://nohost/plone/login_form')
+  True
   >>> browser.getControl(name='__ac_name').value = 'jsmith'
   >>> browser.getControl(name='__ac_password').value = 'secret'
   >>> browser.getControl(name='submit').click()
