@@ -104,10 +104,7 @@ Log out again and then join:
   >>> browser.getLink('Log out').click()
   >>> "You are now logged out" in browser.contents
   True
-  >>> perms = [p['name'] for p in self.portal.rolesOfPermission(permission='Add portal member') if p['selected']=='SELECTED']
-  >>> 'Anonymous' in perms
-  True
-  >>> 'Register' in browser.contents
+  >>> 'New user?' in browser.contents  # Sunburst theme has no Register link
   True
 
 Now register a new user:
@@ -290,7 +287,7 @@ Log out again and then join:
   >>> browser.getLink('Log out').click()
   >>> "You are now logged out" in browser.contents
   True
-  >>> browser.getLink('Register').click()
+  >>> browser.open('http://nohost/plone/@@join_form')
   >>> browser.getControl(name='form.username').value = 'bsmith'
   >>> browser.getControl(name='form.email').value = 'bsmith@example.com'
 
@@ -303,7 +300,7 @@ We shouldn't be able to fill in our password:
 
 Now register:
 
-  >>> browser.getControl(name='form.button.Register').click()
+  >>> browser.getControl(name='form.actions.register').click()
   >>> "You have been registered" in browser.contents
   True
 
@@ -317,15 +314,17 @@ We should have received an e-mail at this point:
 Now that we have the message, we want to look at its contents, and
 then we extract the address that lets us reset our password:
 
-  >>> "To: bsmith@example.com" in msg
+  >>> from email.parser import Parser
+  >>> import quopri
+  >>> import re
+  >>> parser = Parser()
+  >>> message = parser.parsestr(msg)
+  >>> message["To"]
+  'bsmith@example.com'
+  >>> msgtext = quopri.decodestring(message.get_payload())
+  >>> "Please activate it by visiting" in msgtext
   True
-  >>> please_visit_text = "Please activate it by visiting"
-  >>> please_visit_text in msg
-  True
-  >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
-  >>> address = msg[url_index:].split()[0]
-  >>> address # doctest: +ELLIPSIS
-  'http://nohost/plone/passwordreset/...'
+  >>> address = re.search('(http://nohost/plone/passwordreset/[a-z0-9]+\?userid=.*)\s', msgtext).groups()[0]
 
 Now that we have the address, we will reset our password:
 
@@ -390,7 +389,7 @@ We shouldn't be able to fill in our password:
 
 Now register and logout:
 
-  >>> browser.getControl(name='form.button.Register').click()
+  >>> browser.getControl(name='form.actions.register').click()
   >>> browser.getLink('Log out').click()
   >>> "You are now logged out" in browser.contents
   True
@@ -405,14 +404,13 @@ We should have received an e-mail at this point:
 Now that we have the message, we want to look at its contents, and
 then we extract the address that lets us reset our password:
 
-  >>> "To: wwwsmith@example.com" in msg
+  >>> message = parser.parsestr(msg)
+  >>> message["To"]
+  'wwwsmith@example.com'
+  >>> msgtext = quopri.decodestring(message.get_payload())
+  >>> "Please activate it by visiting" in msgtext
   True
-  >>> please_visit_text in msg
-  True
-  >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
-  >>> address = msg[url_index:].split()[0]
-  >>> address # doctest: +ELLIPSIS
-  'http://nohost/plone/passwordreset/...'
+  >>> address = re.search('(http://nohost/plone/passwordreset/[a-z0-9]+\?userid=.*)\s', msgtext).groups()[0]
 
 Now that we have the address, we will reset our password:
 
