@@ -104,6 +104,11 @@ Log out again and then join:
   >>> browser.getLink('Log out').click()
   >>> "You are now logged out" in browser.contents
   True
+  >>> perms = [p['name'] for p in self.portal.rolesOfPermission(permission='Add portal member') if p['selected']=='SELECTED']
+  >>> 'Anonymous' in perms
+  True
+  >>> 'Register' in browser.contents
+  True
 
 Now register a new user:
 
