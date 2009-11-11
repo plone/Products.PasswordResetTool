@@ -11,6 +11,7 @@ assumptions that are not true for Plone forms.
   >>> from Products.PloneTestCase import PloneTestCase as PTC
   >>> from Products.Five.testbrowser import Browser
   >>> browser = Browser()
+  >>> browser.handleErrors = False
   >>> browser.open('http://nohost/plone/')
 
 
@@ -106,15 +107,15 @@ Log out again and then join:
 
 Now register a new user:
 
-  >>> browser.open('http://nohost/plone/join_form')
+  >>> browser.open('http://nohost/plone/@@join_form')
   >>> browser.url
-  'http://nohost/plone/join_form'
+  'http://nohost/plone/@@join_form'
 
-  >>> browser.getControl(name='username').value = 'jsmith'
-  >>> browser.getControl(name='email').value = 'jsmith@example.com'
-  >>> browser.getControl(name='password').value = 'secret'
-  >>> browser.getControl(name='password_confirm').value = 'secret'
-  >>> browser.getControl(name='form.button.Register').click()
+  >>> browser.getControl(name='form.username').value = 'jsmith'
+  >>> browser.getControl(name='form.email').value = 'jsmith@example.com'
+  >>> browser.getControl(name='form.password').value = 'secret'
+  >>> browser.getControl(name='form.password_ctl').value = 'secret'
+  >>> browser.getControl(name='form.actions.register').click()
 
 XXX Make sure we don't have a way to receive our credentials via
 e-mail.
@@ -231,13 +232,13 @@ We navigate to the Users Overview page and register a new user:
   >>> browser.getLink('Users and Groups').click()
   >>> browser.getControl('Add New User').click()
   >>> browser.url
-  'http://nohost/plone/join_form?came_from_prefs=1'
+  'http://nohost/plone/@@join_form?came_from_prefs=1'
 
-  >>> browser.getControl(name='username').value = 'wsmith'
-  >>> browser.getControl(name='email').value = 'wsmith@example.com'
-  >>> browser.getControl(name='password').value = 'supersecret'
-  >>> browser.getControl(name='password_confirm').value = 'supersecret'
-  >>> browser.getControl(name='form.button.Register').click()
+  >>> browser.getControl(name='form.username').value = 'wsmith'
+  >>> browser.getControl(name='form.email').value = 'wsmith@example.com'
+  >>> browser.getControl(name='form.password').value = 'supersecret'
+  >>> browser.getControl(name='form.password_ctl').value = 'supersecret'
+  >>> browser.getControl(name='form.actions.register').click()
   >>> 'User added.' in browser.contents
   True
 
@@ -284,17 +285,16 @@ Log out again and then join:
   >>> browser.getLink('Log out').click()
   >>> "You are now logged out" in browser.contents
   True
-
   >>> browser.getLink('Register').click()
-  >>> browser.getControl(name='username').value = 'bsmith'
-  >>> browser.getControl(name='email').value = 'bsmith@example.com'
+  >>> browser.getControl(name='form.username').value = 'bsmith'
+  >>> browser.getControl(name='form.email').value = 'bsmith@example.com'
 
 We shouldn't be able to fill in our password:
 
-  >>> browser.getControl(name='password').value = 'secret' # doctest: +ELLIPSIS
+  >>> browser.getControl(name='form.password').value = 'secret' # doctest: +ELLIPSIS
   Traceback (most recent call last):
   ...
-  LookupError: name 'password'
+  LookupError: name 'form.password'
 
 Now register:
 
@@ -371,17 +371,17 @@ We navigate to the Users Overview page and register a new user:
   >>> browser.getLink('Users and Groups').click()
   >>> browser.getControl('Add New User').click()
   >>> browser.url
-  'http://nohost/plone/join_form?came_from_prefs=1'
+  'http://nohost/plone/@@join_form?came_from_prefs=1'
 
-  >>> browser.getControl(name='username').value = 'wwwsmith'
-  >>> browser.getControl(name='email').value = 'wwwsmith@example.com'
+  >>> browser.getControl(name='form.username').value = 'wwwsmith'
+  >>> browser.getControl(name='form.email').value = 'wwwsmith@example.com'
 
 We shouldn't be able to fill in our password:
 
-  >>> browser.getControl(name='password').value = 'secret' # doctest: +ELLIPSIS
+  >>> browser.getControl(name='form.password').value = 'secret' # doctest: +ELLIPSIS
   Traceback (most recent call last):
   ...
-  LookupError: name 'password'
+  LookupError: name 'form.password'
 
 Now register and logout:
 
