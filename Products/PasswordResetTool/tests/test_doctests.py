@@ -40,4 +40,8 @@ def test_suite():
                                optionflags=OPTIONFLAGS,
                                package='Products.PasswordResetTool.tests',
                                test_class=MockMailHostTestCase),
+        FunctionalDocFileSuite('view.txt',
+                               optionflags=OPTIONFLAGS,
+                               package='Products.PasswordResetTool.tests',
+                               test_class=MockMailHostTestCase),
         ))

@@ -50,7 +50,7 @@ class PasswordResetToolView(BrowserView):
                                  default=u"User Account Information for ${portal_name}", 
                                  mapping={'portal_name':safe_unicode(portal_name)}), 
                                context=self.request)
-        return self.encode_mail_header(translated)
+        return "%s" % self.encode_mail_header(translated)
         
     def encoded_mail_password_subject(self):
         portal = self.portal_state().portal()
@@ -58,4 +58,4 @@ class PasswordResetToolView(BrowserView):
         translated = translate(_(u"mailtemplate_subject_resetpasswordrequest", 
                                  default=u"Password reset request"),
                                context=self.request)
-        return self.encode_mail_header(translated)
+        return "%s" % self.encode_mail_header(translated)
