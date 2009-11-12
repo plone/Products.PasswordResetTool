@@ -12,7 +12,7 @@ from Acquisition import aq_base
 
 PloneTestCase.setupPloneSite()
 
-from Products.PasswordResetTool.tests.utils import MockMailHost
+from Products.CMFPlone.tests.utils import MockMailHost
 
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
