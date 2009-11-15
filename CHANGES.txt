@@ -1,15 +1,15 @@
 Changelog
 =========
 
-2.0 - Unreleased
-----------------
+2.0a1 - 2009-11-15
+------------------
 
-- properly encode mail headers (From and Subject). Fixes #8070
+- Properly encode mail headers (From and Subject). Fixes #8070
+  [naro]
 
 - When the new (Plone 4) property use_email_as_login is present and is
   True, we try to get the member by login name when userid gives no
-  results.
-  Refs http://dev.plone.org/plone/ticket/9214
+  results. Refs http://dev.plone.org/plone/ticket/9214.
   [maurits]
 
 - Avoid acquiring `portal_properties` and call it via a proper API.
@@ -24,7 +24,6 @@ Changelog
 - Declare package dependencies, fixed deprecation warnings for use of
   Globals and fixed deprecation warnings for the md5 module.
   [hannosch]
-
 
 1.2 - 2009-05-16
 ----------------
