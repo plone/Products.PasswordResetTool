@@ -109,9 +109,9 @@ Log out again and then join:
 
 Now register a new user:
 
-  >>> browser.open('http://nohost/plone/@@join_form')
+  >>> browser.open('http://nohost/plone/@@register')
   >>> browser.url
-  'http://nohost/plone/@@join_form'
+  'http://nohost/plone/@@register'
 
   >>> browser.getControl(name='form.username').value = 'jsmith'
   >>> browser.getControl(name='form.email').value = 'jsmith@example.com'
@@ -122,6 +122,7 @@ Now register a new user:
 XXX Make sure we don't have a way to receive our credentials via
 e-mail.
   
+  >>> open('/tmp/test.html', 'w').write(browser.contents)
   >>> "You have been registered" in browser.contents
   True
   
@@ -133,6 +134,7 @@ We are not logged in yet at this point.  Let's try to log in:
   >>> browser.getControl(name='__ac_name').value = 'jsmith'
   >>> browser.getControl(name='__ac_password').value = 'secret'
   >>> browser.getControl(name='submit').click()
+  >>> open('/tmp/test2.html', 'w').write(browser.contents)
   >>> "You are now logged in" in browser.contents
   True
 
@@ -234,7 +236,7 @@ We navigate to the Users Overview page and register a new user:
   >>> browser.getLink('Users and Groups').click()
   >>> browser.getControl('Add New User').click()
   >>> browser.url
-  'http://nohost/plone/@@join_form?came_from_prefs=1'
+  'http://nohost/plone/@@register?came_from_prefs=1'
 
   >>> browser.getControl(name='form.username').value = 'wsmith'
   >>> browser.getControl(name='form.email').value = 'wsmith@example.com'
@@ -287,7 +289,7 @@ Log out again and then join:
   >>> browser.getLink('Log out').click()
   >>> "You are now logged out" in browser.contents
   True
-  >>> browser.open('http://nohost/plone/@@join_form')
+  >>> browser.open('http://nohost/plone/@@register')
   >>> browser.getControl(name='form.username').value = 'bsmith'
   >>> browser.getControl(name='form.email').value = 'bsmith@example.com'
 
@@ -375,7 +377,7 @@ We navigate to the Users Overview page and register a new user:
   >>> browser.getLink('Users and Groups').click()
   >>> browser.getControl('Add New User').click()
   >>> browser.url
-  'http://nohost/plone/@@join_form?came_from_prefs=1'
+  'http://nohost/plone/@@register?came_from_prefs=1'
 
   >>> browser.getControl(name='form.username').value = 'wwwsmith'
   >>> browser.getControl(name='form.email').value = 'wwwsmith@example.com'
