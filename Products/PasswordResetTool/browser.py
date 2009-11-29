@@ -2,9 +2,7 @@ from Acquisition import aq_inner
 from zope.interface import implements
 from zope.component import getMultiAdapter
 from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.memoize import view
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import getSiteEncoding, safe_unicode
 from zope.i18n import translate
 
@@ -43,19 +41,17 @@ class PasswordResetToolView(BrowserView):
         mail  = portal.getProperty('email_from_address')
         return '"%s" <%s>' % (self.encode_mail_header(from_), mail)
         
-    def encoded_registered_notify_subject(self):
+    def registered_notify_subject(self):
         portal = self.portal_state().portal()
         portal_name = portal.Title()
-        translated = translate(_(u"mailtemplate_user_account_info", 
-                                 default=u"User Account Information for ${portal_name}", 
-                                 mapping={'portal_name':safe_unicode(portal_name)}), 
-                               context=self.request)
-        return "%s" % self.encode_mail_header(translated)
+        return translate(_(u"mailtemplate_user_account_info", 
+                           default=u"User Account Information for ${portal_name}", 
+                           mapping={'portal_name':safe_unicode(portal_name)}), 
+                           context=self.request)
         
-    def encoded_mail_password_subject(self):
+    def mail_password_subject(self):
         portal = self.portal_state().portal()
         portal_name = portal.Title()
-        translated = translate(_(u"mailtemplate_subject_resetpasswordrequest", 
-                                 default=u"Password reset request"),
-                               context=self.request)
-        return "%s" % self.encode_mail_header(translated)
+        return translate(_(u"mailtemplate_subject_resetpasswordrequest", 
+                           default=u"Password reset request"),
+                           context=self.request)

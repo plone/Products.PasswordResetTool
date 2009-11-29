@@ -4,6 +4,8 @@ Changelog
 2.0b1 - Unreleased
 ------------------
 
+- Fix issue where subject headers got double-encoded.
+  [davisagli]
 
 2.0a1 - 2009-11-15
 ------------------

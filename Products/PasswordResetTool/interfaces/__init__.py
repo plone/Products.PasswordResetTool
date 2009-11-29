@@ -10,9 +10,9 @@ class IPasswordResetToolView(Interface):
     def encoded_mail_sender():
         """ returns encoded version of Portal name <portal_email> """
 
-    def encoded_registered_notify_subject():
+    def registered_notify_subject():
         """ returns encoded version of registered notify template subject line """
 
-    def encoded_mail_password_subject():
+    def mail_password_subject():
         """ returns encoded version of mail password template subject line """
         
