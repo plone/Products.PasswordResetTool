@@ -26,6 +26,7 @@ Precedence: bulk
     context.toLocalizedTime(reset['expires'], long_format=1)" />
 
 </div>
+
 <div i18n:domain="passwordresettool"
      i18n:translate="greetings"
      tal:omit-tag="">

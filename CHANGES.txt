@@ -4,6 +4,8 @@ Changelog
 2.0b2 - Unreleased
 ------------------
 
+- Put a new line before greetings in registered_notify_template.pt
+  [vincentfretin]
 
 2.0b1 - 2009-12-02
 ------------------
