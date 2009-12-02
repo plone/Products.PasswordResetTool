@@ -4,6 +4,9 @@ Changelog
 2.0b1 - Unreleased
 ------------------
 
+- Make adjustments to fit with Plone 4's new @@register and @@new-user.
+  [maurits]
+
 - Fix issue where subject headers got double-encoded.
   [davisagli]
 
