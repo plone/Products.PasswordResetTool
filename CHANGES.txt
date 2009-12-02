@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b2 - Unreleased
+2.0b2 - 2009-12-03
 ------------------
 
 - Put a new line before greetings in registered_notify_template.pt
