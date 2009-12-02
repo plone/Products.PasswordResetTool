@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b1 - Unreleased
+2.0b1 - 2009-12-02
 ------------------
 
 - Make adjustments to fit with Plone 4's new @@register and @@new-user.
