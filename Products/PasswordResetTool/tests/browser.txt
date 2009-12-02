@@ -381,13 +381,9 @@ We navigate to the Users Overview page and register a new user:
 
   >>> browser.getControl(name='form.username').value = 'wwwsmith'
   >>> browser.getControl(name='form.email').value = 'wwwsmith@example.com'
-
-We shouldn't be able to fill in our password:
-
-  >>> browser.getControl(name='form.password').value = 'secret' # doctest: +ELLIPSIS
-  Traceback (most recent call last):
-  ...
-  LookupError: name 'form.password'
+  >>> browser.getControl(name='form.password').value = 'secret'
+  >>> browser.getControl(name='form.password_ctl').value = 'secret'
+  >>> browser.getControl('Send a mail with the password').selected = True
 
 Now register and logout:
 
