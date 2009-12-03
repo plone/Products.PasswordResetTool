@@ -383,7 +383,7 @@ We navigate to the Users Overview page and register a new user:
   >>> browser.getControl(name='form.email').value = 'wwwsmith@example.com'
   >>> browser.getControl(name='form.password').value = 'secret'
   >>> browser.getControl(name='form.password_ctl').value = 'secret'
-  >>> browser.getControl('Send a mail with the password').selected = True
+  >>> browser.getControl('Send a confirmation mail with a link to set the password').selected = True
 
 Now register and logout:
 
