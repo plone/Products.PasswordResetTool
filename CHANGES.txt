@@ -4,6 +4,9 @@ Changelog
 2.0b3 - Unreleased
 ------------------
 
+- Fixed failing test after recent plone.app.users change: we never
+  send the password in the email, only a link to set the password.
+  [maurits]
 
 2.0b2 - 2009-12-03
 ------------------
