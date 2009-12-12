@@ -166,7 +166,7 @@ in a list called ``messages``:
   >>> mailhost = self.portal.MailHost
   >>> len(mailhost.messages)
   1
-  >>> msg = mailhost.messages[0]
+  >>> msg = str(mailhost.messages[0])
 
 Now that we have the message, we want to look at its contents, and
 then we extract the address that lets us reset our password:

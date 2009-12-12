@@ -1,3 +1,9 @@
+# This file is kept for backwards compatibility in case anyone is
+# importing MockMailHost from here.  In our tests we use the
+# MockMailHostTestCase from CMFPlone directly
+
+from Products.CMFPlone.tests.utils import MockMailHost
+
 from Products.MailHost.MailHost import MailHost as MailBase
 
 class MockMailHost(MailBase):
