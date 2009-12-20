@@ -12,13 +12,13 @@ Precedence: bulk
 <div i18n:domain="passwordresettool"
      i18n:translate="mailtemplate_registered_user_body"
      tal:omit-tag=""
-     tal:define="fullname python:getattr(here.REQUEST, 'fullname', '')">
+     tal:define="fullname request/form.fullname|nothing">
     Welcome <span i18n:name="fullname" tal:replace="fullname" />,
 
     your user account has been created. Please activate it by visiting
-    
+
     <span i18n:name="set_password" tal:replace="python:here.pwreset_constructURL(reset['randomstring'])+'?userid='+member.getUserName()" />
-    
+
     You must activate your account within <span
     i18n:name="expirationtime"
     tal:replace="here/portal_password_reset/getExpirationTimeout" />
