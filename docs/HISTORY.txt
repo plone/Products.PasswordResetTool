@@ -4,9 +4,9 @@ Changelog
 1.4 - Unreleased
 ----------------
 
-- In the tests, use the MockMailHostTestCase from Plone, instead of
-  defining our own.  Keep the old MockMailHost in case anyone is
-  importing it for own tests.  Fixes test failure.
+- In the mail tests, properly register a mock secure mail host, like
+  the MockMailHostTestCase in CMFPlone does now, including a
+  mocked secureSend method.  Fixes test failure.
   [maurits]
 
 
