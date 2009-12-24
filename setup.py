@@ -1,7 +1,7 @@
 import os.path
 from setuptools import setup, find_packages
 
-version = '1.4'
+version = '1.5'
 
 setup(name='Products.PasswordResetTool',
       version=version,
@@ -16,7 +16,7 @@ setup(name='Products.PasswordResetTool',
       keywords='password reset plone',
       author='J. Cameron Cooper',
       author_email='prt@jcameroncooper.com',
-      url='',
+      url='http://pypi.python.org/pypi/Products.PasswordResetTool',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
