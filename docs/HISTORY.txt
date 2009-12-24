@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4 - Unreleased
+1.4 - 2009-12-23
 ----------------
 
 - In the mail tests, properly register a mock secure mail host, like
