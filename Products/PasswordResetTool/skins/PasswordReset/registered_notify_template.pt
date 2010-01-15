@@ -14,8 +14,10 @@ Precedence: bulk
      tal:omit-tag=""
      tal:define="fullname request/form.fullname|nothing">
     Welcome <span i18n:name="fullname" tal:replace="fullname" />,
-
-    your user account has been created. Please activate it by visiting
+	
+    your user account has been created. 
+	Your username is <span i18n:name="member" tal:replace="member" />. 
+	Please activate it by visiting
 
     <span i18n:name="set_password" tal:replace="python:here.pwreset_constructURL(reset['randomstring'])+'?userid='+member.getUserName()" />
 
