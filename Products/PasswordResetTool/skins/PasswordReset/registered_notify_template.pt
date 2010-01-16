@@ -21,10 +21,7 @@ Precedence: bulk
 
     <span i18n:name="set_password" tal:replace="python:here.pwreset_constructURL(reset['randomstring'])+'?userid='+member.getUserName()" />
 
-    You must activate your account within <span
-    i18n:name="expirationtime"
-    tal:replace="here/portal_password_reset/getExpirationTimeout" />
-    hours, so please come visit us before <span i18n:name="expirationdate" tal:replace="python:
+    Please activate your account before <span i18n:name="expirationdate" tal:replace="python:
     context.toLocalizedTime(reset['expires'], long_format=1)" />
 
 </div>

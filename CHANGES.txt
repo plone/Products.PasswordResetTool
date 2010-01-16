@@ -8,6 +8,10 @@ Changelog
   http://dev.plone.org/plone/ticket/8694
   [amleczko]
 
+- The activation email no longer enumerates the hours before expiry, but gives a
+  date/time instead. This fixes http://dev.plone.org/plone/ticket/9116.
+  [limi]
+
 2.0b4 - 2009-12-27
 ------------------
 
