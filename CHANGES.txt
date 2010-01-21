@@ -4,7 +4,18 @@ Changelog
 2.0b5 - unreleased
 ------------------
 
-- Changed mail_password_template.pt. This close ticket
+- Changed mail_password_template.pt to the one proposed by limi:
+
+    The following link will take you to a page where you can reset your
+    password for XYZsite:
+
+    http://example.com/resetpassword/c635bf8d892f4f30dd868d16c1
+    (This link is valid for X days)
+
+    If you didn't expect to receive this email, please ignore it.
+    Your password has not been changed.
+
+  This close ticket
   http://dev.plone.org/plone/ticket/8694
   [amleczko]
 
