@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b5 - unreleased
+2.0b5 - 2010-01-28
 ------------------
 
 - Changed mail_password_template.pt to the one proposed by limi:
