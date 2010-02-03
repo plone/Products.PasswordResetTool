@@ -12,7 +12,7 @@ Precedence: bulk
 <div i18n:domain="passwordresettool"
      i18n:translate="mailtemplate_registered_user_body"
      tal:omit-tag=""
-     tal:define="fullname request/form.fullname|nothing">
+     tal:define="fullname python:member.getProperty('fullname')">
     Welcome <span i18n:name="fullname" tal:replace="fullname" />,
 	
     your user account has been created. 
