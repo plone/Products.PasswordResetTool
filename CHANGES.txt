@@ -4,6 +4,10 @@ Changelog
 2.0b6 - Unreleased
 ------------------
 
+- Changed registration email to not rely on the request to hold the full name;
+  instead the new member object is queried.
+  [mj]
+
 2.0b5 - 2010-01-28
 ------------------
 
