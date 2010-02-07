@@ -15,6 +15,7 @@ from OFS.SimpleItem import SimpleItem
 from App.class_init import InitializeClass
 from App.special_dtml import DTMLFile
 from AccessControl import ClassSecurityInfo
+from AccessControl import ModuleSecurityInfo
 from Products.CMFCore.permissions import ManagePortal
 try:
     from Products.CMFPlone.RegistrationTool import get_member_by_login_name
@@ -28,6 +29,21 @@ import datetime, time, random, socket
 from DateTime import DateTime
 from zope.interface import implements
 
+module_security = ModuleSecurityInfo()
+
+module_security.declarePublic('InvalidRequestError')
+class InvalidRequestError(Exception):
+    def __init__(self, value=''):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+module_security.declarePublic('ExpiredRequestError')
+class ExpiredRequestError(Exception):
+    def __init__(self, value=''):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
 
 class PasswordResetTool (UniqueObject, SimpleItem):
     """Provides a default implementation for a password reset scheme.
@@ -137,18 +153,18 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         try:
             stored_user, expiry = self._requests[randomstring]
         except KeyError:
-            raise 'InvalidRequestError'
+            raise InvalidRequestError
 
         if self.checkUser() and (userid != stored_user):
-            raise 'InvalidRequestError'
+            raise InvalidRequestError
         if self.expired(expiry):
             del self._requests[randomstring]
             self._p_changed = 1
-            raise 'ExpiredRequestError'
+            raise ExpiredRequestError
 
         member = self.getValidUser(stored_user)
         if not member:
-            raise 'InvalidRequestError'
+            raise InvalidRequestError
 
         # actually change password
         user = member.getUser()
@@ -219,17 +235,16 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     def verifyKey(self, key):
         """Verify a key. Raises an exception if the key is invalid or expired.
         """
-
         try:
             u, expiry = self._requests[key]
         except KeyError:
-            raise 'InvalidRequestError'
+            raise InvalidRequestError
 
         if self.expired(expiry):
-            raise 'ExpiredRequestError'
+            raise ExpiredRequestError
 
         if not self.getValidUser(u):
-            raise 'InvalidRequestError', 'No such user'
+            raise InvalidRequestError('No such user')
 
     security.declareProtected(ManagePortal, 'getStats')
     def getStats(self):

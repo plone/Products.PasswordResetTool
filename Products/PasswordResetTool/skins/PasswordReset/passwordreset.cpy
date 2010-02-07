@@ -7,6 +7,7 @@
 ##title=Receive password reset requests
 ##parameters=
 from Products.CMFCore.utils import getToolByName
+from Products.PasswordResetTool.PasswordResetTool import InvalidRequestError, ExpiredRequestError
 
 # Try traverse subpath first:
 try:
@@ -23,9 +24,9 @@ status = state.getStatus()
 pw_tool = getToolByName(context, 'portal_password_reset')
 try:
     pw_tool.verifyKey(key)
-except 'InvalidRequestError':
+except InvalidRequestError:
     status='invalid'
-except 'ExpiredRequestError':
+except ExpiredRequestError:
     status = 'expired'
 
 return state.set(status=status, randomstring=key)
