@@ -4,6 +4,10 @@ Changelog
 2.0b6 - Unreleased
 ------------------
 
+- Updated templates to recent markup conventions.
+  References http://dev.plone.org/old/plone/ticket/9981
+  [spliter]
+
 - Convert the string exceptions into class exceptions, since string
   ones don't work in Python 2.6.
   Fixes http://dev.plone.org/plone/ticket/9743
