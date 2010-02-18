@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b6 - Unreleased
+2.0b6 - 2010-02-18
 ------------------
 
 - Allow imports of PasswordResetTool exceptions from restricted Python.
