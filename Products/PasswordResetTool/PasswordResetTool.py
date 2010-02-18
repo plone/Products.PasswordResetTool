@@ -29,7 +29,7 @@ import datetime, time, random, socket
 from DateTime import DateTime
 from zope.interface import implements
 
-module_security = ModuleSecurityInfo()
+module_security = ModuleSecurityInfo('Products.PasswordResetTool.PasswordResetTool')
 
 module_security.declarePublic('InvalidRequestError')
 class InvalidRequestError(Exception):

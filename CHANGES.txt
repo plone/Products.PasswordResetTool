@@ -4,6 +4,9 @@ Changelog
 2.0b6 - Unreleased
 ------------------
 
+- Allow imports of PasswordResetTool exceptions from restricted Python.
+  [esteele]
+
 - Updated templates to recent markup conventions.
   References http://dev.plone.org/old/plone/ticket/9981
   [spliter]
