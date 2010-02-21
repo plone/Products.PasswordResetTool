@@ -61,7 +61,7 @@
                         </div>
                       </tal:email>
 
-                        <input name="userid"
+                        <input name="userid" id="userid"
                                tal:attributes="value request/userid|nothing;" />
                     </div>
 	  
@@ -88,7 +88,7 @@
                          tal:define="error errors/password | nothing;"
                          tal:attributes="class python:test(error, 'field error', 'field')">
                      
-                        <label for="confirm"
+                        <label for="password2"
                                i18n:translate="label_confirm_password">Confirm password</label>
                         <div tal:content="error">Validation error output</div>
 
