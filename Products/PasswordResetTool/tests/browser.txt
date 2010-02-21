@@ -121,11 +121,10 @@ Now register a new user:
 
 XXX Make sure we don't have a way to receive our credentials via
 e-mail.
-  
-  >>> open('/tmp/test.html', 'w').write(browser.contents)
+
   >>> "You have been registered" in browser.contents
   True
-  
+
 We are not logged in yet at this point.  Let's try to log in:
 
   >>> browser.getLink('Log in').click()
@@ -134,7 +133,6 @@ We are not logged in yet at this point.  Let's try to log in:
   >>> browser.getControl(name='__ac_name').value = 'jsmith'
   >>> browser.getControl(name='__ac_password').value = 'secret'
   >>> browser.getControl(name='submit').click()
-  >>> open('/tmp/test2.html', 'w').write(browser.contents)
   >>> "You are now logged in" in browser.contents
   True
 

@@ -4,6 +4,9 @@ Changelog
 2.0b7 - Unreleased
 ------------------
 
+- Avoid test failures caused by access to hardcoded temp directories.
+  [hannosch]
+
 2.0b6 - 2010-02-18
 ------------------
 
