@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0b7 - Unreleased
+2.0b7 - 2010-03-03
 ------------------
 
 - Avoid test failures caused by access to hardcoded temp directories.
