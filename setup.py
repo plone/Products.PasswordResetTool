@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.0b8'
+version = '2.0'
 
 setup(name='Products.PasswordResetTool',
       version=version,

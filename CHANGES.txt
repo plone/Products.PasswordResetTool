@@ -1,8 +1,12 @@
 Changelog
 =========
 
-2.0b8 - Unreleased
-------------------
+2.0 - Unreleased
+----------------
+
+- Updated markup of password reset form. This closes
+  http://dev.plone.org/plone/ticket/10768.
+  [hannosch]
 
 2.0b7 - 2010-03-03
 ------------------
