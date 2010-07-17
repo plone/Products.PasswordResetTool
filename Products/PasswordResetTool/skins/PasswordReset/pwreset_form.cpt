@@ -3,44 +3,44 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="plone">
 <body>
-    <metal:main fill-slot="main" 
+    <metal:main fill-slot="main"
          tal:define="errors options/state/getErrors">
 
         <h1 class="documentFirstHeading"
             i18n:domain="passwordresettool"
             i18n:translate="heading_reset_password">Set your password</h1>
 
-        <div class="documentDescription" i18n:domain="passwordresettool" 
+        <div class="documentDescription" i18n:domain="passwordresettool"
            i18n:translate="description_reset_password">
             Please fill out the form below to set your password.
         </div>
-        
+
         <div id="content-core">
             <form class="group enableAutoFocus"
-                  name="pwreset_action" 
+                  name="pwreset_action"
                   method="post"
                   tal:attributes="action template/getId">
                 <fieldset>
-                    <legend i18n:domain="passwordresettool" 
+                    <legend i18n:domain="passwordresettool"
                             i18n:translate="legend_new_password">New Password</legend>
 
-                    <input type="hidden" 
-                           name="randomstring" 
+                    <input type="hidden"
+                           name="randomstring"
                            value=""
                            tal:attributes="value options/randomstring | request/randomstring | nothing" />
 
-                    <div class="field" 
+                    <div class="field"
                          tal:define="error errors/userid | nothing;
                                      site_properties context/portal_properties/site_properties;
                                      use_email_as_login site_properties/use_email_as_login|nothing;"
-    	                   tal:attributes="class python:test(error, 'field error', 'field')"
-    	                   tal:condition="here/portal_password_reset/checkUser | nothing">
-                     
+                         tal:attributes="class python:test(error, 'field error', 'field')"
+                         tal:condition="here/portal_password_reset/checkUser | nothing">
+
                       <tal:username tal:condition="not:use_email_as_login">
-                        <label for="userid" 
+                        <label for="userid"
                                i18n:domain="passwordresettool"
                                i18n:translate="label_my_user_name_is">My user name is</label>
-    	                   <div tal:content="error">Validation error output</div>
+                        <div tal:content="error">Validation error output</div>
 
                         <div class="formHelp"
                              i18n:domain="passwordresettool"
@@ -49,10 +49,10 @@
                         </div>
                       </tal:username>
                       <tal:email tal:condition="use_email_as_login">
-                        <label for="userid" 
+                        <label for="userid"
                                i18n:domain="passwordresettool"
                                i18n:translate="label_my_email_address_is">My email address is</label>
-    	                   <div tal:content="error">Validation error output</div>
+                        <div tal:content="error">Validation error output</div>
 
                         <div class="formHelp"
                              i18n:domain="passwordresettool"
@@ -64,16 +64,16 @@
                         <input name="userid" id="userid"
                                tal:attributes="value request/userid|nothing;" />
                     </div>
-	  
-                    <div class="field" 
+
+                    <div class="field"
                          tal:define="error errors/password | nothing;"
                          tal:attributes="class python:test(error, 'field error', 'field')">
-    
+
                         <label for="password"
                                i18n:translate="label_new_password">New password</label>
-    	                   <div tal:content="error">Validation error output</div>
+                        <div tal:content="error">Validation error output</div>
 
-                        <div class="formHelp" 
+                        <div class="formHelp"
                              i18n:translate="help_new_password">
                             Enter your new password. Minimum 5 characters.
                         </div>
@@ -84,10 +84,10 @@
                                size="10" />
                     </div>
 
-                    <div class="field" 
+                    <div class="field"
                          tal:define="error errors/password | nothing;"
                          tal:attributes="class python:test(error, 'field error', 'field')">
-                     
+
                         <label for="password2"
                                i18n:translate="label_confirm_password">Confirm password</label>
                         <div tal:content="error">Validation error output</div>
@@ -106,10 +106,10 @@
 
                     <div class="row">
                         <div class="label">&nbsp;</div>
-                    
+
                         <div class="field">
                             <input class="context"
-                                   type="submit" 
+                                   type="submit"
                                    value="Set my password"
                                    i18n:domain="passwordresettool"
                                    i18n:attributes="value"
