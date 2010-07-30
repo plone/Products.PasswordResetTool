@@ -4,6 +4,10 @@ Changelog
 2.0.1 - unreleased
 ------------------
 
+- Added line feed after the reset_url in mail_password_template.
+  It was impossible to reset the password by clicking the url because
+  there was "(This" at the end.
+  [vincentfretin]
 
 2.0 - 2010-07-18
 ----------------
