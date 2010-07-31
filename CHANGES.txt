@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.1 - unreleased
+2.0.1 - 2010-07-31
 ------------------
 
 - Added line feed after the reset_url in mail_password_template.
