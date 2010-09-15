@@ -15,4 +15,3 @@ class IPasswordResetToolView(Interface):
 
     def mail_password_subject():
         """ returns encoded version of mail password template subject line """
-        
