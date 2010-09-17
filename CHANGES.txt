@@ -1,7 +1,12 @@
 Changelog
 =========
 
-2.0.2 - Unreleased
+2.1 - Unreleased
+----------------
+
+- ...
+
+2.0.2 - 2010-09-17
 ------------------
 
 - Fix userid/login mixup which made it impossible to reset the password
