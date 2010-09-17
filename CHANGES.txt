@@ -4,6 +4,11 @@ Changelog
 2.0.2 - Unreleased
 ------------------
 
+- Fix userid/login mixup which made it impossible to reset the password
+  in environments where userid and login name are not equal. This fixes
+  `Plone ticket 1136 <http://dev.plone.org/plone/ticket/11136>`_.
+  [wichert]
+
 2.0.1 - 2010-07-31
 ------------------
 
