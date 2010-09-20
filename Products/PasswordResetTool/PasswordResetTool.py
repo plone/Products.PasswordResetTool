@@ -170,7 +170,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         user = member.getUser()
         uf = getToolByName(self, 'acl_users')
         if getattr(uf, 'userSetPassword', None) is not None:
-            uf.userSetPassword(user.getUserName(), password)  # GRUF 3
+            uf.userSetPassword(user.getUserId(), password)  # GRUF 3
         else:
             try:
                 user.changePassword(password)  # GRUF 2
