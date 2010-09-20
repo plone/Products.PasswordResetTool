@@ -1,10 +1,11 @@
 Changelog
 =========
 
-2.1 - Unreleased
-----------------
+2.0.3 - Unreleased
+------------------
 
-- ...
+- Fix string exceptions in pwreset_action.cpy
+  [davisagli]
 
 2.0.2 - 2010-09-17
 ------------------

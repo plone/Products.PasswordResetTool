@@ -7,14 +7,15 @@
 ##title=Reset a user's password
 ##parameters=randomstring, userid=None, password=None, password2=None
 from Products.CMFCore.utils import getToolByName
+from Products.PasswordResetTool.PasswordResetTool import InvalidRequestError, ExpiredRequestError
 
 status = "success"
 pw_tool = getToolByName(context, 'portal_password_reset')
 try:
     pw_tool.resetPassword(userid, randomstring, password)
-except 'ExpiredRequestError':
+except ExpiredRequestError:
     status = "expired"
-except 'InvalidRequestError':
+except InvalidRequestError:
     status = "invalid"
 except RuntimeError:
     status = "invalid"
