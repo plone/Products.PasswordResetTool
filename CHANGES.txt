@@ -4,6 +4,9 @@ Changelog
 2.0.5 - unreleased
 ------------------
 
+- Depend on ``Products.CMFPlone`` instead of ``Plone``.
+  [elro]
+
 - URL for login form is now '/login' instead of 'login_form', adjust tests
   accordingly.
   [esteele]
