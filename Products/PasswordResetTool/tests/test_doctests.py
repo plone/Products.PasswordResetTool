@@ -22,6 +22,7 @@ class MockMailHostTestCase(PloneTestCase.FunctionalTestCase):
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
+        self.portal.email_from_address = 'test@example.com'
 
     def beforeTearDown(self):
         self.portal.MailHost = self.portal._original_MailHost
