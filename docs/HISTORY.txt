@@ -4,6 +4,9 @@ Changelog
 1.5 - unreleased
 ----------------
 
+- Also add an email_from_address to the test fixture.
+  [stefan]
+
 
 1.4 - 2009-12-23
 ----------------
