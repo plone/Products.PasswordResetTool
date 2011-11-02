@@ -104,7 +104,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     ## Internal attributes
     _user_check = 1
-    _timedelta = 168
+    _timedelta = 168 # misleading name, the number of hours are actually stored as int
 
     ## Interface fulfillment ##
     security.declareProtected(ManagePortal, 'requestReset')
@@ -210,7 +210,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         In hours, possibly fractional. Ignores seconds and shorter."""
         try:
             if isinstance(self._timedelta, datetime.timedelta):
-                return self._timedelta.days / 24
+                return self._timedelta.days * 24
         except NameError:
             pass  # that's okay, it must be a number of hours...
         return self._timedelta
