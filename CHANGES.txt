@@ -4,7 +4,9 @@ Changelog
 2.0.7 - Unreleased
 ------------------
 
-- Nothing changed yet.
+- getExpirationTimeout() now returns the correct number of hours, and not a value 24*24 times too low.
+  (The code was never used though, since _timedelta does currently not store a timedelta but an int.)
+  [kleist]
 
 
 2.0.6 - 2011-06-02
