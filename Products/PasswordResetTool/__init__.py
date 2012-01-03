@@ -10,5 +10,5 @@ tools = ( PasswordResetTool.PasswordResetTool, )
 def initialize(context):
     utils.ToolInit('Password Reset Tool',
                     tools = tools,
-                    icon='tool.gif' 
+                    icon='tool.gif'
                     ).initialize( context )

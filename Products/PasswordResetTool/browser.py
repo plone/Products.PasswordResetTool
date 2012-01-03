@@ -15,7 +15,7 @@ class PasswordResetToolView(BrowserView):
 
     @view.memoize_contextless
     def tools(self):
-        """ returns tools view. Available items are all portal_xxxxx 
+        """ returns tools view. Available items are all portal_xxxxx
             For example: catalog, membership, url
             http://dev.plone.org/plone/browser/plone.app.layout/trunk/plone/app/layout/globals/tools.py
         """
@@ -23,7 +23,7 @@ class PasswordResetToolView(BrowserView):
 
     @view.memoize_contextless
     def portal_state(self):
-        """ returns 
+        """ returns
             http://dev.plone.org/plone/browser/plone.app.layout/trunk/plone/app/layout/globals/portal.py
         """
         return getMultiAdapter((self.context, self.request), name=u"plone_portal_state")
@@ -33,25 +33,25 @@ class PasswordResetToolView(BrowserView):
         context = aq_inner(self.context)
         encoding = getSiteEncoding(context)
         return Header(safe_unicode(text), encoding)
-        
+
     def encoded_mail_sender(self):
         """ returns encoded version of Portal name <portal_email> """
         portal = self.portal_state().portal()
         from_ = portal.getProperty('email_from_name')
         mail  = portal.getProperty('email_from_address')
         return '"%s" <%s>' % (self.encode_mail_header(from_), mail)
-        
+
     def registered_notify_subject(self):
         portal = self.portal_state().portal()
         portal_name = portal.Title()
-        return translate(_(u"mailtemplate_user_account_info", 
-                           default=u"User Account Information for ${portal_name}", 
-                           mapping={'portal_name':safe_unicode(portal_name)}), 
+        return translate(_(u"mailtemplate_user_account_info",
+                           default=u"User Account Information for ${portal_name}",
+                           mapping={'portal_name':safe_unicode(portal_name)}),
                            context=self.request)
-        
+
     def mail_password_subject(self):
         portal = self.portal_state().portal()
         portal_name = portal.Title()
-        return translate(_(u"mailtemplate_subject_resetpasswordrequest", 
+        return translate(_(u"mailtemplate_subject_resetpasswordrequest",
                            default=u"Password reset request"),
                            context=self.request)

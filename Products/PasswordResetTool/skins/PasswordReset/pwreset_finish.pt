@@ -5,7 +5,7 @@
 <body>
 
 <metal:main fill-slot="main">
-    <h1 class="documentFirstHeading" 
+    <h1 class="documentFirstHeading"
         i18n:translate="heading_pwreset_success">Password set</h1>
 
     <div class="documentDescription" i18n:translate="message_pwreset_success">
