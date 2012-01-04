@@ -167,12 +167,12 @@ then we extract the address that lets us reset our password:
 
   >>> "To: jsmith@example.com" in msg
   True
-  >>> please_visit_text = "The following link will take you to a page where you can reset your passwor=\nd for Plone site site:\n    =\n\n"
+  >>> please_visit_text = "The following link will take you to a page where you can reset your passwor=\nd for Plone site site:"
   >>> please_visit_text in msg
   True
   >>> url_index = msg.index(please_visit_text) + len(please_visit_text)
-  >>> address = msg[url_index:].split()[0]
-  >>> address # doctest: +ELLIPSIS
+  >>> address = msg[url_index:].strip().split()[0]
+ >>> address # doctest: +ELLIPSIS
   'http://nohost/plone/passwordreset/...'
 
 Now that we have the address, we will reset our password:
