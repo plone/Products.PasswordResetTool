@@ -4,7 +4,8 @@ Changelog
 2.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Be less sensitive for white space differences in tests.
+  [maurits]
 
 
 2.0.7 (2011-11-24)
