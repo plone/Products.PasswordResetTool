@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.8 (unreleased)
+2.0.8 (2012-05-25)
 ------------------
 
 - Be less sensitive for white space differences in tests.
