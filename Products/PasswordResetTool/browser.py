@@ -3,7 +3,7 @@ from zope.interface import implements
 from zope.component import getMultiAdapter
 from Products.Five import BrowserView
 from plone.memoize import view
-from Products.CMFPlone.utils import getSiteEncoding, safe_unicode
+from Products.CMFPlone.utils import safe_unicode
 from zope.i18n import translate
 
 from Products.PasswordResetTool.interfaces import IPasswordResetToolView
@@ -30,9 +30,7 @@ class PasswordResetToolView(BrowserView):
 
     def encode_mail_header(self, text):
         """ Encodes text into correctly encoded email header """
-        context = aq_inner(self.context)
-        encoding = getSiteEncoding(context)
-        return Header(safe_unicode(text), encoding)
+        return Header(safe_unicode(text))
 
     def encoded_mail_sender(self):
         """ returns encoded version of Portal name <portal_email> """

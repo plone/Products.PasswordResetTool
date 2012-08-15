@@ -4,7 +4,8 @@ Changelog
 2.0.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Changed deprecated getSiteEncoding to hardcoded `utf-8`
+  [tom_gross]
 
 
 2.0.8 (2012-05-25)
