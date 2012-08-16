@@ -30,7 +30,7 @@ class PasswordResetToolView(BrowserView):
 
     def encode_mail_header(self, text):
         """ Encodes text into correctly encoded email header """
-        return Header(safe_unicode(text))
+        return Header(safe_unicode(text), 'utf-8')
 
     def encoded_mail_sender(self):
         """ returns encoded version of Portal name <portal_email> """
