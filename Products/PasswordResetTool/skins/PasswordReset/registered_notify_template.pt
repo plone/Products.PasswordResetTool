@@ -16,7 +16,7 @@ Precedence: bulk
     Welcome <span i18n:name="fullname" tal:replace="fullname" />,
 	
     your user account has been created.
-	Your username is <span i18n:name="member" tal:replace="member" />.
+	Your username is <span i18n:name="member" tal:replace="python:member.getUserName()" />.
 	Please activate it by visiting
 
     <span i18n:name="set_password" tal:replace="python:here.pwreset_constructURL(reset['randomstring'])+'?userid='+member.getUserName()" />

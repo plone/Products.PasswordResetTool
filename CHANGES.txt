@@ -4,7 +4,10 @@ Changelog
 2.0.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- registered_notify_template.pt: show login name instead of user id.
+  Normally this is the same, but this is not necessarily true when
+  using the email address as login name.
+  [maurits]
 
 
 2.0.9 (2012-08-30)
