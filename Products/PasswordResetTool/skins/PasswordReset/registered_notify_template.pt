@@ -1,5 +1,5 @@
 <tal:root define="lt string:&lt;;gt string:&gt;;
-                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;; charset=%s' % here.plone_utils.getSiteEncoding());
+                  dummy python:request.RESPONSE.setHeader('Content-Type', 'text/plain;; charset=utf-8');
                   member python:options['member'];
                   portal_properties context/@@plone_tools/properties;
                   view context/@@passwordreset_view;
