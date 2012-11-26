@@ -25,10 +25,11 @@ try:
 except ImportError:
     # Avoid hard dependency on Plone (4.0)
     get_member_by_login_name = None
+from Products.PasswordResetTool import django_random
 
 from interfaces.portal_password_reset import portal_password_reset as IPWResetTool
 
-import datetime, time, random, socket
+import datetime, time, socket
 from DateTime import DateTime
 from zope.interface import implements
 
@@ -291,13 +292,13 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/213761
         # by Carl Free Jr
         t = long( time.time() * 1000 )
-        r = long( random.random()*100000000000000000L )
+        r = django_random.get_random_string(64)
         try:
             a = socket.gethostbyname( socket.gethostname() )
         except:
             # if we can't get a network address, just imagine one
-            a = random.random()*100000000000000000L
-        data = str(t)+' '+str(r)+' '+str(a)#+' '+str(args)
+            a = django_crypto.get_random_string(64)
+        data = str(t) + ' ' + str(r) + ' ' + str(a)
         data = md5(data).hexdigest()
         return str(data)
 

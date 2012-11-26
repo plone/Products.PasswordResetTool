@@ -4,6 +4,10 @@ Changelog
 2.0.10 (unreleased)
 -------------------
 
+- Use system random when available. This is part of the fix for
+  https://plone.org/products/plone/security/advisories/20121106/24
+  [davisagli]
+
 - registered_notify_template.pt: show login name instead of user id.
   Normally this is the same, but this is not necessarily true when
   using the email address as login name.
