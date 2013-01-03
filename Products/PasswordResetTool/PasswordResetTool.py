@@ -297,7 +297,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
             a = socket.gethostbyname( socket.gethostname() )
         except:
             # if we can't get a network address, just imagine one
-            a = django_crypto.get_random_string(64)
+            a = django_random.get_random_string(64)
         data = str(t) + ' ' + str(r) + ' ' + str(a)
         data = md5(data).hexdigest()
         return str(data)

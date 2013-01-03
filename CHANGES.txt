@@ -4,6 +4,9 @@ Changelog
 2.0.11 (unreleased)
 -------------------
 
+- Fixed undefined django_crypto.
+  [maurits]
+
 
 2.0.10 (2012-12-09)
 -------------------
