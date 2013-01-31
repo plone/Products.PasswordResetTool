@@ -4,7 +4,7 @@ Changelog
 2.0.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fixed typo in registered_notify_template.pt: capitalization of sentence start.
 
 
 2.0.11 (2013-01-13)
