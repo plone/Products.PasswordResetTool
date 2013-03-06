@@ -151,9 +151,11 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         if get_member_by_login_name:
             props = getToolByName(self, 'portal_properties').site_properties
             if props.getProperty('use_email_as_login', False):
-                found_member = get_member_by_login_name(self, userid)
-                if found_member is not None:
-                    userid = found_member.getId()
+                found_member = get_member_by_login_name(
+                    self, userid, raise_exceptions=False)
+                if found_member is None:
+                    raise InvalidRequestError
+                userid = found_member.getId()
         try:
             stored_user, expiry = self._requests[randomstring]
         except KeyError:

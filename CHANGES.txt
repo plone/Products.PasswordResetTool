@@ -4,7 +4,9 @@ Changelog
 2.0.13 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix exception when use_email_as_login is on and the user enters
+  an invalid login on pwreset_form.
+  [davisagli]
 
 
 2.0.12 (2013-03-05)
