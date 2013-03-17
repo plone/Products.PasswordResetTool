@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.13 (unreleased)
+2.0.13 (2013-03-17)
 -------------------
 
 - Fix exception when use_email_as_login is on and the user enters
