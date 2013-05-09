@@ -4,7 +4,9 @@ Changelog
 2.0.14 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Always try to look up what the user entered as a login name before
+  treating it as a user id.
+  [davisagli]
 
 
 2.0.13 (2013-03-17)
