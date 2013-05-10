@@ -19,7 +19,7 @@
             <form class="enableAutoFocus"
                   name="pwreset_action"
                   method="post"
-                  tal:attributes="action template/getId">
+                  tal:attributes="action string:${context/absolute_url}/${template/getId}">
                 <fieldset>
                     <legend i18n:domain="passwordresettool"
                             i18n:translate="legend_new_password">New Password</legend>

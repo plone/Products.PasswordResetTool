@@ -4,7 +4,11 @@ Changelog
 2.0.14 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Make sure password reset form action url is based on the reset tool and not
+  the "passwordreset" python script. Fixes issue where the "passwordreset"
+  was executed before the pwreset_form action handler was traversed to and
+  caused an error before the reset request could even be attempted.
+  [vangheem]
 
 
 2.0.13 (2013-03-17)
