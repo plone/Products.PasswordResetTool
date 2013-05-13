@@ -4,6 +4,10 @@ Changelog
 2.0.14 (unreleased)
 -------------------
 
+- Always try to look up what the user entered as a login name before
+  treating it as a user id.
+  [davisagli]
+
 - Make sure password reset form action url is based on the reset tool and not
   the "passwordreset" python script. Fixes issue where the "passwordreset"
   was executed before the pwreset_form action handler was traversed to and
