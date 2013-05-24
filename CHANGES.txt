@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.14 (unreleased)
+2.0.14 (2013-05-23)
 -------------------
 
 - Always try to look up what the user entered as a login name before
