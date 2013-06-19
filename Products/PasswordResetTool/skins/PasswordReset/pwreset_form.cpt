@@ -61,8 +61,7 @@
                         </div>
                       </tal:email>
 
-                        <input name="userid" id="userid"
-                               tal:attributes="value request/userid|nothing;" />
+                        <input name="userid" id="userid" />
                     </div>
 
                     <div class="field"
