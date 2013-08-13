@@ -332,6 +332,7 @@ Now that we have the address, we will reset our password:
   >>> browser.open(address)
   >>> "Please fill out the form below to set your password" in browser.contents
   True
+  >>> browser.getControl(name='userid').value = 'bsmith'
   >>> browser.getControl(name='password').value = 'secret'
   >>> browser.getControl(name='password2').value = 'secret'
   >>> browser.getControl("Set my password").click()
@@ -414,6 +415,7 @@ Now that we have the address, we will reset our password:
   >>> browser.open(address)
   >>> "Please fill out the form below to set your password" in browser.contents
   True
+  >>> browser.getControl(name='userid').value = 'wwwsmith'
   >>> browser.getControl(name='password').value = 'superstr0ng'
   >>> browser.getControl(name='password2').value = 'superstr0ng'
   >>> browser.getControl("Set my password").click()
