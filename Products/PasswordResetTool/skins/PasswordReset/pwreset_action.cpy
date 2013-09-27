@@ -20,5 +20,10 @@ except InvalidRequestError:
 except RuntimeError:
     status = "invalid"
 
+if status == "success":
+    _ = context.translate
+    msgstr = _('Password changed.')
+    context.plone_utils.addPortalMessage(msgstr)
+
 return state.set(status=status)
 
