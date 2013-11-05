@@ -4,7 +4,10 @@ Changelog
 2.0.16 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Password reset emails will now be sent from the navigation root instead
+  the portal, enabling support for multilingual sites and other subsites
+  to keep the correct language, title, menus and designs.
+  [regebro]
 
 
 2.0.15 (2013-08-13)
