@@ -113,11 +113,11 @@ Now register a new user:
   >>> browser.url
   'http://nohost/plone/@@register'
 
-  >>> browser.getControl(name='form.username').value = 'jsmith'
-  >>> browser.getControl(name='form.email').value = 'jsmith@example.com'
-  >>> browser.getControl(name='form.password').value = 'secret'
-  >>> browser.getControl(name='form.password_ctl').value = 'secret'
-  >>> browser.getControl(name='form.actions.register').click()
+  >>> browser.getControl('User Name').value = 'jsmith'
+  >>> browser.getControl('E-mail').value = 'jsmith@example.com'
+  >>> browser.getControl('Password').value = 'secret'
+  >>> browser.getControl('Confirm password').value = 'secret'
+  >>> browser.getControl('Register').click()
 
 XXX Make sure we don't have a way to receive our credentials via
 e-mail.
@@ -238,11 +238,11 @@ We navigate to the Users Overview page and register a new user:
   >>> browser.url
   'http://nohost/plone/@@new-user'
 
-  >>> browser.getControl(name='form.username').value = 'wsmith'
-  >>> browser.getControl(name='form.email').value = 'wsmith@example.com'
-  >>> browser.getControl(name='form.password').value = 'supersecret'
-  >>> browser.getControl(name='form.password_ctl').value = 'supersecret'
-  >>> browser.getControl(name='form.actions.register').click()
+  >>> browser.getControl('User Name').value = 'wsmith'
+  >>> browser.getControl('E-mail').value = 'wsmith@example.com'
+  >>> browser.getControl('Password').value = 'supersecret'
+  >>> browser.getControl('Confirm password').value = 'supersecret'
+  >>> browser.getControl('Register').click()
   >>> 'User added.' in browser.contents
   True
 
@@ -290,19 +290,19 @@ Log out again and then join:
   >>> "You are now logged out" in browser.contents
   True
   >>> browser.open('http://nohost/plone/@@register')
-  >>> browser.getControl(name='form.username').value = 'bsmith'
-  >>> browser.getControl(name='form.email').value = 'bsmith@example.com'
+  >>> browser.getControl('User Name').value = 'bsmith'
+  >>> browser.getControl('E-mail').value = 'bsmith@example.com'
 
 We shouldn't be able to fill in our password:
 
-  >>> browser.getControl(name='form.password').value = 'secret' # doctest: +ELLIPSIS
+  >>> browser.getControl('Password').value = 'secret' # doctest: +ELLIPSIS
   Traceback (most recent call last):
   ...
-  LookupError: name 'form.password'
+  LookupError: label 'Password'
 
 Now register:
 
-  >>> browser.getControl(name='form.actions.register').click()
+  >>> browser.getControl('Register').click()
   >>> "You have been registered" in browser.contents
   True
 
@@ -379,15 +379,15 @@ We navigate to the Users Overview page and register a new user:
   >>> browser.url
   'http://nohost/plone/@@new-user'
 
-  >>> browser.getControl(name='form.username').value = 'wwwsmith'
-  >>> browser.getControl(name='form.email').value = 'wwwsmith@example.com'
-  >>> browser.getControl(name='form.password').value = 'secret'
-  >>> browser.getControl(name='form.password_ctl').value = 'secret'
+  >>> browser.getControl('User Name').value = 'wwwsmith'
+  >>> browser.getControl('E-mail').value = 'wwwsmith@example.com'
+  >>> browser.getControl('Password').value = 'secret'
+  >>> browser.getControl('Confirm password').value = 'secret'
   >>> browser.getControl('Send a confirmation mail with a link to set the password').selected = True
 
 Now register and logout:
 
-  >>> browser.getControl(name='form.actions.register').click()
+  >>> browser.getControl('Register').click()
   >>> browser.getLink('Log out').click()
   >>> "You are now logged out" in browser.contents
   True
