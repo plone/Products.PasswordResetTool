@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.16 (unreleased)
+2.0.16 (2014-01-27)
 -------------------
 
 - Password reset emails will now be sent from the navigation root instead
