@@ -234,7 +234,7 @@ We navigate to the Users Overview page and register a new user:
 
   >>> browser.getLink('Site Setup').click()
   >>> browser.getLink('Users and Groups').click()
-  >>> browser.getControl('Add New User').click()
+  >>> browser.getLink('Add New User').click()
   >>> browser.url
   'http://nohost/plone/@@new-user'
 
