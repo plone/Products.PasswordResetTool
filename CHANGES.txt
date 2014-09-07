@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.17 (unreleased)
+2.0.17 (2014-09-07)
 -------------------
 
 - Fix i18n of 'This field is required' for the login field in pwreset form.
