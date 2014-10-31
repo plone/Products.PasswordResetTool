@@ -1,10 +1,5 @@
 Test passwordreset BrowserView 
 
-    >>> from plone.testing.z2 import Browser
-    >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
-    >>> browser = Browser(layer['app'])
-    >>> browser.open('http://nohost/plone/')
-
     Setup Plone email sender
 
     >>> portal = layer['portal']
@@ -14,7 +9,7 @@ Test passwordreset BrowserView
     
     Check view methods
     
-    >>> view = self.portal.restrictedTraverse('@@passwordreset_view')
+    >>> view = portal.restrictedTraverse('@@passwordreset_view')
     >>> view.encoded_mail_sender()
     '"=?utf-8?q?Old=C5=99ich_a_Bo=C5=BEena?=" <smith@example.com>'
 
