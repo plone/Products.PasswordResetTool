@@ -9,9 +9,11 @@ setup(name='Products.PasswordResetTool',
               open("CHANGES.txt").read(),
       classifiers=[
         "Framework :: Plone",
+        "Framework :: Plone :: 5.0",
         "Framework :: Zope2",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
         ],
       keywords='password reset plone',
       author='J. Cameron Cooper',
@@ -24,7 +26,7 @@ setup(name='Products.PasswordResetTool',
       zip_safe=False,
       extras_require=dict(
         test=[
-            'Products.PloneTestCase',
+            'plone.app.testing',
         ]
       ),
       install_requires=[

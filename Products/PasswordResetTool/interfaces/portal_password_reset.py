@@ -1,5 +1,6 @@
 from zope.interface import Interface, Attribute
 
+
 class portal_password_reset(Interface):
     """Defines an interface for a tool that provides a facility to
     reset forgotten passwords.
@@ -9,7 +10,7 @@ class portal_password_reset(Interface):
     process) The details of the process are in the implementation,
     where they belong."""
 
-    id = Attribute('id','Must be set to "portal_password_reset"')
+    id = Attribute('id', 'Must be set to "portal_password_reset"')
 
     def requestReset(userid):
         """Ask the system to start the password reset procedure for

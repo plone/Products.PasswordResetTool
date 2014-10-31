@@ -42,7 +42,6 @@ except ImportError:
 
 import time
 
-
 # generated when process started, hard to guess
 SECRET = random.randint(0, 1000000)
 

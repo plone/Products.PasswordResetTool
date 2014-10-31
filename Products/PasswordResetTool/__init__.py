@@ -5,10 +5,11 @@ import PasswordResetTool
 from zope.i18nmessageid import MessageFactory
 passwordresetMessageFactory = MessageFactory('passwordresettool')
 
-tools = ( PasswordResetTool.PasswordResetTool, )
+tools = (PasswordResetTool.PasswordResetTool, )
+
 
 def initialize(context):
     utils.ToolInit('Password Reset Tool',
-                    tools = tools,
+                    tools=tools,
                     icon='tool.gif'
-                    ).initialize( context )
+                    ).initialize(context)

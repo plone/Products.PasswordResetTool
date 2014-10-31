@@ -1,6 +1,7 @@
 # Interface definitions
 from zope.interface import Interface
 
+
 class IPasswordResetToolView(Interface):
     """ BrowserView with utility methods """
 
