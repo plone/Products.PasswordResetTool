@@ -76,9 +76,22 @@ What we do here:
   - Reset our password
   - Log in with our new password
 
+Let's go directly to the security control panel:
+
+  >>> from plone.app.testing import SITE_OWNER_NAME, SITE_OWNER_PASSWORD
+  >>> browser.addHeader('Authorization',
+  ...                   'Basic %s:%s' % (SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
+  >>> browser.open('http://nohost/plone/@@security-controlpanel')
+  >>> ctrl = browser.getControl(name="form.enable_self_reg")
+  >>> ctrl.value = "on"
+  >>> ctrl = browser.getControl(name="form.enable_user_pwd_choice")
+  >>> ctrl.value = "on"
+  >>> browser.getControl(name="form.actions.save").click()
+
 Let's join as a new user. Plone's default settings won't let the user
 type in his initial password, so we need to enable that:
 
+  >>> browser = Browser(layer['app'])
   >>> browser.open('http://nohost/plone/login')
   >>> browser.getLink('Log in').click()
   >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
@@ -86,15 +99,6 @@ type in his initial password, so we need to enable that:
   >>> browser.getControl(name='submit').click()
   >>> "You are now logged in" in browser.contents
   True
-
-Let's go directly to the security control panel:
-
-  >>> browser.open('http://nohost/plone/@@security-controlpanel')
-  >>> ctrl = browser.getControl(name="form.enable_self_reg")
-  >>> ctrl.value = "on"
-  >>> ctrl = browser.getControl(name="form.enable_user_pwd_choice")
-  >>> ctrl.value = "on"
-  >>> browser.getControl(name="form.actions.save").click()
 
 Log out again and then join:
 

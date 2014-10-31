@@ -14,7 +14,8 @@ from plone.testing import layered
 from transaction import commit
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
-               doctest.NORMALIZE_WHITESPACE)
+               doctest.NORMALIZE_WHITESPACE |
+               doctest.REPORT_ONLY_FIRST_FAILURE)
 
 class MockMailFixture(testing.PloneSandboxLayer):
 
