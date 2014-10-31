@@ -29,25 +29,34 @@ from Products.PasswordResetTool import django_random
 
 from interfaces.portal_password_reset import portal_password_reset as IPWResetTool
 
-import datetime, time, socket
+import datetime
+import time
+import socket
 from DateTime import DateTime
 from zope.interface import implements
 
 module_security = ModuleSecurityInfo('Products.PasswordResetTool.PasswordResetTool')
 
 module_security.declarePublic('InvalidRequestError')
+
+
 class InvalidRequestError(Exception):
     def __init__(self, value=''):
         self.value = value
+
     def __str__(self):
         return repr(self.value)
 
 module_security.declarePublic('ExpiredRequestError')
+
+
 class ExpiredRequestError(Exception):
     def __init__(self, value=''):
         self.value = value
+
     def __str__(self):
         return repr(self.value)
+
 
 class PasswordResetTool (UniqueObject, SimpleItem):
     """Provides a default implementation for a password reset scheme.
@@ -59,7 +68,6 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     The user visits that URL (the 'reset form') and enters their username,
     """
-
     ## other things needed for this to work
     # skins:
     #  - handler script for forgotten password form (probably over-riding
@@ -75,23 +83,25 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     security = ClassSecurityInfo()
 
-    manage_options=(( { 'label' : 'Overview'
-                        , 'action' : 'manage_overview'
+    manage_options = (({'label': 'Overview'
+                        , 'action': 'manage_overview'
                         },
                       ) + SimpleItem.manage_options
                     )
 
     ##   ZMI methods
     security.declareProtected(ManagePortal, 'manage_overview')
-    manage_overview = DTMLFile('dtml/explainPWResetTool', globals() )
+    manage_overview = DTMLFile('dtml/explainPWResetTool', globals())
 
     security.declareProtected(ManagePortal, 'manage_setTimeout')
+
     def manage_setTimeout(self, hours=168, REQUEST=None):
         """ZMI method for setting the expiration timeout in hours."""
         self.setExpirationTimeout(int(hours))
         return self.manage_overview(manage_tabs_message="Timeout set to %s hours" % hours)
 
     security.declareProtected(ManagePortal, 'manage_toggleUserCheck')
+
     def manage_toggleUserCheck(self, REQUEST=None):
         """ZMI method for toggling the flag for checking user names on return.
         """
@@ -99,16 +109,16 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         m = self.checkUser() and 'on' or 'off'
         return self.manage_overview(manage_tabs_message="Returning username check turned %s" % m)
 
-
     def __init__(self):
         self._requests = {}
 
     ## Internal attributes
     _user_check = 1
-    _timedelta = 168 # misleading name, the number of hours are actually stored as int
+    _timedelta = 168  # misleading name, the number of hours are actually stored as int
 
     ## Interface fulfillment ##
     security.declareProtected(ManagePortal, 'requestReset')
+
     def requestReset(self, userid):
         """Ask the system to start the password reset procedure for
         user 'userid'.
@@ -125,7 +135,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         self._requests[randomstring] = (userid, expiry)
 
         self.clearExpired(10)   # clear out untouched records more than 10 days old
-                                # this is a cheap sort of "automatic" clearing
+        # this is a cheap sort of "automatic" clearing
         self._p_changed = 1
 
         retval = {}
@@ -135,6 +145,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         return retval
 
     security.declarePublic('resetPassword')
+
     def resetPassword(self, userid, randomstring, password):
         """Set the password (in 'password') for the user who maps to
         the string in 'randomstring' iff the entered 'userid' is equal
@@ -187,13 +198,12 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         # clean out the request
         del self._requests[randomstring]
         self._p_changed = 1
-
-
     ## Implementation ##
 
     # external
 
     security.declareProtected(ManagePortal, 'setExpirationTimeout')
+
     def setExpirationTimeout(self, timedelta):
         """Set the length of time a reset request will be valid.
 
@@ -204,6 +214,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         self._timedelta = abs(timedelta)
 
     security.declarePublic('getExpirationTimeout')
+
     def getExpirationTimeout(self):
         """Get the length of time a reset request will be valid.
 
@@ -216,6 +227,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         return self._timedelta
 
     security.declareProtected(ManagePortal, 'toggleUserCheck')
+
     def toggleUserCheck(self):
         """Changes whether or not the tool requires someone to give the uerid
         they're trying to change on a 'password reset' page. Highly recommended
@@ -226,6 +238,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         self._user_check = not self._user_check
 
     security.declarePublic('checkUser')
+
     def checkUser(self):
         """Returns a boolean representing the state of 'user check' as described
         in 'toggleUserCheck'. True means on, and is the default."""
@@ -235,6 +248,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         return self._user_check
 
     security.declarePublic('verifyKey')
+
     def verifyKey(self, key):
         """Verify a key. Raises an exception if the key is invalid or expired.
         """
@@ -250,6 +264,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
             raise InvalidRequestError('No such user')
 
     security.declareProtected(ManagePortal, 'getStats')
+
     def getStats(self):
         """Return a dictionary like so:
             {"open":3, "expired":0}
@@ -258,25 +273,28 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         good = 0
         bad = 0
         for stored_user, expiry in self._requests.values():
-            if self.expired(expiry): bad += 1
-            else: good += 1
+            if self.expired(expiry):
+                bad += 1
+            else:
+                good += 1
 
         return {"open": good, "expired": bad}
 
     security.declarePrivate('clearExpired')
+
     def clearExpired(self, days=0):
         """Destroys all expired reset request records.
         Parameter controls how many days past expired it must be to disappear.
         """
         for key, record in self._requests.items():
             stored_user, expiry = record
-            if self.expired(expiry, DateTime()-days):
+            if self.expired(expiry, DateTime() - days):
                 del self._requests[key]
                 self._p_changed = 1
-
     # customization points
 
     security.declarePrivate('uniqueString')
+
     def uniqueString(self, userid):
         """Returns a string that is random and unguessable, or at
         least as close as possible.
@@ -290,10 +308,10 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         # this is the informal UUID algorithm of
         # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/213761
         # by Carl Free Jr
-        t = long( time.time() * 1000 )
+        t = long(time.time() * 1000)
         r = django_random.get_random_string(64)
         try:
-            a = socket.gethostbyname( socket.gethostname() )
+            a = socket.gethostbyname(socket.gethostname())
         except:
             # if we can't get a network address, just imagine one
             a = django_random.get_random_string(64)
@@ -302,6 +320,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         return str(data)
 
     security.declarePrivate('expirationDate')
+
     def expirationDate(self):
         """Returns a DateTime for exipiry of a request from the
         current time.
@@ -310,7 +329,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         and stored in reset request records."""
         if not hasattr(self, '_timedelta'):
             self._timedelta = 168
-        if isinstance(self._timedelta,datetime.timedelta):
+        if isinstance(self._timedelta, datetime.timedelta):
             expire = datetime.datetime.utcnow() + self._timedelta
             return DateTime(expire.year,
                             expire.month,
@@ -319,10 +338,11 @@ class PasswordResetTool (UniqueObject, SimpleItem):
                             expire.minute,
                             expire.second,
                             'UTC')
-        expire = time.time() + self._timedelta*3600  # 60 min/hr * 60 sec/min
+        expire = time.time() + self._timedelta * 3600  # 60 min/hr * 60 sec/min
         return DateTime(expire)
 
     security.declarePrivate('getValidUser')
+
     def getValidUser(self, userid):
         """Returns the member with 'userid' if available and None otherwise."""
         if get_member_by_login_name:
@@ -332,10 +352,10 @@ class PasswordResetTool (UniqueObject, SimpleItem):
                     self, userid, raise_exceptions=False)
         membertool = getToolByName(self, 'portal_membership')
         return membertool.getMemberById(userid)
-
     # internal
 
     security.declarePrivate('expired')
+
     def expired(self, datetime, now=None):
         """Tells whether a DateTime or timestamp 'datetime' is expired
         with regards to either 'now', if provided, or the current

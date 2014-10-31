@@ -8,7 +8,7 @@
 ##parameters=randomstring
 from zExceptions import Forbidden
 if container.REQUEST.get('PUBLISHED') is script:
-   raise Forbidden('Script may not be published.')
+    raise Forbidden('Script may not be published.')
 
 host = context.restrictedTraverse('@@plone_portal_state').navigation_root_url()
 return "%s/passwordreset/%s" % (host, randomstring)

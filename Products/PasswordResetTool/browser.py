@@ -9,6 +9,7 @@ from Products.PasswordResetTool.interfaces import IPasswordResetToolView
 from Products.PasswordResetTool import passwordresetMessageFactory as _
 from email.Header import Header
 
+
 class PasswordResetToolView(BrowserView):
     implements(IPasswordResetToolView)
 
@@ -35,7 +36,7 @@ class PasswordResetToolView(BrowserView):
         """ returns encoded version of Portal name <portal_email> """
         portal = self.portal_state().portal()
         from_ = portal.getProperty('email_from_name')
-        mail  = portal.getProperty('email_from_address')
+        mail = portal.getProperty('email_from_address')
         return '"%s" <%s>' % (self.encode_mail_header(from_), mail)
 
     def registered_notify_subject(self):
@@ -43,7 +44,7 @@ class PasswordResetToolView(BrowserView):
         portal_name = portal.Title()
         return translate(_(u"mailtemplate_user_account_info",
                            default=u"User Account Information for ${portal_name}",
-                           mapping={'portal_name':safe_unicode(portal_name)}),
+                           mapping={'portal_name': safe_unicode(portal_name)}),
                            context=self.request)
 
     def mail_password_subject(self):
