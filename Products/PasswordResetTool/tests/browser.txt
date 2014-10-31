@@ -8,12 +8,9 @@ Note that our usage of testbrowser is unusual and inconsistent, mostly
 because Plone forms have inconsistencies and because testbrowser makes
 assumptions that are not true for Plone forms.
 
-  >>> from Products.PloneTestCase import PloneTestCase as PTC
-  >>> from Products.Five.testbrowser import Browser
-  >>> browser = Browser()
-  >>> browser.handleErrors = False
-  >>> browser.open('http://nohost/plone/')
-
+  >>> from plone.testing.z2 import Browser
+  >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
+  >>> browser = Browser(layer['app'])
 
 Assumptions
 -----------
@@ -84,8 +81,8 @@ type in his initial password, so we need to enable that:
 
   >>> browser.open('http://nohost/plone/login')
   >>> browser.getLink('Log in').click()
-  >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
-  >>> browser.getControl(name='__ac_password').value = PTC.default_password
+  >>> browser.getControl(name='__ac_name').value = TEST_USER_NAME
+  >>> browser.getControl(name='__ac_password').value = TEST_USER_PASSWORD
   >>> browser.getControl(name='submit').click()
   >>> "You are now logged in" in browser.contents
   True
@@ -157,7 +154,7 @@ As part of our test setup, we replaced the original MailHost with our
 own version.  Our version doesn't mail messages, it just collects them
 in a list called ``messages``:
 
-  >>> mailhost = self.portal.MailHost
+  >>> mailhost = layer['portal'].MailHost
   >>> len(mailhost.messages)
   1
   >>> msg = mailhost.messages[0]
@@ -224,8 +221,8 @@ Log out again:
 First, we want to login as the portal owner:
 
   >>> browser.open('http://nohost/plone/login')
-  >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
-  >>> browser.getControl(name='__ac_password').value = PTC.default_password
+  >>> browser.getControl(name='__ac_name').value = SITE_OWNER_NAME
+  >>> browser.getControl(name='__ac_password').value = SITE_OWNER_PASSWORD
   >>> browser.getControl(name='submit').click()
   >>> "You are now logged in" in browser.contents
   True
@@ -271,8 +268,8 @@ password.
 First off, we need to set ``validate_mail`` to False:
 
   >>> browser.open('http://nohost/plone/login')
-  >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
-  >>> browser.getControl(name='__ac_password').value = PTC.default_password
+  >>> browser.getControl(name='__ac_name').value = SITE_OWNER_NAME
+  >>> browser.getControl(name='__ac_password').value = SITE_OWNER_PASSWORD
   >>> browser.getControl(name='submit').click()
   >>> "You are now logged in" in browser.contents
   True
@@ -308,7 +305,7 @@ Now register:
 
 We should have received an e-mail at this point:
 
-  >>> mailhost = self.portal.MailHost
+  >>> mailhost = layer['portal'].MailHost
   >>> len(mailhost.messages)
   2
   >>> msg = str(mailhost.messages[-1])
@@ -363,10 +360,10 @@ e-mail is sent containing the URL that lets the user log in.
 
 First, we want to login as the portal owner:
 
-  >>> from Products.PloneTestCase import PloneTestCase as PTC
+  >>> from plone.app.testing import SITE_OWNER_NAME, SITE_OWNER_PASSWORD
   >>> browser.open('http://nohost/plone/login')
-  >>> browser.getControl(name='__ac_name').value = PTC.portal_owner
-  >>> browser.getControl(name='__ac_password').value = PTC.default_password
+  >>> browser.getControl(name='__ac_name').value = SITE_OWNER_NAME
+  >>> browser.getControl(name='__ac_password').value = SITE_OWNER_PASSWORD
   >>> browser.getControl(name='submit').click()
   >>> "You are now logged in" in browser.contents
   True
@@ -394,7 +391,7 @@ Now register and logout:
 
 We should have received an e-mail at this point:
 
-  >>> mailhost = self.portal.MailHost
+  >>> mailhost = layer['portal'].MailHost
   >>> len(mailhost.messages)
   3
   >>> msg = str(mailhost.messages[-1])

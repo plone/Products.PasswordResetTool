@@ -1,16 +1,16 @@
 Test passwordreset BrowserView 
 
-    >>> from Products.PloneTestCase import PloneTestCase as PTC
-    >>> from Products.Five.testbrowser import Browser
-    >>> browser = Browser()
-    >>> browser.handleErrors = False
+    >>> from plone.testing.z2 import Browser
+    >>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
+    >>> browser = Browser(layer['app'])
     >>> browser.open('http://nohost/plone/')
 
     Setup Plone email sender
 
-    >>> self.portal.email_from_name=u'Old\u0159ich a Bo\u017eena'
-    >>> self.portal.email_from_address='smith@example.com'
-    >>> self.portal.title=u'Koko\u0159\xedn Portal'
+    >>> portal = layer['portal']
+    >>> portal.email_from_name=u'Old\u0159ich a Bo\u017eena'
+    >>> portal.email_from_address='smith@example.com'
+    >>> portal.title=u'Koko\u0159\xedn Portal'
     
     Check view methods
     
