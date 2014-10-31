@@ -1,4 +1,3 @@
-from Acquisition import aq_inner
 from zope.interface import implements
 from zope.component import getMultiAdapter
 from Products.Five import BrowserView
@@ -48,8 +47,6 @@ class PasswordResetToolView(BrowserView):
                            context=self.request)
 
     def mail_password_subject(self):
-        portal = self.portal_state().portal()
-        portal_name = portal.Title()
         return translate(_(u"mailtemplate_subject_resetpasswordrequest",
                            default=u"Password reset request"),
                            context=self.request)
