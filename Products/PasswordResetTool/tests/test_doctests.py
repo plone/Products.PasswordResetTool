@@ -1,3 +1,6 @@
+from Products.CMFPlone.interfaces import IMailSchema
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 """
 PasswordResetTool doctests
 """
@@ -25,7 +28,10 @@ class MockMailFixture(testing.PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         portal._original_MailHost = portal.MailHost
         portal.MailHost = mailhost = MockMailHost('MailHost')
-        mailhost.smtp_host = 'localhost'
+        registry = getUtility(IRegistry)
+        mail_settings = registry.forInterface(IMailSchema, prefix='plone')
+        mail_settings.smtp_host = u'localhost'
+        mail_settings.email_from_address = 'john@doe.com'
         sm = getSiteManager(context=portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
@@ -36,20 +42,33 @@ class MockMailFixture(testing.PloneSandboxLayer):
         portal.MailHost = portal._original_MailHost
         sm = getSiteManager(context=portal)
         sm.unregisterUtility(provided=IMailHost)
-        sm.registerUtility(aq_base(portal._original_MailHost), provided=IMailHost)
+        sm.registerUtility(
+            aq_base(portal._original_MailHost),
+            provided=IMailHost
+        )
 
 MOCK_MAIL_FIXTURE = MockMailFixture()
 MM_FUNCTIONAL_TESTING = testing.FunctionalTesting(
-            bases=(MOCK_MAIL_FIXTURE, ), name='PloneTestCase:Functional')
+    bases=(MOCK_MAIL_FIXTURE, ),
+    name='PloneTestCase:Functional'
+)
 
 
 def test_suite():
     return unittest.TestSuite((
-        layered(doctest.DocFileSuite('browser.txt',
-            optionflags=OPTIONFLAGS,
-            package='Products.PasswordResetTool.tests', ),
-            layer=MM_FUNCTIONAL_TESTING),
-        layered(doctest.DocFileSuite('view.txt',
-            optionflags=OPTIONFLAGS,
-            package='Products.PasswordResetTool.tests', ),
-            layer=MM_FUNCTIONAL_TESTING)))
+        layered(
+            doctest.DocFileSuite(
+                'browser.txt',
+                optionflags=OPTIONFLAGS,
+                package='Products.PasswordResetTool.tests',
+            ),
+            layer=MM_FUNCTIONAL_TESTING
+        ),
+        layered(
+            doctest.DocFileSuite(
+                'view.txt',
+                optionflags=OPTIONFLAGS,
+                package='Products.PasswordResetTool.tests',
+            ),
+            layer=MM_FUNCTIONAL_TESTING))
+        )
