@@ -82,11 +82,11 @@ Let's go directly to the security control panel:
   >>> browser.addHeader('Authorization',
   ...                   'Basic %s:%s' % (SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
   >>> browser.open('http://nohost/plone/@@security-controlpanel')
-  >>> ctrl = browser.getControl(name="form.enable_self_reg")
-  >>> ctrl.value = "on"
-  >>> ctrl = browser.getControl(name="form.enable_user_pwd_choice")
-  >>> ctrl.value = "on"
-  >>> browser.getControl(name="form.actions.save").click()
+  >>> ctrl = browser.getControl(name="form.widgets.enable_self_reg:list")
+  >>> ctrl.value = ['selected']
+  >>> ctrl = browser.getControl(name="form.widgets.enable_user_pwd_choice:list")
+  >>> ctrl.value = ['selected']
+  >>> browser.getControl("Save").click()
 
 Let's join as a new user. Plone's default settings won't let the user
 type in his initial password, so we need to enable that:
