@@ -19,7 +19,9 @@ except ImportError:
 from App.special_dtml import DTMLFile
 from AccessControl import ClassSecurityInfo
 from AccessControl import ModuleSecurityInfo
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.permissions import ManagePortal
+from Products.CMFPlone.interfaces import ISecuritySchema
 try:
     from Products.CMFPlone.RegistrationTool import get_member_by_login_name
 except ImportError:
@@ -33,6 +35,7 @@ import datetime
 import time
 import socket
 from DateTime import DateTime
+from zope.component import getUtility
 from zope.interface import implements
 
 module_security = ModuleSecurityInfo('Products.PasswordResetTool.PasswordResetTool')
@@ -346,8 +349,10 @@ class PasswordResetTool (UniqueObject, SimpleItem):
     def getValidUser(self, userid):
         """Returns the member with 'userid' if available and None otherwise."""
         if get_member_by_login_name:
-            props = getToolByName(self, 'portal_properties').site_properties
-            if props.getProperty('use_email_as_login', False):
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(ISecuritySchema, prefix='plone')
+
+            if settings.use_email_as_login:
                 return get_member_by_login_name(
                     self, userid, raise_exceptions=False)
         membertool = getToolByName(self, 'portal_membership')
