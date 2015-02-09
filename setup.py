@@ -24,7 +24,7 @@ setup(name='Products.PasswordResetTool',
       zip_safe=False,
       extras_require=dict(
         test=[
-            'Products.PloneTestCase',
+            'plone.app.testing',
         ]
       ),
       install_requires=[
