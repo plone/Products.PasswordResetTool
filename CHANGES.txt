@@ -7,6 +7,8 @@ Changelog
 - Amend browser.txt test to the new p.a.registry-based control panels
   (Plone 5 only).
   [timo]
+- Added userid information in reset mail (useful when the administrator resets a user password)
+  [sgeulette]
 
 
 2.1.1 (2014-10-22)
