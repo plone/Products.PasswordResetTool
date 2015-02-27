@@ -32,7 +32,7 @@
                     <div class="field"
                          tal:define="error errors/userid | nothing;
                                      site_properties context/portal_properties/site_properties;
-                                     use_email_as_login site_properties/use_email_as_login|nothing;"
+                                     use_email_as_login python:context.portal_registry['plone.use_email_as_login'];"
                          tal:attributes="class python:test(error, 'field error', 'field')"
                          tal:condition="here/portal_password_reset/checkUser | nothing">
 

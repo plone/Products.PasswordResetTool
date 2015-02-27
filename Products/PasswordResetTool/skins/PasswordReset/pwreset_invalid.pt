@@ -6,7 +6,7 @@
 
 <metal:main fill-slot="main"
      tal:define="site_properties context/portal_properties/site_properties;
-                 use_email_as_login site_properties/use_email_as_login|nothing;">
+                 use_email_as_login python:context.portal_registry['plone.use_email_as_login'];">
 
     <h1 class="documentFirstHeading" i18n:translate="heading_pwreset_invalid">Error setting password</h1>
 

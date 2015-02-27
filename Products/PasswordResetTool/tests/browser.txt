@@ -25,9 +25,9 @@ distinct password policies regarding member registration.
   B. A password is generated for the users (and an e-mail with login
      credentials is sent automatically).
 
-This policy can enabled or disabled in the ``validate_email`` property
-on the Plone Site object.  By default ``validate_email`` is enabled
-and the second policy applies.
+This policy can be enabled or disabled with the ``enable_user_pwd_choice``
+setting in the security control panel.  By default ``enable_user_pwd_choice`` is
+disabled and the second policy applies.
 
 Another aspect we have to take into account is the fact that Plone by
 default only allows Administrators to register (other) members, but allowing
