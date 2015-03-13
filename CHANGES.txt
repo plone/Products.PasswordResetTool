@@ -11,7 +11,12 @@ Changelog
 - Amend browser.txt test to the new p.a.registry-based control panels
   (Plone 5 only).
   [timo]
-- Added userid information in reset mail (useful when the administrator resets a user password)
+
+- Move tests to plone.app.testing.
+  [tomgross]
+
+- Added userid information in reset mail (useful when the administrator
+  resets a user password)
   [sgeulette]
 
 
