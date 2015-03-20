@@ -4,6 +4,10 @@ Changelog
 2.0.18 (unreleased)
 -------------------
 
+- Set mail Content-Type within registration and password reset email
+  templates (rather than HTTP response headers which are ignored).
+  [davidjb]
+
 - Replace PTC by plone.app.testing (cherry-pick of master tomgross commits)
   [sgeulette]
 - Added userid information in reset mail (useful when the administrator resets a user password)
