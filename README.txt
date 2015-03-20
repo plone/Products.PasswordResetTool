@@ -87,7 +87,8 @@ Notes
     'mail_password_response'.
 
   - 'mail_password_template':
-    Provides the text of the email.
+    Provides the basic headers and text of the email, for extraction
+    and parsing for use by a mail sender.
 
   - 'mail_password_response':
     Informs that the mail has been sent.
