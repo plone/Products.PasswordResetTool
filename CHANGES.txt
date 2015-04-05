@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.18 (unreleased)
+2.0.18 (2015-04-04)
 -------------------
 
 - Set mail Content-Type within registration and password reset email
