@@ -9,17 +9,18 @@ from Products.PasswordResetTool.interfaces import IPasswordResetToolView
 from Products.PasswordResetTool import passwordresetMessageFactory as _
 from email.Header import Header
 
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
+try:
+    from Products.CMFPlone.interfaces.controlpanel import IMailSchema
+    HAS_REGISTRY_MAIL_SETTINGS = True
+    # work with plone 4 yet...
+except ImportError:
+    HAS_REGISTRY_MAIL_SETTINGS = False
+
 
 class PasswordResetToolView(BrowserView):
     implements(IPasswordResetToolView)
-
-    @view.memoize_contextless
-    def tools(self):
-        """ returns tools view. Available items are all portal_xxxxx
-            For example: catalog, membership, url
-            http://dev.plone.org/plone/browser/plone.app.layout/trunk/plone/app/layout/globals/tools.py
-        """
-        return getMultiAdapter((self.context, self.request), name=u"plone_tools")
 
     @view.memoize_contextless
     def portal_state(self):
@@ -34,14 +35,19 @@ class PasswordResetToolView(BrowserView):
 
     def encoded_mail_sender(self):
         """ returns encoded version of Portal name <portal_email> """
-        portal = self.portal_state().portal()
-        from_ = portal.getProperty('email_from_name')
-        mail = portal.getProperty('email_from_address')
+        if HAS_REGISTRY_MAIL_SETTINGS:
+            registry = getUtility(IRegistry)
+            mail_settings = registry.forInterface(IMailSchema, prefix="plone")
+            from_ = mail_settings.email_from_name
+            mail = mail_settings.email_from_address
+        else:
+            portal = self.portal_state().portal()
+            from_ = portal.getProperty('email_from_name')
+            mail = portal.getProperty('email_from_address')
         return '"%s" <%s>' % (self.encode_mail_header(from_), mail)
 
     def registered_notify_subject(self):
-        portal = self.portal_state().portal()
-        portal_name = portal.Title()
+        portal_name = self.portal_state().portal_title()
         return translate(_(u"mailtemplate_user_account_info",
                            default=u"User Account Information for ${portal_name}",
                            mapping={'portal_name': safe_unicode(portal_name)}),
