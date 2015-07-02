@@ -47,8 +47,7 @@ class PasswordResetToolView(BrowserView):
         return '"%s" <%s>' % (self.encode_mail_header(from_), mail)
 
     def registered_notify_subject(self):
-        portal = self.portal_state().portal()
-        portal_name = portal.Title()
+        portal_name = self.portal_state().portal_title()
         return translate(_(u"mailtemplate_user_account_info",
                            default=u"User Account Information for ${portal_name}",
                            mapping={'portal_name': safe_unicode(portal_name)}),

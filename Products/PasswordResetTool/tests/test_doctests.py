@@ -16,7 +16,7 @@ from zope.component import getSiteManager
 from zope.component import getUtility
 
 try:
-    from Products.CMFPlone.interfaces.controlpanel import IMailSchema
+    from Products.CMFPlone.interfaces.controlpanel import IMailSchema, ISiteSchema
     HAS_REGISTRY_MAIL_SETTINGS = True
     # work with plone 4 yet...
 except ImportError:
@@ -72,6 +72,14 @@ class Layer(testing.FunctionalTesting):
             mail_settings.email_from_address = address
         else:
             self['portal'].email_from_address = address
+
+    def set_portal_title(self, name):
+        if HAS_REGISTRY_MAIL_SETTINGS:
+            registry = getUtility(IRegistry)
+            site_settings = registry.forInterface(ISiteSchema, prefix='plone')
+            site_settings.site_title = name
+        else:
+            self['portal'].title = name
 
 MOCK_MAIL_FIXTURE = MockMailFixture()
 MM_FUNCTIONAL_TESTING = Layer(

@@ -5,7 +5,7 @@ Test passwordreset BrowserView
     >>> portal = layer['portal']
     >>> layer.set_email_from_name(u'Old\u0159ich a Bo\u017eena')
     >>> layer.set_email_from_address('smith@example.com')
-    >>> portal.title=u'Koko\u0159\xedn Portal'
+    >>> layer.set_portal_title(u'Koko\u0159\xedn Portal')
     
     Check view methods
     
