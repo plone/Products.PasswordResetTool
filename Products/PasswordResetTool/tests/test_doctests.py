@@ -1,20 +1,27 @@
-from Products.CMFPlone.interfaces import IMailSchema
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
 """
 PasswordResetTool doctests
 """
 
 import doctest
 import unittest
-from Products.MailHost.interfaces import IMailHost
-from zope.component import getSiteManager
-from Acquisition import aq_base
 
+from Acquisition import aq_base
 from Products.CMFPlone.tests.utils import MockMailHost
+from Products.MailHost.interfaces import IMailHost
 from plone.app import testing
+from plone.registry.interfaces import IRegistry
 from plone.testing import layered
 from transaction import commit
+from zope.component import getSiteManager
+from zope.component import getUtility
+
+try:
+    from Products.CMFPlone.interfaces.controlpanel import IMailSchema
+    HAS_REGISTRY_MAIL_SETTINGS = True
+    # work with plone 4 yet...
+except ImportError:
+    HAS_REGISTRY_MAIL_SETTINGS = False
+
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE |
@@ -47,8 +54,27 @@ class MockMailFixture(testing.PloneSandboxLayer):
             provided=IMailHost
         )
 
+
+class Layer(testing.FunctionalTesting):
+
+    def set_email_from_name(self, name):
+        if HAS_REGISTRY_MAIL_SETTINGS:
+            registry = getUtility(IRegistry)
+            mail_settings = registry.forInterface(IMailSchema, prefix="plone")
+            mail_settings.email_from_name = name
+        else:
+            self['portal'].email_from_name = name
+
+    def set_email_from_address(self, address):
+        if HAS_REGISTRY_MAIL_SETTINGS:
+            registry = getUtility(IRegistry)
+            mail_settings = registry.forInterface(IMailSchema, prefix="plone")
+            mail_settings.email_from_address = address
+        else:
+            self['portal'].email_from_address = address
+
 MOCK_MAIL_FIXTURE = MockMailFixture()
-MM_FUNCTIONAL_TESTING = testing.FunctionalTesting(
+MM_FUNCTIONAL_TESTING = Layer(
     bases=(MOCK_MAIL_FIXTURE, ),
     name='PloneTestCase:Functional'
 )
