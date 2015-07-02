@@ -1,20 +1,19 @@
 from setuptools import setup, find_packages
 
-version = '2.1.3.dev0'
+version = '2.2.0.dev0'
 
 setup(name='Products.PasswordResetTool',
       version=version,
       description="Password reset tool for Plone",
-      long_description=open("README.txt").read() + "\n" + \
-              open("CHANGES.txt").read(),
+      long_description=open("README.txt").read() + "\n" + open("CHANGES.txt").read(),
       classifiers=[
-        "Framework :: Plone",
-        "Framework :: Plone :: 5.0",
-        "Framework :: Zope2",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        ],
+          "Framework :: Plone",
+          "Framework :: Plone :: 5.0",
+          "Framework :: Zope2",
+          "License :: OSI Approved :: GNU General Public License (GPL)",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2.7",
+      ],
       keywords='password reset plone',
       author='J. Cameron Cooper',
       author_email='prt@jcameroncooper.com',
@@ -25,9 +24,9 @@ setup(name='Products.PasswordResetTool',
       include_package_data=True,
       zip_safe=False,
       extras_require=dict(
-        test=[
-            'plone.app.testing',
-        ]
+          test=[
+              'plone.app.testing',
+          ]
       ),
       install_requires=[
           'setuptools',
@@ -41,5 +40,6 @@ setup(name='Products.PasswordResetTool',
           'Acquisition',
           'DateTime',
           'Zope2',
+          'plone.app.registry'
       ],
       )
