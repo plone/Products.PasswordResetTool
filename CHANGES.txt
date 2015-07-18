@@ -4,7 +4,7 @@ Changelog
 2.2.0 (unreleased)
 ------------------
 
-- fix getting email from address
+- Fix getting email from address.
   [vangheem]
 
 
