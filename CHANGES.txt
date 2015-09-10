@@ -4,7 +4,8 @@ Changelog
 2.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Pull email_from_name from configuration registry.
+  [esteele]
 
 
 2.2.0 (2015-07-18)
