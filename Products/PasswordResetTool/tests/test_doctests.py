@@ -42,7 +42,6 @@ class MockMailFixture(testing.PloneSandboxLayer):
         sm = getSiteManager(context=portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
-        portal.email_from_address = 'test@example.com'
         commit()
 
     def tearDownPloneSite(self, portal):
