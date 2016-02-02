@@ -182,7 +182,9 @@ class PasswordResetTool (UniqueObject, SimpleItem):
                 # (and stupid!) way to change a password in Zope
                 member.setSecurityProfile(password=password)
 
-        member.setMemberProperties(dict(must_change_password=0))
+        # uf.userSetPassword() may have updated some properties
+        updated_member = self.getValidUser(stored_user)
+        updated_member.setMemberProperties(dict(must_change_password=0))
 
         # clean out the request
         del self._requests[randomstring]
