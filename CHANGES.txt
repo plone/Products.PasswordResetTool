@@ -4,8 +4,8 @@ Changelog
 2.0.19 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Remove unused attribute access of ``fullname`` (whereas it should have been access via ``getProperty``) on a PlonePAS MemberData object in ``mail_password_template.pt``, which lead to attribute access errors.
+  [thet]
 
 2.0.18 (2015-04-04)
 -------------------
