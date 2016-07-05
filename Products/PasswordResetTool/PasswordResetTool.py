@@ -36,7 +36,7 @@ import time
 import socket
 from DateTime import DateTime
 from zope.component import getUtility
-from zope.interface import implements
+from zope.interface import implementer
 
 module_security = ModuleSecurityInfo('Products.PasswordResetTool.PasswordResetTool')
 
@@ -61,6 +61,7 @@ class ExpiredRequestError(Exception):
         return repr(self.value)
 
 
+@implementer(IPWResetTool)
 class PasswordResetTool (UniqueObject, SimpleItem):
     """Provides a default implementation for a password reset scheme.
 
@@ -71,15 +72,6 @@ class PasswordResetTool (UniqueObject, SimpleItem):
 
     The user visits that URL (the 'reset form') and enters their username,
     """
-    ## other things needed for this to work
-    # skins:
-    #  - handler script for forgotten password form (probably over-riding
-    #    existing Plone one)
-    #  - email template
-    #  - password reset form
-    #  - password reset form handler script
-
-    implements(IPWResetTool)
 
     id = 'portal_password_reset'
     meta_type = 'Password Reset Tool'

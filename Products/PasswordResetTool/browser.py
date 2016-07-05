@@ -1,4 +1,4 @@
-from zope.interface import implements
+from zope.interface import implementer
 from zope.component import getMultiAdapter
 from Products.Five import BrowserView
 from plone.memoize import view
@@ -19,8 +19,8 @@ except ImportError:
     HAS_REGISTRY_MAIL_SETTINGS = False
 
 
+@implementer(IPasswordResetToolView)
 class PasswordResetToolView(BrowserView):
-    implements(IPasswordResetToolView)
 
     @view.memoize_contextless
     def portal_state(self):
