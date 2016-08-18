@@ -7,8 +7,8 @@ setup(
     version=version,
     description="Password reset tool for Plone",
     long_description=(
-        open("README.txt").read() + "\n" +
-        open("CHANGES.txt").read()),
+        open("README.rst").read() + "\n" +
+        open("CHANGES.rst").read()),
     classifiers=[
         "Framework :: Plone",
         "Framework :: Plone :: 5.0",
