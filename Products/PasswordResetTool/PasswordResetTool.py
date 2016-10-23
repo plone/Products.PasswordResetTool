@@ -12,10 +12,7 @@ except ImportError:
 from Products.CMFCore.utils import UniqueObject
 from Products.CMFCore.utils import getToolByName
 from OFS.SimpleItem import SimpleItem
-try:
-    from App.class_init import InitializeClass
-except ImportError:
-    from Globals import InitializeClass
+from App.class_init import InitializeClass
 from App.special_dtml import DTMLFile
 from AccessControl import ClassSecurityInfo
 from AccessControl import ModuleSecurityInfo
