@@ -317,7 +317,7 @@ class PasswordResetTool (UniqueObject, SimpleItem):
         """Returns a DateTime for exipiry of a request from the
         current time.
 
-        This is used by housekeeping methods (like clearEpired)
+        This is used by housekeeping methods (like clearExpired)
         and stored in reset request records."""
         if not hasattr(self, '_timedelta'):
             self._timedelta = 168
