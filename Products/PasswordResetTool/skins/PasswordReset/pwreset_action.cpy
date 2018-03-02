@@ -12,6 +12,8 @@ from Products.PasswordResetTool.PasswordResetTool import InvalidRequestError, Ex
 status = "success"
 pw_tool = getToolByName(context, 'portal_password_reset')
 try:
+    # sanitization
+    userid = userid.rstrip()
     pw_tool.resetPassword(userid, randomstring, password)
 except ExpiredRequestError:
     status = "expired"
