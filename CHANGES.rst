@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Sanitize `userid` that is coming from password reset form. That will be prevent error if user unintentionally provides username/email with whitespace.
+  [nazrulworld]
 
 
 2.2.3 (2016-08-18)
