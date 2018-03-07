@@ -4,14 +4,6 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Sanitize `userid` that is coming from password reset form. That will be prevent error if user unintentionally provides username/email with whitespace.
